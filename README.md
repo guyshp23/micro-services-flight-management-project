@@ -64,3 +64,15 @@
 * CustomerFacade
 * AirlineFacade
 * AdministratorFacade
+
+
+
+# Flight process
+first check if flight exists in api and then work on the db: edit, create, etc.
+add created_at, last_updated_at
+
+1. Check if flight exists in db
+2. Check if flight exists in api
+2.1. if exists, update record in db.
+2.2. send updated data (of api request) straight away (don't call db again)
+3. if not, send data from db

@@ -11,19 +11,30 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR          = Path(__file__).resolve().parent.parent
 
+
+DATABASE_NAME     = env("DATABASE_NAME",     cast=str)
+DATABASE_USER     = env("DATABASE_USER",     cast=str)
+DATABASE_PASSWORD = env("DATABASE_PASSWORD", cast=str)
+DATABASE_HOST     = env("DATABASE_HOST",     cast=str)
+DATABASE_PORT     = env("DATABASE_PORT",     cast=int)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-2*vfrpv+lt@8s@c2k+*e%t2msuau(=t%twx0uhzvuxa+v-#h@i'
+SECRET_KEY        = env("SECRET_KEY", cast=str)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG             = env("DEBUG",      cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -75,8 +86,15 @@ WSGI_APPLICATION = 'flight_management.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE':   'django.db.backends.mysql',
+        'NAME':     DATABASE_NAME,
+        'USER':     DATABASE_USER,
+        'PASSWORD': DATABASE_PASSWORD,
+        'HOST':     DATABASE_HOST,
+        'PORT':     DATABASE_PORT,
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
 
