@@ -18,9 +18,9 @@
     - So create an endpoint of GET in Django to check the token from the micro-service 
       (Implement a secret key to the microservice so not anyone can access it, because they will be able to "brute force" their way to find the correct tokens to access the endpoint)
 *  Only flight microservice - other implementations as facades in seperated apps
-* The view/service is responsible for logging and returning responses from the Facade.
-* The service will only call a specifc method in the Facade. All of the business logic is hidden inside the Facade 
-  (calling different repo classes, methods, etc.)
+*  The view/service is responsible for logging and returning responses from the Facade.
+*  The service will only call a specifc method in the Facade. All of the business logic is hidden inside the Facade 
+   (calling different repo classes, methods, etc.)
 
 
 ## Create a repository (as DAL) for each model:
