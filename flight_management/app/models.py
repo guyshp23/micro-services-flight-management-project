@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 
 # TODO: Add random activity generator facade to generate fake user activity:
 #       - User X just bought a flight ticket to Y in the popup on the bottom-right corner
@@ -7,27 +8,20 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Airport(models.Model):
-    name = models.CharField(max_length=50)
-    code = models.CharField(max_length=3)
-    country = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
-
-
-
-class AirlineCompany(models.Model):
-    name    = models.CharField(max_length=50)
-    # country = models.ForeignKey(Country, on_delete=models.CASCADE)
-    user    = models.ForeignKey(User, on_delete=models.CASCADE)
-    code    = models.CharField(max_length=3)
+    country_name = models.CharField(max_length=50)
+    city_name    = models.CharField(max_length=50)
+    airport_name = models.CharField(max_length=50)
+    airport_code = models.CharField(max_length=3, validators=[RegexValidator('^[A-Z]*$',
+                               'Only uppercase letters allowed.')],)
 
 
 class Flight(models.Model):
-    airline_company     = models.ForeignKey(AirlineCompany, on_delete=models.CASCADE)
-    origin_airport      = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name='origin')
-    destination_airport = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name='destination')
-    departure_time      = models.DateTimeField()
-    landing_time        = models.DateTimeField()
-    remaining_tickets   = models.IntegerField()
+    origin_airport       = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name='origin')
+    destination_airport  = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name='destination')
+    departure_time       = models.DateTimeField()
+    landing_time         = models.DateTimeField()
+    remaining_tickets    = models.IntegerField()
+    ticket_economy_price = models.FloatField()
 
 
 class Customer(models.Model):
@@ -43,5 +37,3 @@ class Customer(models.Model):
 class Ticket(models.Model):
     flight      = models.ForeignKey(Flight, on_delete=models.CASCADE)
     customer    = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    type        = models.CharField(max_length=20)
-    price       = models.FloatField()
