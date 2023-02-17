@@ -1,0 +1,8 @@
+uvicorn
+fastapi
+sqlalchemy
+pyyaml
+dependency-injector
+python-multipart
+jinja2
+pydantic[dotenv]
