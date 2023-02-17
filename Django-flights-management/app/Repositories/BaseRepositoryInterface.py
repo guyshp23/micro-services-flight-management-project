@@ -19,10 +19,6 @@ class BaseRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    def create_all():
-        pass
-
-    @abstractmethod
     def delete():
         pass
 

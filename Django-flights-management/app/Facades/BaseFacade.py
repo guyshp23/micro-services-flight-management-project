@@ -16,7 +16,7 @@ class BaseFacade(ABC):
         pass
 
     @abstractmethod
-    def get_flights_by_parameters(origin_country_id: int, destination_country_id: int, date):
+    def get_flights_by_parameters(origin_airport_id: int, destination_airport_id: int, departing_date, returning_date):
         pass
 
     @abstractmethod
@@ -24,9 +24,9 @@ class BaseFacade(ABC):
         pass
 
     @abstractmethod
-    def get_airport_by_id(airport_id: int):
+    def create_new_user(user: User):
         pass
 
     @abstractmethod
-    def create_new_user(user: User):
+    def get_user_by_id(user: User):
         pass
