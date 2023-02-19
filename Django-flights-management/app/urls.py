@@ -8,14 +8,14 @@ urlpatterns = [
 
 
     # Authentication-related routes
-    path('logout/', LogoutView.as_view(),
+    path('auth/logout/', LogoutView.as_view(),
           name ='logout'),
 
-    path('token/', 
+    path('auth/login/', 
           jwt_views.TokenObtainPairView.as_view(),
           name ='token_obtain_pair'),
 
-    path('token/refresh/', 
+    path('auth/refresh/', 
           jwt_views.TokenRefreshView.as_view(),
           name ='token_refresh')
           
