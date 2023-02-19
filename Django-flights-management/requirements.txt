@@ -1,3 +1,7 @@
 django
 django-environ
 mysqlclient
+django-cors
+django-cors-headers
+djangorestframework
+djangorestframework-simplejwt
