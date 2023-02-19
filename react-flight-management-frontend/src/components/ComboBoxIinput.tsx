@@ -17,7 +17,6 @@ export function ComboBoxInput({valuesArray, value, onSelect}: Props) {
 
 
     const onChangeFilterValues = (e: any) => {
-      // console.log('e=',e.target.value)
       setFilteredValue(valuesArray.filter((val: any) => {
         setCurrentValue(e.target.value)
         return val.display_string.toLowerCase().includes(e.target.value.toLowerCase())
@@ -26,11 +25,12 @@ export function ComboBoxInput({valuesArray, value, onSelect}: Props) {
 
   return (
     <Combobox
-      onChange={(e: any)  => {onSelect(e); setCurrentValue(e)}}
+      onChange={(e: any) => {onSelect(e); setCurrentValue(e)}}
       >
-      <div onFocus={() => setOpenOptions(true)}  onBlur={() => setTimeout(() => setOpenOptions(false), 100)}>
-      <Combobox.Input 
-        onClick={() => {currentValue === '' && setCurrentValue(' ')}}
+      <div onFocus={() => setOpenOptions(true)}  
+           onBlur={()  => setTimeout(() => setOpenOptions(false), 100)}
+      >
+      <Combobox.Input
         value={currentValue}
         onChange={(e) => onChangeFilterValues(e)}
         className='border-2 hover:border-sky-200 border-gray-200 p-2 rounded-md'

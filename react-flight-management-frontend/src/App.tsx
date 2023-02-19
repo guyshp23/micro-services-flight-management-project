@@ -15,8 +15,8 @@ function App() {
     <Helmet>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/datepicker.min.js"></script>
     </Helmet>
-    <Navbar />
     <Router>
+    <Navbar />
       <Routes>
         <Route path="/"         element={HomePage()} />
         <Route path="/login"    element={LoginPage()} />

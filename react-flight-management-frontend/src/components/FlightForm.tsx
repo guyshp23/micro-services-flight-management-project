@@ -1,27 +1,8 @@
-import { Formik, FormikHelpers } from 'formik';
 import { useState } from 'react';
 import { ComboBoxInput } from './ComboBoxIinput';
 import { DatePickerInput } from './DatePickerInput';
 import { Label } from './Label';
 
-// interface errorsInterface{
-//     departure: string;
-//     arrival: string;
-//     date: string;
-// }
-
-// interface ValuesInterface {
-//     origin_airport_id: number;
-//     destination_airport_id: number;
-//     departing_date: Date;
-//     returning_date: Date;
-// }
-
-// const errors: errorsInterface = {
-//     departure: '',
-//     arrival: '',
-//     date: ''
-// };
 
 interface Props {
     onSubmitSend: any;
@@ -69,25 +50,10 @@ export function FlightForm({onSubmitSend}: Props){
     const [submitting, setSubmitting] = useState<boolean>(false);
     
 
-    // function validateForm(values: any){
-    //     if (!values.email) {
-    //         errors.departure = 'Required';
-    //     } else if (
-    //         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-    //     ) {
-    //         errors.departure = 'Invalid email address';
-    //     }
-    //     return errors;
-    // }
-
     const handleSubmit = () => {
-        console.log('form submit!', originAirport+ ' --> ' +destinationAirport);
-        console.log('departingDate', departingDate);
-        console.log('returningDate', returningDate);
-        // setTimeout(() => {
-        //     alert(JSON.stringify({origin_airport_id, destination_airport_id, departing_date, returning_date}, null, 2));
-        //     resetForm();
-        // })
+        console.debug('form submit!', originAirport+ ' --> ' +destinationAirport);
+        console.debug('departingDate', departingDate);
+        console.debug('returningDate', returningDate);
         
         setSubmitting(true);
 
@@ -103,7 +69,7 @@ export function FlightForm({onSubmitSend}: Props){
 
     return (
         <div className="bg-white border border-gray-200 rounded-md p-4 text-center">
-        <h1  className="text-2xl font-bold text-center mb-8 text-gray-700">Where would you like to go?</h1>
+        <h1  className="text-2xl font-bold text-center mb-8 text-gray-500">Where would you like to go?</h1>
 
 
 
@@ -114,7 +80,7 @@ export function FlightForm({onSubmitSend}: Props){
                     <Label>From:</Label>
                     <ComboBoxInput
                         value={originAirport}
-                        onSelect={(e: any) => {setOriginAirport(e); console.log(e)}}
+                        onSelect={(e: any) => setOriginAirport(e)}
                         valuesArray={airports_list}
                     />
                 </div>
@@ -123,7 +89,7 @@ export function FlightForm({onSubmitSend}: Props){
                     <Label>To:</Label>
                     <ComboBoxInput
                         value={destinationAirport}
-                        onSelect={(e: any) => {setDestinationAirport(e); console.log(e)}}
+                        onSelect={(e: any) => setDestinationAirport(e)}
                         valuesArray={airports_list}
                     />
                 </div>

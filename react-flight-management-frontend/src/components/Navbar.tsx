@@ -1,38 +1,112 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Avatar, Button, Dropdown, Navbar } from "flowbite-react"
+import { useState } from "react"
+import { Link, redirect } from "react-router-dom";
+
 /* eslint-disable jsx-a11y/anchor-is-valid */
-export default function Navbar(){
+export default function NavbarComponent(){
+
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  const [username, setUsername] = useState('test');
+  const [email, setEmail]       = useState('test@gmail.com');
+
+
+
+
+
     return (
 
-<nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded-br rounded-bl dark:bg-gray-900">
-  <div className="container flex flex-wrap items-center justify-between mx-auto">
-    <a href="/" className="flex items-center">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Airplane_ballonicon2.svg/1280px-Airplane_ballonicon2.svg.png" className="h-6 mr-3 sm:h-9" alt="AeroToo Logo" />
-        <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">AeroToo</span>
-    </a>
-    <button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
-      <span className="sr-only">Open main menu</span>
-      <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
-    </button>
-    <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-      <ul className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-        <li>
-          <a href="#" className="block py-2 pl-3 pr-4 text-white bg-sky-400 rounded md:bg-transparent md:text-sky-400 md:p-0 dark:text-white" aria-current="page">Home</a>
-        </li>
-        <li>
-          <a href="#" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-sky-400 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
-        </li>
-        <li>
-          <a href="#" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-sky-400 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Services</a>
-        </li>
-        <li>
-          <a href="#" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-sky-400 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pricing</a>
-        </li>
-        <li>
-          <a href="#" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-sky-400 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
-        </li>
-      </ul>
+
+<Navbar
+  fluid={true}
+  rounded={true}  
+>
+  <Link to="/">
+    <Navbar.Brand className={'pl-16'}>
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Airplane_ballonicon2.svg/1280px-Airplane_ballonicon2.svg.png"
+        className="mr-3 h-6 sm:h-9"
+        alt="AeroToo Logo"
+      />
+      <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+        AeroToo
+      </span>
+    </Navbar.Brand>
+  </Link>
+  {
+    isUserLoggedIn ?
+    <div className="flex md:order-2 pr-16">
+      <Dropdown
+        arrowIcon={false}
+        inline={true}
+        label={<Avatar alt="User settings" img={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=${username}`} rounded={true}/>}
+        >
+        <Dropdown.Header>
+          <span className="block text-sm capitalize">
+            {username}
+          </span>
+          <span className="block truncate text-sm font-medium">
+            {email}
+          </span>
+        </Dropdown.Header>
+        <Dropdown.Item>
+          Lookup a flight
+        </Dropdown.Item>
+        <Dropdown.Item>
+          My flights
+        </Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item>
+          Sign out
+        </Dropdown.Item>
+      </Dropdown>
     </div>
-  </div>
-</nav>
+    :
+    // Two buttons, register and login
+    <div className="flex md:order-2 pr-16">
+      <Link to="/register">
+        <Button
+          className="mr-4 shadow-sm hover:shadow-md bg-sky-500 hover:bg-sky-400"
+          pill={true}>
+          Get started
+        </Button>
+      </Link>
+
+    <Link to="/login">
+      <Button color="light"
+        pill={true}
+        className="shadow-sm hover:shadow-md"
+        >
+        Login
+      </Button>
+    </Link>
+    </div>
+  }
+  <Navbar.Toggle />
+
+  <Navbar.Collapse>
+    <Navbar.Link
+      href="/navbars"
+      active={true}
+    >
+      Home
+    </Navbar.Link>
+    <Navbar.Link theme={{base: 'text-gray-700 hover:text-sky-500'}} href="/navbars">
+      About
+    </Navbar.Link>
+    <Navbar.Link className="text-gray-700 hover:text-sky-500" href="/navbars">
+      Services
+    </Navbar.Link>
+    <Navbar.Link className="text-gray-700 hover:text-sky-500" href="/navbars">
+      Pricing
+    </Navbar.Link>
+    <Navbar.Link className="text-gray-700 hover:text-sky-500" href="/navbars">
+      Contact
+    </Navbar.Link>
+  </Navbar.Collapse>
+</Navbar>
+
 
     )
 }
