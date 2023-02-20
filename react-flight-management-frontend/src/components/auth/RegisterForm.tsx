@@ -49,7 +49,7 @@ function RegisterForm() {
       >
         {() => {
           return (
-            <Form className="bg-white w-full shadow-lg rounded px-8 pt-6 pb-8">
+            <Form className="bg-white w-full shadow-lg rounded px-16 pt-6 pb-8">
                 <h1 className="text-4xl font-semibold text-center text-sky-500">
                     Register
                 </h1>

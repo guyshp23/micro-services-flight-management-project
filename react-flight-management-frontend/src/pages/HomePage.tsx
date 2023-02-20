@@ -119,7 +119,7 @@ export function HomePage() {
                 setFlights(res);
             }
         )}/>
-        <div className="grid grid-cols-3 items-center justify-between mx-auto mt-12">
+        <div className="grid lg:grid-cols-2 xl:grid-cols-3 items-center justify-between mx-auto mt-12">
             {
                 Flights.map((flight) => {
                     return (

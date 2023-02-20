@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { HomePage } from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -11,12 +11,18 @@ import Footer from './components/footer';
 
 
 function App() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [user, setUser] = useState("Jesse Hall");
+  const Context = createContext('user')
+
   return (
     <>
     <Helmet>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/datepicker.min.js"></script>
     </Helmet>
     <Router>
+      
+    <Context.Provider value={user}>
     <Navbar />
       <Routes>
         <Route path="/"         element={HomePage()} />
@@ -24,6 +30,7 @@ function App() {
         <Route path="/register" element={RegisterPage()} />
       </Routes>
       <Footer />
+      </Context.Provider>
     </Router>
     </>
   );

@@ -9,7 +9,8 @@ const http: AxiosInstance = axios.create({
     },
 });
 
-export const API_ADDRESS = 'http://localhost:8000';
+export const DJANGO_API_ADDRESS  = 'http://localhost:8000';
+export const FASTAPI_API_ADDRESS = 'http://localhost:8080';
 
 export const isAuthenticted = () => {
     const  access_token = localStorage.getItem('access_token');
