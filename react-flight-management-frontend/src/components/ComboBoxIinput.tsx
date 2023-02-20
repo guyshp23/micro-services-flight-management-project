@@ -33,7 +33,7 @@ export function ComboBoxInput({valuesArray, value, onSelect}: Props) {
       <Combobox.Input
         value={currentValue}
         onChange={(e) => onChangeFilterValues(e)}
-        className='border-2 hover:border-sky-200 border-gray-200 p-2 rounded-md'
+        className='focus:hover:border-0 focus:border-0 focus:ring-4 focus:ring-sky-200 hover:border-sky-200 border-gray-200 p-2 rounded-md'
       />
       <Combobox.Options
         static={openOptions}

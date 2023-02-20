@@ -10,7 +10,7 @@ from rest_framework import status
 class LogoutView(APIView):
      permission_classes = (IsAuthenticated,)
      def post(self, request):
-          
+
           try:
                refresh_token = request.data["refresh_token"]
                token = RefreshToken(refresh_token)

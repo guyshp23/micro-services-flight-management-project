@@ -15,20 +15,21 @@ export const DatePickerInput = ({...props}: Props) => {
         autoHide: true,
         todayBtn: true,
         clearBtn: true,
-        maxDate: new Date("2030-01-01"),
+        // 30 days from today
+        maxDate: new Date(new Date().getTime()+(30*24*60*60*1000)), 
         // Starting from today's date, can't select previous dates
         // because can't depart from the past
-        minDate: new Date(),
+        minDate: new Date(new Date().getTime()+(-1*24*60*60*1000)), 
         theme: {
             background: "bg-white",
-            todayBtn: "",
-            clearBtn: "focus:ring-2 focus:ring-sky-300",
+            todayBtn: "bg-sky-400 hover:bg-sky-500 hover:shadow-md focus:ring-4 focus:ring-sky-200",
+            clearBtn: "focus:ring-4 focus:ring-sky-200",
             icons: "",
-            text: "",
+            text: "text-gray-500",
             disabledText: "text-gray-300",
-            input: "",
+            input: "focus:ring-0",
             inputIcon: "",
-            selected: "",
+            selected: "bg-sky-500 hover:bg-sky-600 hover:shadow-md",
         },
         icons: {
             // () => ReactNode | JSX.Element
@@ -41,9 +42,6 @@ export const DatePickerInput = ({...props}: Props) => {
     }
 
     const [show, setShow] = useState <boolean>(false)
-	// const handleChange = (selectedDate: Date) => {
-	//  console.log(selectedDate)
-	// }
 	const handleClose = (state: boolean) => {
 		setShow(state)
 	}

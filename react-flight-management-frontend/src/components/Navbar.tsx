@@ -2,14 +2,16 @@
 import { Avatar, Button, Dropdown, Navbar } from "flowbite-react"
 import { useState } from "react"
 import { Link, redirect } from "react-router-dom";
+import { isAuthenticted } from "../pages/api/http";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 export default function NavbarComponent(){
 
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(isAuthenticted());
 
   const [username, setUsername] = useState('test');
   const [email, setEmail]       = useState('test@gmail.com');
+
 
 
 
@@ -67,7 +69,7 @@ export default function NavbarComponent(){
     <div className="flex md:order-2 pr-16">
       <Link to="/register">
         <Button
-          className="mr-4 shadow-sm hover:shadow-md bg-sky-500 hover:bg-sky-400"
+          className="mr-4 shadow-sm hover:shadow-md bg-sky-500 hover:bg-sky-600 focus:ring-0 focus:border-0"
           pill={true}>
           Get started
         </Button>
@@ -76,7 +78,7 @@ export default function NavbarComponent(){
     <Link to="/login">
       <Button color="light"
         pill={true}
-        className="shadow-sm hover:shadow-md"
+        className="shadow-sm hover:shadow-md focus:ring-0 focus:border-0"
         >
         Login
       </Button>
@@ -87,21 +89,22 @@ export default function NavbarComponent(){
 
   <Navbar.Collapse>
     <Navbar.Link
-      href="/navbars"
+      href="/"
       active={true}
+      theme={{base: 'text-gray-600 hover:text-sky-500', active: {on: 'text-sky-500'}}}
     >
       Home
     </Navbar.Link>
-    <Navbar.Link theme={{base: 'text-gray-700 hover:text-sky-500'}} href="/navbars">
+    <Navbar.Link theme={{active: {off: 'text-gray-600 hover:text-sky-500'}}} href="/navbars">
       About
     </Navbar.Link>
-    <Navbar.Link className="text-gray-700 hover:text-sky-500" href="/navbars">
+    <Navbar.Link theme={{active: {off: 'text-gray-600 hover:text-sky-500'}}} href="/navbars">
       Services
     </Navbar.Link>
-    <Navbar.Link className="text-gray-700 hover:text-sky-500" href="/navbars">
+    <Navbar.Link theme={{active: {off: 'text-gray-600 hover:text-sky-500'}}} href="/navbars">
       Pricing
     </Navbar.Link>
-    <Navbar.Link className="text-gray-700 hover:text-sky-500" href="/navbars">
+    <Navbar.Link theme={{active: {off: 'text-gray-600 hover:text-sky-500'}}} href="/navbars">
       Contact
     </Navbar.Link>
   </Navbar.Collapse>

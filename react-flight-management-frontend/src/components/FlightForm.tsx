@@ -73,12 +73,12 @@ export function FlightForm({onSubmitSend}: Props){
 
 
 
-         <form onSubmit={() => handleSubmit()}>
             {/* wrapper */}
             <div className='flex flex-row'>
                 <div className='flex flex-col mr-6'>
                     <Label>From:</Label>
                     <ComboBoxInput
+                        
                         value={originAirport}
                         onSelect={(e: any) => setOriginAirport(e)}
                         valuesArray={airports_list}
@@ -88,6 +88,7 @@ export function FlightForm({onSubmitSend}: Props){
                 <div className='flex flex-col mr-6'>
                     <Label>To:</Label>
                     <ComboBoxInput
+                        
                         value={destinationAirport}
                         onSelect={(e: any) => setDestinationAirport(e)}
                         valuesArray={airports_list}
@@ -98,6 +99,7 @@ export function FlightForm({onSubmitSend}: Props){
                 <div className='flex flex-col mr-6'>
                     <Label>Departing:</Label>
                     <DatePickerInput
+                        
                         title='When would you like to depart?'
                         onChange={setDepartingDate}
                     />
@@ -106,19 +108,20 @@ export function FlightForm({onSubmitSend}: Props){
                 <div className='flex flex-col'>
                     <Label>Returning:</Label>
                     <DatePickerInput
+                        
                         title='When would you like to return?'
                         onChange={setReturningDate}
                     />
                 </div>
             </div>
 
-            <button type={'submit'}
+            <button
+                    onClick={handleSubmit}
                     disabled={submitting}
-                    className="w-full h-11 rounded flex border-solid border text-white bg-vanHelsing-700 focus:ring-2 focus:ring-vanHelsing-600 mt-4 justify-center place-items-center"
+                    className="w-full h-11 rounded flex hover:bg-sky-600 shadow-sm hover:shadow-md border-solid border text-white bg-sky-500 focus:ring-4 focus:ring-sky-200 mt-4 justify-center place-items-center"
             >
             Search Flight
             </button>
-         </form>
 
         </div>
     )

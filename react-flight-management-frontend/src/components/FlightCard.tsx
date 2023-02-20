@@ -102,7 +102,7 @@ export const FlightCard: React.FC<Props> = ({
                 </div>
                 <div className="absolute top-2 right-0">
                     {/* Maybe replace this w/ gardient combination of light blues? */}
-                    <button className="w-32 h-9 rounded flex shadow-sm hover:shadow-md active:shadow-md border-solid border text-white bg-vanHelsing-600 focus:ring-4 focus:ring-vanHelsing-200 mx-6 mt-2 justify-center place-items-center"><div className="">Book</div></button>
+                    <button className="w-32 h-9 rounded flex shadow-sm hover:shadow-md active:shadow-md border-solid border text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:ring-sky-200 mx-6 mt-2 justify-center place-items-center"><div className="">Book</div></button>
                     <p className="ml-[1.85rem] mt-1 text-xs text-gray-500"><b>{remaining_tickets}</b> Remaining tickets</p>
                 </div>
             </div>

@@ -7,6 +7,7 @@ import RegisterPage from './pages/RegisterPage';
 import './App.css';
 import Navbar from './components/Navbar';
 import { Helmet } from "react-helmet";
+import Footer from './components/footer';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/login"    element={LoginPage()} />
         <Route path="/register" element={RegisterPage()} />
       </Routes>
+      <Footer />
     </Router>
     </>
   );

@@ -9,4 +9,11 @@ const http: AxiosInstance = axios.create({
     },
 });
 
+export const API_ADDRESS = 'http://localhost:8000';
+
+export const isAuthenticted = () => {
+    const  access_token = localStorage.getItem('access_token');
+    return access_token !== null;
+};
+
 export default http;

@@ -1,63 +1,97 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-const LoginForm = () => {
+import React from "react";
+import { Formik, Form, useField, ErrorMessage } from "formik";
+import { object, string } from "yup";
+import Login from "../../pages/api/auth/login";
+import { Link } from "react-router-dom";
 
-    return (
-                <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
-                    <div className="w-full p-6 m-auto bg-white rounded-md shadow-xl lg:max-w-xl">
-                        <h1 className="text-4xl font-semibold text-center text-sky-500">
-                           Login
-                        </h1>
-                        <form className="mt-6">
-                            <div className="mb-2">
-                                <label
-                                    htmlFor="email"
-                                    className="block text-sm font-semibold text-gray-800"
-                                >
-                                    Email
-                                </label>
-                                <input
-                                    type="email"
-                                    className="block w-full px-4 py-2 mt-2 text-sky-700 bg-white border rounded-md focus:border-sky-400 focus:ring-sky-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                                />
-                            </div>
-                            <div className="mb-2">
-                                <label
-                                    htmlFor="password"
-                                    className="block text-sm font-semibold text-gray-800"
-                                >
-                                    Password
-                                </label>
-                                <input
-                                    type="password"
-                                    className="block w-full px-4 py-2 mt-2 text-sky-700 bg-white border rounded-md focus:border-sky-400 focus:ring-sky-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                                />
-                            </div>
-                            <a
-                                href="/forgot"
-                                className="text-xs text-sky-600 hover:underline"
-                            >
-                                Forget Password?
-                            </a>
-                            <div className="mt-6">
-                                <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-sky-500 rounded-md hover:bg-sky-400 focus:ring-4 focus:ring-sky-200 focus:outline-none focus:bg-sky-400">
-                                    Login
-                                </button>
-                            </div>
-                        </form>
-        
-                        <p className="mt-8 text-xs font-light text-center text-gray-700">
-                            {" "}
-                            Don't have an account?{" "}
-                            <a
-                                href="/register"
-                                className="font-medium text-sky-600 hover:underline"
-                            >
-                                Register
-                            </a>
-                        </p>
+const LoginValidation = object().shape({
+  email:    string().required("An email is required").email("Valid email required"),
+  password: string().required("A password is required").min(8, "Must be at least 8 characters"),
+});
+
+const Input = ({ name, label, ...props }: any) => {
+  const [field, meta] = useField(name);
+  return (
+    <div className="mb-4">
+      <label className="block text-gray-700 text-sm font-bold" htmlFor={field.name}>
+        {label}
+      </label>
+      <input
+        className={`${
+          meta.error && meta.touched ? "border-red-500" : ""
+        } shadow appearance-none border border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-0 focus:ring-4 focus:ring-sky-200`}
+        {...field}
+        {...props}
+      />
+      <ErrorMessage
+        name={field.name}
+        component="div"
+        className="text-red-500 text-xs"
+      />
+    </div>
+  );
+};
+
+function LoginForm() {
+  const handleSubmit = (values: any) => {
+    console.debug('Login form submitted, values:', values);
+    Login(values.email, values.password)
+  };
+
+  return (
+    <div className="h-screen flex items-center justify-center flex-col bg-transparent">
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        onSubmit={handleSubmit}
+        validationSchema={LoginValidation}
+      >
+        {() => {
+          return (
+            <Form className="bg-white w-full shadow-lg rounded px-8 pt-6 pb-8">
+                <h1 className="text-4xl font-semibold text-center text-sky-500">
+                Login
+                </h1>
+                <div className='mt-6'>
+                    <Input name="email"    label="Email" />
+                    <Input name="password" label="Password" type="password" />
+                    <p className="mb-8 -mt-3 text-xs font-light text-gray-700">
+                        {" "}
+                        <Link
+                            to="#"
+                            className="font-medium text-sky-600 hover:underline"
+                        >
+                        Forgot your password?{" "}
+                        </Link>
+                    </p>
+                    <div className="flex items-center justify-center">
+                        <button
+                        className="bg-sky-500 hover:bg-sky-600 shadow-sm hover:shadow-md focus:ring-4 focus:ring-sky-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        type="submit"
+                        >
+                        Login
+                        </button>
                     </div>
                 </div>
-            );
-        }
+                <p className="mt-8 text-xs font-light text-center text-gray-700">
+                    {" "}
+                    Don't have an account?{" "}
+                    <Link
+                        to="/register"
+                        className="font-medium text-sky-600 hover:underline"
+                    >
+                        Register
+                    </Link>
+                </p>
+            </Form>
+          );
+        }}
+      </Formik>
+        
+    </div>
+  );
+}
 
 export default LoginForm;
