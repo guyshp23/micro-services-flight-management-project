@@ -13,6 +13,7 @@ class Airport(models.Model):
     airport_name = models.CharField(max_length=50)
     airport_code = models.CharField(max_length=3, validators=[RegexValidator('^[A-Z]*$',
                                'Only uppercase letters allowed.')],)
+    display_name = models.CharField(max_length=100)
 
 
 class Flight(models.Model):

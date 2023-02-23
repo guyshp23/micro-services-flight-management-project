@@ -26,4 +26,3 @@ class BaseServiceInterface(ABC):
     def delete():
         pass
 
-    

@@ -1,5 +1,4 @@
-from .BaseFacade import BaseFacade
-
+from .base_facade import BaseFacade
 
 class CustomerFacade(BaseFacade):
     pass

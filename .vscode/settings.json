@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./Django-flights-management/app",
+        "./Django-flights-management/app"
+    ]
+}

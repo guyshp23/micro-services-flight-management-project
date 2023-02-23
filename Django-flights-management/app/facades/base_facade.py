@@ -1,3 +1,4 @@
+from ..services.flights_service import FlightService
 from django.contrib.auth.models import User
 
 
@@ -6,16 +7,11 @@ class BaseFacade():
         pass
 
 
-
-    def get_all_flights():
+    def get_flights_by_parameters(origin_airport_id: int, destination_airport_id: int, departing_date, returning_date):
         pass
 
 
     def get_flight_by_id(flight_id: int):
-        pass
-
-
-    def get_flights_by_parameters(origin_airport_id: int, destination_airport_id: int, departing_date, returning_date):
         pass
 
 
