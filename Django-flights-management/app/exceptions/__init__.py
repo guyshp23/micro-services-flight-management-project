@@ -1,52 +1,44 @@
-from ast import Tuple
-
-from h11 import Response
+# from exceptions.model_not_found import ModelNotFoundException
 
 
 def transform_exception(e: Exception) -> dict(str, str, int):
     """
-    A factory to transform the given exception to a formated error message.
+    A factory to transform the given exception to a formated error object to later return in the view.
 
     Args:
         exception: The exception to transform.
 
     Returns:
         An object with the following attributes
+            - object:  The object's type. In this case: "error".
             - message: The error message.
             - description: Possible solutions, for example:
                            If the error was 404, the description will be:
                            "The requested resource was not found. Make sure it exists and try again."
             - status_code: The status code.
+
+            For example:
+                {
+                    "object": "error",
+                    "status_code": 404,
+                    "message": "The requested resource was not found. Make sure it exists and try again.",
+                }
     """
+    # TODO: Check if all exceptions are instances of Exception.
+    #       If so, find a way to find out when it is the regular Exception instance and when it is a custom exception.
+    #
     # Handle the exception.
     if isinstance(e, Exception):
-        
-        # get the exception's message
-        message = str(e)
-
-        # get the exception's status code
-        status_code = 400
-
-        # get the exception's description
-        description = "An error occurred. Please try again later."
-
-        # return the exception's message, description and status code
-        return message, description, status_code
-
-    
-
-
-# def handle(exception: Exception) -> Response():
-#     """
-#     Handle the given exception.
-
-#     Args:
-#         exception: The exception to handle.
-
-#     Returns:
-#         A tuple with the error message and the status code.
-#     """
-    
-#         # Handle the exception.
-#         if isinstance(exception, Exception):
-            
+        # A general exception was thrown
+        return {
+            "object":      "error",
+            "status_code": 500,
+            "message":     str(e),
+        }
+    else:
+        # A custom exception.
+        return {
+            "object":      "error",
+            "status_code": e.status_code,
+            "message":     e.message,
+        }
