@@ -1,11 +1,12 @@
 import axios, { AxiosInstance } from 'axios';
 
 const http: AxiosInstance = axios.create({
-    withCredentials: true,
+    // withCredentials: true,
     timeout: 20000,
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
     },
 });
 

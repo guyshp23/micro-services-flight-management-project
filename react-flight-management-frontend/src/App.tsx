@@ -13,7 +13,7 @@ import Footer from './components/footer';
 function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [user, setUser] = useState("Jesse Hall");
-  const Context = createContext('user')
+  const Context         = createContext('user')
 
   return (
     <>

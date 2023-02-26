@@ -6,10 +6,11 @@ from django.core.validators import RegexValidator
 #       - User X just bought a flight ticket to Y in the popup on the bottom-right corner
 #       - User X just bought 
 
-# Create your models here.
+
 class Airport(models.Model):
     country_name = models.CharField(max_length=50)
     city_name    = models.CharField(max_length=50)
+    city_code    = models.CharField(max_length=50)
     airport_name = models.CharField(max_length=50)
     airport_code = models.CharField(max_length=3, validators=[RegexValidator('^[A-Z]*$',
                                'Only uppercase letters allowed.')],)
@@ -17,12 +18,14 @@ class Airport(models.Model):
 
 
 class Flight(models.Model):
-    origin_airport       = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name='origin')
-    destination_airport  = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name='destination')
-    departure_time       = models.DateTimeField()
-    landing_time         = models.DateTimeField()
-    remaining_tickets    = models.IntegerField()
-    ticket_economy_price = models.FloatField()
+    origin_airport                    = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name='origin')
+    destination_airport               = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name='destination')
+    departure_time                    = models.DateTimeField()
+    landing_time                      = models.DateTimeField()
+    remaining_tickets                 = models.IntegerField()
+    ticket_economy_price              = models.FloatField()
+    ticket_economy_manual_override    = models.BooleanField(default=0)
+    remaining_tickets_manual_override = models.BooleanField(default=0)
 
 
 class Customer(models.Model):
@@ -36,5 +39,5 @@ class Customer(models.Model):
 
 
 class Ticket(models.Model):
-    flight      = models.ForeignKey(Flight, on_delete=models.CASCADE)
+    flight      = models.ForeignKey(Flight,   on_delete=models.CASCADE)
     customer    = models.ForeignKey(Customer, on_delete=models.CASCADE)
