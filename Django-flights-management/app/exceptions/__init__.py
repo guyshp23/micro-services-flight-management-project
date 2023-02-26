@@ -6,7 +6,7 @@ def transform_exception(e: Exception) -> dict(str, str, int):
     A factory to transform the given exception to a formated error object to later return in the view.
 
     Args:
-        exception: The exception to transform.
+        e: The Exception to transform.
 
     Returns:
         An object with the following attributes
@@ -27,6 +27,7 @@ def transform_exception(e: Exception) -> dict(str, str, int):
     # TODO: Check if all exceptions are instances of Exception.
     #       If so, find a way to find out when it is the regular Exception instance and when it is a custom exception.
     #
+    # Might as well check by status code (500 general exception, 404 custom exception, etc.)
     # Handle the exception.
     if isinstance(e, Exception):
         # A general exception was thrown
