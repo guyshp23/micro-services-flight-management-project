@@ -6,7 +6,8 @@
 # Instead of manually importing each one...
 # + I can put notes here so that's cool
 
-from .auth import *
+from .auth    import *
+from .flights import *
 """
 ### All required views by category (different category in each file) ###
 
