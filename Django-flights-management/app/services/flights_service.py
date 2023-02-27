@@ -1,12 +1,15 @@
 from ..exceptions.model_not_found import ModelNotFoundException
 from .base_service_interface import BaseServiceInterface
 from ..models import Airport, Flight
-import requests 
+import requests
+
+
+
 class FlightService(BaseServiceInterface):
 
 
-    def get_by_params(origin_display_name: str, destination_display_name: str,
-                      departure_time, landing_time):
+    async def get_by_params(origin_display_name: str, destination_display_name: str,
+                            departure_time,           landing_time):
         
         # # Find the airport ID in database by the "origin_display_name" variable.
         # origin_display_name_in_db      = Airport.objects.get(display_name=origin_display_name).id
@@ -19,22 +22,35 @@ class FlightService(BaseServiceInterface):
         # # Return the flights that match the given parameters.
         # return flights
 
+
+
+
+        # Set the basic headers for the request 
+        # (will require authentication token in the future)
         headers = {
-            
+            'content-type': 'application/json',
+            'Accept': 'application/json',
+            'Accept-Charset': 'UTF-8',
         }
 
         # Include all parameters in the request
         payload = {
-            'origin_display_name': origin_display_name,
+            'origin_display_name':      origin_display_name,
             'destination_display_name': destination_display_name,
-            'deperture_time': departure_time,
-            'landing_time': landing_time,
+            'deperture_time':           departure_time,
+            'landing_time':             landing_time,
         }
         
         # Send an API request to the microservice endpoint
         rest = requests.post('https://api.microservice.aerothree.me/v1/flights',
                              headers=headers, data=payload)
         
+        response = await rest.json()
+
+        # Return the response from the microservice
+        return response
+
+       
 
 
     def get_by_id(flight_id: int):

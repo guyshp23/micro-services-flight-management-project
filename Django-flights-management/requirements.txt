@@ -5,3 +5,6 @@ django-cors
 django-cors-headers
 djangorestframework
 djangorestframework-simplejwt
+# Used for sending requests to microservice
+requests
+django_clearcache
