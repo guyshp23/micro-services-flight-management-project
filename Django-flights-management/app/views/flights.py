@@ -17,11 +17,11 @@ class GetFlightsByParams(APIView):
 
             Times are in the following format: "YYYY-MM-DD", for example: "2020-12-31".
 
-        Returns:
-            - The flights that match the given parameters.
-
         Raises:
             - Exception: If a general error occurred in the flights service.
+
+        Returns:
+            - The flights that match the given parameters.
         """
 
         # Get the parameters from the request.
@@ -49,11 +49,12 @@ class GetFlightDetailsByID(APIView):
     Params:
         - id: The flight ID
 
+    Raises:
+        - NotFoundException: Flight ID is not found in DB, a flight with that ID doesn't exist
+
     Returns:
         - The flight details object
     
-    Raises: 
-        - NotFoundException: Flight ID is not found in DB, a flight with that ID doesn't exist
     """
     serializer_class = FlightsSerializer
 

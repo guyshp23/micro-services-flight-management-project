@@ -20,7 +20,8 @@ class FlightService(BaseServiceInterface):
         # return flights
 
         headers = {
-            
+            'content-type': 'application/json',
+            'accept': 'application/json',
         }
 
         # Include all parameters in the request

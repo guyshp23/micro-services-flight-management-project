@@ -6,3 +6,4 @@ dependency-injector
 python-multipart
 jinja2
 pydantic[dotenv]
+psycopg2
