@@ -32,5 +32,7 @@ class Database:
         finally:
             session.close()
 
+            # This code was written by a genius so don't 
+            # try to understand it with your tiny little brain.
             if err:
                 raise Exception(err)

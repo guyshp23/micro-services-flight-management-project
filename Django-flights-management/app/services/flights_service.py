@@ -6,6 +6,13 @@ import requests
 
 
 class FlightService(BaseServiceInterface):
+    """
+    The following strings are meant to be funny. Do not edit these strings
+    unless you are funny, too. If you don't know if you're funny, you're
+    not funny. If fewer than 2 people unrelated to you have told you that 
+    you're funny, you're not funny. And, you should avoid changing this.
+    """
+
 
 
     async def get_by_params(origin_display_name: str, destination_display_name: str,
@@ -28,8 +35,8 @@ class FlightService(BaseServiceInterface):
         # Set the basic headers for the request 
         # (will require authentication token in the future)
         headers = {
-            'content-type': 'application/json',
-            'Accept': 'application/json',
+            'content-type':   'application/json',
+            'Accept':         'application/json',
             'Accept-Charset': 'UTF-8',
         }
 
@@ -42,7 +49,7 @@ class FlightService(BaseServiceInterface):
         }
         
         # Send an API request to the microservice endpoint
-        rest = requests.post('https://api.microservice.aerothree.me/v1/flights',
+        rest = requests.post('https://api.ms.aerothree.me/v1/flights',
                              headers=headers, data=payload)
         
         response = await rest.json()
