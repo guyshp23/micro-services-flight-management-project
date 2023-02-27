@@ -1,7 +1,7 @@
 import json
 from .models import Flights
 from .repositories import FlightsRepository
-from fastapi import Form, Response
+from fastapi import Form, Response, Request
 from fastapi.responses import JSONResponse
 from .exceptions import *
 from fastapi.encoders import jsonable_encoder
@@ -12,11 +12,17 @@ class FlightsService:
     def __init__(self, flights_repository: FlightsRepository):
         self.flights_repo: FlightsRepository = flights_repository
 
-    def get_flights_by_params(self, params):
+    def get_flights_by_params(self, request: Request):
         # try:
         #     r = self.flights_repo.get_by_params(params)
         # except FlightNotFoundException as e:
         #     return Response(content=str(e), status_code=404)
+
+        # All params from request
+        origin_display_name      = request.query_params['origin_display_name']
+        destination_display_name = request.query_params['destination_display_name']
+        deperture_time           = request.query_params['deperture_time']
+        landing_time             = request.query_params['landing_time']
 
         return Response(content='flights', status_code=200)
 

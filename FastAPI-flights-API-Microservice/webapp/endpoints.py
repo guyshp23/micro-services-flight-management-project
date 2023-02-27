@@ -1,5 +1,4 @@
-from fastapi import APIRouter
-from fastapi import Depends
+from fastapi import APIRouter, Depends, Request
 from dependency_injector.wiring import inject, Provide
 from .containers import Container
 from .services import FlightsService
@@ -10,9 +9,9 @@ router = APIRouter()
 # Get flights by parameters
 @router.get("/flights/", status_code=200, response_class='application/json')
 @inject
-def get_flights_by_parmas(flights_service: FlightsService =
+def get_flights_by_parmas(request: Request, flights_service: FlightsService =
                       Depends(Provide[Container.flights_service])):
-    return flights_service.get_flights_by_params('s')
+    return flights_service.get_flights_by_params(request)
 
 # Get the specific flights for the specified flight ID
 @router.post("/flights/{flight_id}/", status_code=200)

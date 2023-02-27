@@ -7,4 +7,4 @@ class Settings(BaseSettings):
 
 # specify .env file location as Config attribute
     class Config:
-        env_file = "FastAPI-flights-API-Microservice/.env"
+        env_file = ".env"
