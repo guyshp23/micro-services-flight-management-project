@@ -18,8 +18,8 @@ class FlightsRepository:
             None
         
         Raises:
-            FlightNotFoundException: No flightss in the database
-        
+            FlightNotFoundException: No flights in the database
+
         Returns:
             A list of all flightss in the database
             (status_code = 200)
@@ -28,7 +28,7 @@ class FlightsRepository:
             rec: Flights = s.query(Flights).all()
 
             if not rec:
-                raise FlightNotFoundException('No flightss in the database!')
+                raise FlightNotFoundException('No flights in the database!')
 
             # Turn each record in rec into a list of flightss in JSON
             json_list = [r.to_json() for r in rec]
@@ -187,3 +187,27 @@ class FlightsRepository:
                 s.commit()
             except Exception as e:
                 raise Exception('An error occured while deleting the flights from the database!', e)
+
+
+    def modify_all(self, flights_to_update: list, flights_to_delete: list):
+        with self.session_factory() as s:
+            for f in flights_to_update:
+                rec: Flights = s.query(Flights).filter(Flights.id == f['id']).first()
+
+                if not rec:
+                    raise FlightNotFoundException(f"Flights #{f['id']} doesn't exist!")
+
+                rec.title    = f['title']
+                rec.desc     = f['desc']
+                rec.price    = f['price']
+                rec.quantity = f['quantity']
+
+            for f in flights_to_delete:
+                rec: Flights = s.query(Flights).filter(Flights.id == f).first()
+
+                if not rec:
+                    raise FlightNotFoundException(f"Flights #{f} doesn't exist!")
+
+                s.delete(rec)
+
+            s.commit()
