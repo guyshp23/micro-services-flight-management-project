@@ -12,8 +12,14 @@ class Airport(models.Model):
     city_name    = models.CharField(max_length=50)
     city_code    = models.CharField(max_length=50)
     airport_name = models.CharField(max_length=50)
-    airport_code = models.CharField(max_length=3, validators=[RegexValidator('^[A-Z]*$',
-                               'Only uppercase letters allowed.')],)
+    airport_code = models.CharField(max_length=3,
+                                    validators=[
+                                        RegexValidator(
+                                            '^[A-Z]*$',
+                                            'Only uppercase letters allowed.'
+                                        )
+                                    ],
+                                    unique=True)
     display_name = models.CharField(max_length=100)
 
 
