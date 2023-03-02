@@ -7,4 +7,5 @@ djangorestframework
 djangorestframework-simplejwt
 # Used for sending requests to microservice
 requests
+# I just like clearing cache bro, leave it alone
 django_clearcache

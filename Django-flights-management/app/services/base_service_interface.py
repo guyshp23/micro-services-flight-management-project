@@ -7,10 +7,6 @@ class BaseServiceInterface(ABC):
         pass
 
     @abstractmethod
-    def get_all():
-        pass
-
-    @abstractmethod
     def create():
         pass
 

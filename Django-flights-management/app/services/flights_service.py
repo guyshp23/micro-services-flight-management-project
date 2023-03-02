@@ -1,8 +1,8 @@
+import logging
 from ..exceptions.model_not_found import ModelNotFoundException
 from .base_service_interface import BaseServiceInterface
 from ..models import Airport, Flight
 import requests
-
 
 
 class FlightService(BaseServiceInterface):
@@ -12,12 +12,17 @@ class FlightService(BaseServiceInterface):
     not funny. If fewer than 2 people unrelated to you have told you that 
     you're funny, you're not funny. And, you should avoid changing this.
     """
+    global logger
+    logger = logging.getLogger('main')
 
-
+    def __init__(self):
+        logger.debug("FlightService initialized")
 
     async def get_by_params(origin_display_name: str, destination_display_name: str,
                             departure_time,           landing_time):
-        
+        logger.debug("FlightService.get_by_params() called")
+        print("FlightService.get_by_params() called")
+
         # # Find the airport ID in database by the "origin_display_name" variable.
         # origin_display_name_in_db      = Airport.objects.get(display_name=origin_display_name).id
         # destination_display_name_in_db = Airport.objects.get(display_name=destination_display_name).id
@@ -47,35 +52,33 @@ class FlightService(BaseServiceInterface):
             'deperture_time':           departure_time,
             'landing_time':             landing_time,
         }
-        
+
+
         # Send an API request to the microservice endpoint
         rest = requests.post('https://api.ms.aerothree.me/v1/flights',
                              headers=headers, data=payload)
-        
+        logger.debug("Sending API request to microservice...")
+
+
         response = await rest.json()
+        logger.debug("Got response from API: " + str(response))
+
 
         # Return the response from the microservice
         return response
 
-       
+
 
 
     def get_by_id(flight_id: int):
+        logger.debug("FlightService.get_by_id() called")
         
         # Check if the flight exists by ID
         flight = Flight.objects.filter(id=flight_id).first()
 
         if flight == None:
+            logger.error('Flight not found, id: ' + str(flight_id))
             raise ModelNotFoundException('Flight not found')
+        
+        logger.debug('Returned flight: ' + str(flight))
         return flight
-
-        # return {
-        #     'object': 'flight',
-        #     'flight_id':            flight.id,
-        #     'origin_country':       flight.origin_country,
-        #     'destination_country':  flight.destination_country,
-        #     'deperture_date':       flight.departure_date,
-        #     'landing_date':         flight.landing_date,
-        #     'remaining_tickets':    flight.remaining_tickets,
-        #     'ticket_economy_price': flight.ticket_economy_price,
-        # }

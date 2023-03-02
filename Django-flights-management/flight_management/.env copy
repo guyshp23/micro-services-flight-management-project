@@ -1,7 +1,0 @@
-SECRET_KEY=django-insecure-2*vfrpv+lt@8s@c2k+*e%t2msuau(=t%twx0uhzvuxa+v-#h@i
-DEBUG=True
-DATABASE_NAME=sql7600985
-DATABASE_USER=sql7600985
-DATABASE_PASSWORD=gepCVP58Kr
-DATABASE_HOST=sql7.freemysqlhosting.net
-DATABASE_PORT=3306
