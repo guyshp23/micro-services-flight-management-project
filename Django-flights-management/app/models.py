@@ -28,6 +28,7 @@ class Flight(models.Model):
     destination_airport               = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name='destination')
     departure_time                    = models.DateTimeField()
     landing_time                      = models.DateTimeField()
+    status                            = models.CharField(max_length=50)
     remaining_tickets                 = models.IntegerField()
     ticket_economy_price              = models.FloatField()
     ticket_economy_manual_override    = models.BooleanField(default=0)

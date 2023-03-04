@@ -1,38 +1,92 @@
 import datetime
-from .models import Flights
+
+import httpx
+from .models import Flight
 from fastapi import Form
 from .exceptions import *
+from .config import Settings
 
 
 class FlightsRepository:
     def __init__(self, session_factory):
         self.session_factory = session_factory
+        
+        # Get external api url from .env file
+        # to later call it in the get_flights_by_params method 
+        global EXTERNAL_API_URL_01
+        EXTERNAL_API_URL_01 = Settings().EXTERNAL_API_URL_01
 
 
+    def get_local_flights_by_params(self) -> list:
+        """
+        Get all flights from the database that match the given parameters
 
-    def get_by_params(self):
+        Args:
+            - origin_display_name:      The airport's origin display name
+            - destination_display_name: The airport's destination display name
+            - deperture_time:           The flight's deperture time
+            - landing_time:             The flight's landing time
+
+
+        Raises:
+            FlightNotFoundException: No flights in the database
+
+        Returns:
+            A list of all flights in the database
+            (status_code = 200)
+        """
+        with self.session_factory() as s:
+            rec: Flight = s.query(Flight).filter(status='deperture').all()
+
+            if not rec:
+                raise FlightNotFoundException('No flights in the database!')
+
+            # Turn each record in rec into a list of flights in JSON
+            json_list = [f.to_json() for f in rec]
+            return json_list
+
+
+    def get_external_flights_by_params(self, origin_display_name: str, destination_display_name: str, deperture_time, landing_time) -> list:
         """
         Get flights by paramaters from the database
 
         Args:
-            None
+            - origin_display_name:      The airport's origin display name
+            - destination_display_name: The airport's destination display name
+            - deperture_time:           The flight's deperture time
+            - landing_time:             The flight's landing time
         
         Raises:
-            FlightNotFoundException: No flights in the database
+            FlightNotFoundException: Something went wrong while getting the flights from the external api
 
         Returns:
             A list of all flightss in the database
             (status_code = 200)
         """
-        with self.session_factory() as s:
-            rec: Flights = s.query(Flights).all()
 
-            if not rec:
-                raise FlightNotFoundException('No flights in the database!')
+        # Send a request to the external api to get the flights
+        # httpx.get('https://api.skypicker.com/flights?flyFrom=TLV&to=JFK&dateFrom=01/01/2021&dateTo=01/01/2021&partner=picky&v=3')
+        external_flights = httpx.get(EXTERNAL_API_URL_01 + '/timetable',
+                                        params={'status': 'scheduled', 'type': 'departure'})
+        
+        # Check if the external api returned a valid response
+        if external_flights.status_code != 200:
+            raise FlightNotFoundException('Something went wrong while getting the flights from the external api')
 
-            # Turn each record in rec into a list of flightss in JSON
-            json_list = [r.to_json() for r in rec]
-            return json_list
+        # Turn each record in rec into a list of flightss in JSON
+        json_list = [f.to_json() for f in external_flights.json()]
+        return json_list
+
+
+        # with self.session_factory() as s:
+        #     rec: Flights = s.query(Flights).all()
+
+        #     if not rec:
+        #         raise FlightNotFoundException('No flights in the database!')
+
+        #     # Turn each record in rec into a list of flightss in JSON
+        #     json_list = [r.to_json() for r in rec]
+        #     return json_list
 
 
     def get(self, flights_id: int):
@@ -53,7 +107,7 @@ class FlightsRepository:
             raise InvalidParametersWereProvidedInRequestException('The flights ID must be an integer!')
 
         with self.session_factory() as s:
-            rec: Flights = s.query(Flights).filter(Flights.id == flights_id).first()
+            rec: Flight = s.query(Flight).filter(Flight.id == flights_id).first()
             
             if not rec:
                 raise FlightNotFoundException(f"Flights #{flights_id} doesn't exist!")
@@ -84,11 +138,11 @@ class FlightsRepository:
 
         with self.session_factory() as s:
             try:
-                flights_to_add = Flights(id=None, title=title, desc=desc, price=price,
+                flights_to_add = Flight(id=None, title=title, desc=desc, price=price,
                                         quantity=quantity, auto_date=datetime.datetime.now())
 
                 # Check if the flights already exists
-                rec: Flights = s.query(Flights).filter(Flights.title == title).first()
+                rec: Flight = s.query(Flight).filter(Flight.title == title).first()
                 if rec:
                     raise FlightNotFoundException(f'Flights "{title}" already exists!')
 
@@ -132,7 +186,7 @@ class FlightsRepository:
         with self.session_factory() as s:
 
             try:
-                rec: Flights = s.query(Flights).filter(Flights.id == flights_id).first()
+                rec: Flight = s.query(Flight).filter(Flight.id == flights_id).first()
 
                 if not rec:
                     raise FlightNotFoundException(f"The flights #{flights_id} doesn't exist!")
@@ -176,7 +230,7 @@ class FlightsRepository:
             raise InvalidParametersWereProvidedInRequestException('The flights ID is not a valid integer!')
 
         with self.session_factory() as s:
-            rec: Flights = s.query(Flights).filter(Flights.id == flights_id).first()
+            rec: Flight = s.query(Flight).filter(Flight.id == flights_id).first()
 
             if not rec:
                 raise FlightNotFoundException(f"Flights #{flights_id} doesn't exist!")
@@ -192,7 +246,7 @@ class FlightsRepository:
     def modify_all(self, flights_to_update: list, flights_to_delete: list):
         with self.session_factory() as s:
             for f in flights_to_update:
-                rec: Flights = s.query(Flights).filter(Flights.id == f['id']).first()
+                rec: Flight = s.query(Flight).filter(Flight.id == f['id']).first()
 
                 if not rec:
                     raise FlightNotFoundException(f"Flights #{f['id']} doesn't exist!")
@@ -201,13 +255,13 @@ class FlightsRepository:
                 rec.desc     = f['desc']
                 rec.price    = f['price']
                 rec.quantity = f['quantity']
+                s.commit()
 
             for f in flights_to_delete:
-                rec: Flights = s.query(Flights).filter(Flights.id == f).first()
+                rec: Flight = s.query(Flight).filter(Flight.id == f).first()
 
                 if not rec:
                     raise FlightNotFoundException(f"Flights #{f} doesn't exist!")
 
                 s.delete(rec)
-
-            s.commit()
+                s.commit()

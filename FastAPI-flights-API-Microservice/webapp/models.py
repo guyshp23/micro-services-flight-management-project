@@ -1,29 +1,30 @@
 from datetime import date, datetime
 import json
-from sqlalchemy import Column, String, Integer, DateTime, Float
+from sqlalchemy import Column, ForeignKey, String, Integer, DateTime, Float
 from sqlalchemy.ext.declarative import declarative_base
 from .exceptions import InvalidParametersWereProvidedInRequestException
 
 
 Base = declarative_base()
 
-class Flights(Base):
+class Flight(Base):
     __tablename__ = "app_flight"
 
     id                  = Column(Integer, primary_key=True, auto_increment=True)
-    origin_airport      = Column(String)
-    destination_airport = Column(String)
+    origin_airport      = Column(ForeignKey('app_airport.id'))
+    destination_airport = Column(ForeignKey('app_airport.id'))
     departure_time      = Column(DateTime)
-    arrival_time        = Column(DateTime)
+    landing_time        = Column(DateTime)
+    status              = Column(String)
     remaining_tickets   = Column(Integer)
     price               = Column(Float)
 
-    def __init__(self, id, origin_airport, destination_airport, departure_time, arrival_time, remaining_tickets, price,):
+    def __init__(self, id, origin_airport, destination_airport, departure_time, landing_time, remaining_tickets, price):
         self.id                  = id
         self.origin_airport      = origin_airport
         self.destination_airport = destination_airport
         self.departure_time      = departure_time
-        self.arrival_time        = arrival_time 
+        self.landing_time        = landing_time
         self.remaining_tickets   = remaining_tickets
         self.price               = price
 
@@ -48,8 +49,8 @@ class Flights(Base):
                 "id"                 : self.id,
                 "original_airport"   : self.origin_airport,
                 "destination_airport": self.destination_airport,
-                "departure_time "    : self.departure_time,
-                "arrival_time "      : self.arrival_time,
+                "departure_time"     : self.departure_time,
+                "landing_time"       : self.landing_time,
                 "remaining_tickets"  : self.remaining_tickets,
                 "price"              : self.price,
             }

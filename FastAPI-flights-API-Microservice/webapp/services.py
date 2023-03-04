@@ -1,5 +1,5 @@
 import json
-from .models import Flights
+from .models import Flight
 from .repositories import FlightsRepository
 from fastapi import Form, Response, Request
 from fastapi.responses import JSONResponse
@@ -38,35 +38,44 @@ class FlightsService:
             return Response(content='Invalid parameters were provided in the request', status_code=402)
 
         # Turn the 'deperture_time' and 'landing_time' into datetime objects
-        deperture_time = datetime.datetime.strptime(deperture_time, '%Y-%m-%d %H:%M:%S')
-        landing_time   = datetime.datetime.strptime(landing_time,   '%Y-%m-%d %H:%M:%S')
+        deperture_time = datetime.datetime.strptime(deperture_time, '%Y-%m-%d')
+        landing_time   = datetime.datetime.strptime(landing_time,   '%Y-%m-%d')
 
         # Call the repository to check if flights exist with the following params
         try:
-            r = self.flights_repo.get_by_params(origin_display_name, destination_display_name, deperture_time, landing_time)
+            # Get all flights from the our database
+            local_flights    = self.flights_repo.get_local_flights_by_params()
+            external_flights = self.flights_repo.get_external_flights_by_params(origin_display_name, destination_display_name, deperture_time, landing_time)
 
-            # Check which flights need to be removed / updated
-            for flight in r:
-                # If the flight's landing time is less than the current time, remove it from the list
-                if flight['landing_time'] < datetime.datetime.now():
-                    r.remove(flight)
-
-                # If the flight's deperture time is less than the current time, update the flight's status to 'in flight'
-                if flight['deperture_time'] < datetime.datetime.now():
-                    flight['status'] = 'in flight'
+            # Check which flights need to be removed
+            for f in local_flights:
+                pass
 
 
-            # Call the repository to update/remove the flights database
-            # aka. modify all flights in the database at scale by passing a list of flights
-            self.flights_repo.modify_all(r)
+
+            # # Check which flights need to be removed / updated
+            # for flight in r:
+            #     # If the flight's landing time is less than the current time, remove it from the list
+            #     if flight['landing_time'] < datetime.datetime.now():
+            #         r.remove(flight)
+
+            #     # If the flight's deperture time is less than the current time, update the flight's status to 'in flight'
+            #     if flight['deperture_time'] < datetime.datetime.now():
+            #         flight['status'] = 'in flight'
+
+
+            # # Call the repository to update/remove the flights database
+            # # aka. modify all flights in the database at scale by passing a list of flights
+            # self.flights_repo.modify_all(r)
 
 
 
         except FlightNotFoundException as e:
+            pass
             # No flights were foudn with the given params
             # Call the external API to get the flights
-            httpx.get(EXTERNAL_API_URL_01 + '/timetable',
-                      params={'status': 'scheduled', 'type': 'departure'})
+            # httpx.get(EXTERNAL_API_URL_01 + '/timetable',
+            #           params={'status': 'scheduled', 'type': 'departure'})
 
         
 
