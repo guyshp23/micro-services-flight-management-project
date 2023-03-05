@@ -1,5 +1,5 @@
 import json
-from .models import Flight
+from .models import Airport, Flight
 from .repositories import FlightsRepository
 from fastapi import Form, Response, Request
 from fastapi.responses import JSONResponse
@@ -37,6 +37,46 @@ class FlightsService:
             # TODO: replace with an exception, don't return Response here
             return Response(content='Invalid parameters were provided in the request', status_code=402)
 
+
+        ###########################
+        ### Move somewhere else ###
+        ###########################
+        # Check if the given deperture time is valid
+        try:
+            datetime.datetime.strptime(deperture_time, '%Y-%m-%d %H:%M:%S')
+        except ValueError:
+            raise InvalidParametersWereProvidedInRequestException('The given deperture time is invalid!')
+        
+        # Check if the given landing time is valid
+        try:
+            datetime.datetime.strptime(landing_time, '%Y-%m-%d %H:%M:%S')
+        except ValueError:
+            raise InvalidParametersWereProvidedInRequestException('The given landing time is invalid!')
+        
+        # Check if the given deperture time is before the given landing time
+        if deperture_time > landing_time:
+            raise InvalidParametersWereProvidedInRequestException('The given deperture time is after the given landing time!')
+        
+        # Check if the given deperture time is before the current time
+        if deperture_time < datetime.datetime.now():
+            raise InvalidParametersWereProvidedInRequestException('The given deperture time is before the current time!')
+        
+        # Check if the given landing time is before the current time
+        if landing_time < datetime.datetime.now():
+            raise InvalidParametersWereProvidedInRequestException('The given landing time is before the current time!')
+
+
+        # Check if params can be found in the local database
+        with self.session_factory() as s:
+            rec = s.query(Airport).filter(Airport.display_name == origin_display_name).first()
+            if not rec:
+                raise AirportNotFoundException('No airport was found with the given origin display name!')
+            
+            rec = s.query(Airport).filter(Airport.display_name == destination_display_name).first()
+            if not rec:
+                raise AirportNotFoundException('No airport was found with the given destination display name!')
+
+
         # Turn the 'deperture_time' and 'landing_time' into datetime objects
         deperture_time = datetime.datetime.strptime(deperture_time, '%Y-%m-%d')
         landing_time   = datetime.datetime.strptime(landing_time,   '%Y-%m-%d')
@@ -49,6 +89,12 @@ class FlightsService:
 
             # Check which flights need to be removed
             for f in local_flights:
+                pass
+
+
+            for f in external_flights:
+                # Pass all details to repository and check if they can be
+                # resolved in the local database, if not, grab them from the external API
                 pass
 
 

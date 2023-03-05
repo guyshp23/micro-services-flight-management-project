@@ -10,23 +10,23 @@ Base = declarative_base()
 class Flight(Base):
     __tablename__ = "app_flight"
 
-    id                  = Column(Integer, primary_key=True, auto_increment=True)
-    origin_airport      = Column(ForeignKey('app_airport.id'))
-    destination_airport = Column(ForeignKey('app_airport.id'))
-    departure_time      = Column(DateTime)
-    landing_time        = Column(DateTime)
-    status              = Column(String)
-    remaining_tickets   = Column(Integer)
-    price               = Column(Float)
+    id                     = Column(Integer, primary_key=True, auto_increment=True)
+    origin_airport_id      = Column(ForeignKey('app_airport.id'))
+    destination_airport_id = Column(ForeignKey('app_airport.id'))
+    departure_time         = Column(DateTime)
+    landing_time           = Column(DateTime)
+    status                 = Column(String)
+    remaining_tickets      = Column(Integer)
+    ticket_economy_price   = Column(Float)
 
-    def __init__(self, id, origin_airport, destination_airport, departure_time, landing_time, remaining_tickets, price):
-        self.id                  = id
-        self.origin_airport      = origin_airport
-        self.destination_airport = destination_airport
-        self.departure_time      = departure_time
-        self.landing_time        = landing_time
-        self.remaining_tickets   = remaining_tickets
-        self.price               = price
+    def __init__(self, id, origin_airport_id, destination_airport_id, departure_time, landing_time, remaining_tickets, ticket_economy_price):
+        self.id                   = id
+        self.origin_airport_id    = origin_airport_id
+        self.destination_airport_id  = destination_airport_id
+        self.departure_time       = departure_time
+        self.landing_time         = landing_time
+        self.remaining_tickets    = remaining_tickets
+        self.ticket_economy_price = ticket_economy_price
 
         self.validate()
 
@@ -46,16 +46,49 @@ class Flight(Base):
         return {
             "object": "Flight",
             "data": {
-                "id"                 : self.id,
-                "original_airport"   : self.origin_airport,
-                "destination_airport": self.destination_airport,
-                "departure_time"     : self.departure_time,
-                "landing_time"       : self.landing_time,
-                "remaining_tickets"  : self.remaining_tickets,
-                "price"              : self.price,
+                "id"                     : self.id,
+                "original_airport"       : self.origin_airport_id,
+                "destination_airport_id" : self.destination_airport_id,
+                "departure_time"         : self.departure_time,
+                "landing_time"           : self.landing_time,
+                "remaining_tickets"      : self.remaining_tickets,
+                "ticket_economy_price"   : self.ticket_economy_price,
             }
         }
 
+
+    def validate(self):
+        return True
+
+
+class Airport(Base):
+    __tablename__ = "app_airport"
+
+    id           = Column(Integer, primary_key=True, auto_increment=True)
+    country_name = Column(String(50))
+    city_name    = Column(String(50))
+    city_code    = Column(String(50))
+    airport_name = Column(String(50))
+    airport_code = Column(String(3))
+    # name = Column(String)
+    # city = Column(String, max_length=3)   
+
+    def __init__(self, id, name, city):
+        self.id   = id
+        self.name = name
+        self.city = city
+
+        self.validate()
+
+    def to_json(self):
+        return {
+            "object": "Airport",
+            "data": {
+                "id"   : self.id,
+                "name" : self.name,
+                "city" : self.city,
+            }
+        }
 
     def validate(self):
         return True

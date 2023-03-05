@@ -27,3 +27,12 @@ class InvalidParametersWereProvidedInRequestException(Exception):
     :status_code: 402
     """
     pass
+
+class AirportNotFoundException(Exception):
+    """
+     Thrown when the airport wasn't found in the local database
+     but was mentioned in the external api request
+
+     :status_code: 404
+    """
+    pass

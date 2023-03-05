@@ -1,0 +1,2206 @@
+[
+    {
+        "airline": {
+            "iataCode": "GQ",
+            "icaoCode": "SEH",
+            "name": "Sky Express"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T13:07:00.000",
+            "gate": null,
+            "iataCode": "ATH",
+            "icaoCode": "LGAV",
+            "scheduledTime": "2023-03-04T13:15:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": "2023-03-04T12:39:00.000",
+            "actualTime": "2023-03-04T12:39:00.000",
+            "baggage": null,
+            "delay": "9",
+            "estimatedRunway": "2023-03-04T12:39:00.000",
+            "estimatedTime": "2023-03-04T12:30:00.000",
+            "gate": null,
+            "iataCode": "MLO",
+            "icaoCode": "LGML",
+            "scheduledTime": "2023-03-04T12:30:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "GQ411",
+            "icaoNumber": "SEH411",
+            "number": "411"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "6E",
+            "icaoCode": "IGO",
+            "name": "IndiGo"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T17:50:00.000",
+            "gate": null,
+            "iataCode": "BOM",
+            "icaoCode": "VABB",
+            "scheduledTime": "2023-03-04T18:00:00.000",
+            "terminal": "1"
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": "2023-03-04T16:00:00.000",
+            "actualTime": "2023-03-04T16:00:00.000",
+            "baggage": null,
+            "delay": "10",
+            "estimatedRunway": "2023-03-04T16:00:00.000",
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "KNU",
+            "icaoCode": "VIKA",
+            "scheduledTime": "2023-03-04T15:50:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "6E5317",
+            "icaoNumber": "IGO5317",
+            "number": "5317"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "WF",
+            "icaoCode": "WIF",
+            "name": "Wideroe"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "OSY",
+            "icaoCode": "ENNM",
+            "scheduledTime": "2023-03-04T11:30:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": "2023-03-04T11:17:00.000",
+            "actualTime": "2023-03-04T11:17:00.000",
+            "baggage": null,
+            "delay": "8",
+            "estimatedRunway": "2023-03-04T11:17:00.000",
+            "estimatedTime": "2023-03-04T11:15:00.000",
+            "gate": null,
+            "iataCode": "RVK",
+            "icaoCode": "ENRM",
+            "scheduledTime": "2023-03-04T11:10:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "WF786",
+            "icaoNumber": "WIF786",
+            "number": "786"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "QB",
+            "icaoCode": "QSM",
+            "name": "Qeshm Airlines"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "THR",
+            "icaoCode": "OIII",
+            "scheduledTime": "2023-03-04T14:40:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "SDG",
+            "icaoCode": "OICS",
+            "scheduledTime": "2023-03-04T13:40:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "QB1292",
+            "icaoNumber": "QSM1292",
+            "number": "1292"
+        },
+        "status": "unknown",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "KL",
+            "icaoCode": "KLM",
+            "name": "KLM"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": "8",
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": "A08",
+            "iataCode": "AMS",
+            "icaoCode": "EHAM",
+            "scheduledTime": "2023-03-04T12:35:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": "10",
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T10:40:00.000",
+            "gate": "4",
+            "iataCode": "HUY",
+            "icaoCode": "EGNJ",
+            "scheduledTime": "2023-03-04T10:30:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "KL1486",
+            "icaoNumber": "KLM1486",
+            "number": "1486"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "KQ",
+            "icaoCode": "KQA",
+            "name": "Kenya Airways"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": "8",
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": "A08",
+            "iataCode": "AMS",
+            "icaoCode": "EHAM",
+            "scheduledTime": "2023-03-04T12:35:00.000",
+            "terminal": null
+        },
+        "codeshared": {
+            "airline": {
+                "iataCode": "kl",
+                "icaoCode": "klm",
+                "name": "klm"
+            },
+            "flight": {
+                "iataNumber": "kl1486",
+                "icaoNumber": "klm1486",
+                "number": "1486"
+            }
+        },
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": "10",
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T10:40:00.000",
+            "gate": "4",
+            "iataCode": "HUY",
+            "icaoCode": "EGNJ",
+            "scheduledTime": "2023-03-04T10:30:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "KQ1486",
+            "icaoNumber": "KQA1486",
+            "number": "1486"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "G3",
+            "icaoCode": "GLO",
+            "name": "Gol"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": "8",
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": "A08",
+            "iataCode": "AMS",
+            "icaoCode": "EHAM",
+            "scheduledTime": "2023-03-04T12:35:00.000",
+            "terminal": null
+        },
+        "codeshared": {
+            "airline": {
+                "iataCode": "kl",
+                "icaoCode": "klm",
+                "name": "klm"
+            },
+            "flight": {
+                "iataNumber": "kl1486",
+                "icaoNumber": "klm1486",
+                "number": "1486"
+            }
+        },
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": "10",
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T10:40:00.000",
+            "gate": "4",
+            "iataCode": "HUY",
+            "icaoCode": "EGNJ",
+            "scheduledTime": "2023-03-04T10:30:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "G35517",
+            "icaoNumber": "GLO5517",
+            "number": "5517"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "VS",
+            "icaoCode": "VIR",
+            "name": "Virgin Atlantic"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": "8",
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": "A08",
+            "iataCode": "AMS",
+            "icaoCode": "EHAM",
+            "scheduledTime": "2023-03-04T12:35:00.000",
+            "terminal": null
+        },
+        "codeshared": {
+            "airline": {
+                "iataCode": "kl",
+                "icaoCode": "klm",
+                "name": "klm"
+            },
+            "flight": {
+                "iataNumber": "kl1486",
+                "icaoNumber": "klm1486",
+                "number": "1486"
+            }
+        },
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": "10",
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T10:40:00.000",
+            "gate": "4",
+            "iataCode": "HUY",
+            "icaoCode": "EGNJ",
+            "scheduledTime": "2023-03-04T10:30:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "VS7036",
+            "icaoNumber": "VIR7036",
+            "number": "7036"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "EY",
+            "icaoCode": "ETD",
+            "name": "Etihad Airways"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": "8",
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": "A08",
+            "iataCode": "AMS",
+            "icaoCode": "EHAM",
+            "scheduledTime": "2023-03-04T12:35:00.000",
+            "terminal": null
+        },
+        "codeshared": {
+            "airline": {
+                "iataCode": "kl",
+                "icaoCode": "klm",
+                "name": "klm"
+            },
+            "flight": {
+                "iataNumber": "kl1486",
+                "icaoNumber": "klm1486",
+                "number": "1486"
+            }
+        },
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": "10",
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T10:40:00.000",
+            "gate": "4",
+            "iataCode": "HUY",
+            "icaoCode": "EGNJ",
+            "scheduledTime": "2023-03-04T10:30:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "EY7307",
+            "icaoNumber": "ETD7307",
+            "number": "7307"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "MF",
+            "icaoCode": "CXA",
+            "name": "Xiamen Airlines"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": "8",
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": "A08",
+            "iataCode": "AMS",
+            "icaoCode": "EHAM",
+            "scheduledTime": "2023-03-04T12:35:00.000",
+            "terminal": null
+        },
+        "codeshared": {
+            "airline": {
+                "iataCode": "kl",
+                "icaoCode": "klm",
+                "name": "klm"
+            },
+            "flight": {
+                "iataNumber": "kl1486",
+                "icaoNumber": "klm1486",
+                "number": "1486"
+            }
+        },
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": "10",
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T10:40:00.000",
+            "gate": "4",
+            "iataCode": "HUY",
+            "icaoCode": "EGNJ",
+            "scheduledTime": "2023-03-04T10:30:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "MF9160",
+            "icaoNumber": "CXA9160",
+            "number": "9160"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "DL",
+            "icaoCode": "DAL",
+            "name": "Delta Air Lines"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": "8",
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": "A08",
+            "iataCode": "AMS",
+            "icaoCode": "EHAM",
+            "scheduledTime": "2023-03-04T12:35:00.000",
+            "terminal": null
+        },
+        "codeshared": {
+            "airline": {
+                "iataCode": "kl",
+                "icaoCode": "klm",
+                "name": "klm"
+            },
+            "flight": {
+                "iataNumber": "kl1486",
+                "icaoNumber": "klm1486",
+                "number": "1486"
+            }
+        },
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": "10",
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T10:40:00.000",
+            "gate": "4",
+            "iataCode": "HUY",
+            "icaoCode": "EGNJ",
+            "scheduledTime": "2023-03-04T10:30:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "DL9473",
+            "icaoNumber": "DAL9473",
+            "number": "9473"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "KI",
+            "icaoCode": "SSJ",
+            "name": "KrasAvia"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "KJA",
+            "icaoCode": "UNKL",
+            "scheduledTime": "2023-03-04T19:35:00.000",
+            "terminal": "1"
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "KYZ",
+            "icaoCode": "UNKY",
+            "scheduledTime": "2023-03-04T17:50:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "KI112",
+            "icaoNumber": "SSJ112",
+            "number": "112"
+        },
+        "status": "unknown",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "",
+            "icaoCode": "JFA",
+            "name": "Jetfly Aviation"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": "22",
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T12:41:00.000",
+            "gate": null,
+            "iataCode": "ORE",
+            "icaoCode": "LFOZ",
+            "scheduledTime": "2023-03-04T12:20:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": "2023-03-04T11:45:00.000",
+            "actualTime": "2023-03-04T11:45:00.000",
+            "baggage": null,
+            "delay": "15",
+            "estimatedRunway": "2023-03-04T11:45:00.000",
+            "estimatedTime": "2023-03-04T11:35:00.000",
+            "gate": null,
+            "iataCode": "CFR",
+            "icaoCode": "LFRK",
+            "scheduledTime": "2023-03-04T11:30:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "",
+            "icaoNumber": "JFA",
+            "number": null
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "D2",
+            "icaoCode": "SSF",
+            "name": "Severstal Aircompany"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": "4",
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "SVO",
+            "icaoCode": "UUEE",
+            "scheduledTime": "2023-03-04T15:15:00.000",
+            "terminal": "B"
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T13:05:00.000",
+            "gate": null,
+            "iataCode": "UCT",
+            "icaoCode": "UUYH",
+            "scheduledTime": "2023-03-04T13:05:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "D2332",
+            "icaoNumber": "SSF332",
+            "number": "332"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "PK",
+            "icaoCode": "PIA",
+            "name": "Pakistan International Airlines"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "ISB",
+            "icaoCode": "OPIS",
+            "scheduledTime": "2023-03-04T16:50:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "UET",
+            "icaoCode": "OPQT",
+            "scheduledTime": "2023-03-04T15:30:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "PK326",
+            "icaoNumber": "PIA326",
+            "number": "326"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "6E",
+            "icaoCode": "IGO",
+            "name": "IndiGo"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T17:05:00.000",
+            "gate": null,
+            "iataCode": "CCU",
+            "icaoCode": "VECC",
+            "scheduledTime": "2023-03-04T17:40:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": "2023-03-04T15:30:00.000",
+            "actualTime": "2023-03-04T15:30:00.000",
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": "2023-03-04T15:30:00.000",
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "SHL",
+            "icaoCode": "VEBI",
+            "scheduledTime": "2023-03-04T15:45:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "6E7309",
+            "icaoNumber": "IGO7309",
+            "number": "7309"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "9I",
+            "icaoCode": "LLR",
+            "name": "Alliance Air"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "GAU",
+            "icaoCode": "VEGT",
+            "scheduledTime": "2023-03-04T16:40:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "SHL",
+            "icaoCode": "VEBI",
+            "scheduledTime": "2023-03-04T15:40:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "9I736",
+            "icaoNumber": "LLR736",
+            "number": "736"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "WF",
+            "icaoCode": "WIF",
+            "name": "Wideroe"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T11:59:00.000",
+            "gate": null,
+            "iataCode": "OSL",
+            "icaoCode": "ENGM",
+            "scheduledTime": "2023-03-04T12:20:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": "2023-03-04T11:12:00.000",
+            "actualTime": "2023-03-04T11:12:00.000",
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": "2023-03-04T11:12:00.000",
+            "estimatedTime": "2023-03-04T11:25:00.000",
+            "gate": null,
+            "iataCode": "FDE",
+            "icaoCode": "ENBL",
+            "scheduledTime": "2023-03-04T11:20:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "WF186",
+            "icaoNumber": "WIF186",
+            "number": "186"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "SU",
+            "icaoCode": "AFL",
+            "name": "Aeroflot"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "LED",
+            "icaoCode": "ULLI",
+            "scheduledTime": "2023-03-04T17:15:00.000",
+            "terminal": "1"
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "NAL",
+            "icaoCode": "URMN",
+            "scheduledTime": "2023-03-04T13:05:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "SU6110",
+            "icaoNumber": "AFL6110",
+            "number": "6110"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "THU",
+            "icaoCode": "THU",
+            "name": "Thunder Airlines"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T06:01:00.000",
+            "gate": null,
+            "iataCode": "YQT",
+            "icaoCode": "CYQT",
+            "scheduledTime": "2023-03-04T06:04:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": "2023-03-04T04:22:00.000",
+            "actualTime": "2023-03-04T04:22:00.000",
+            "baggage": null,
+            "delay": "22",
+            "estimatedRunway": "2023-03-04T04:22:00.000",
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "YHD",
+            "icaoCode": "CYHD",
+            "scheduledTime": "2023-03-04T04:00:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "THU880",
+            "icaoNumber": "THU880",
+            "number": "880"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "PG",
+            "icaoCode": "BKP",
+            "name": "Bangkok Airways"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T18:14:00.000",
+            "gate": null,
+            "iataCode": "USM",
+            "icaoCode": "VTSM",
+            "scheduledTime": "2023-03-04T18:30:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": "2023-03-04T17:17:00.000",
+            "actualTime": "2023-03-04T17:17:00.000",
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": "2023-03-04T17:17:00.000",
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "UTP",
+            "icaoCode": "VTBU",
+            "scheduledTime": "2023-03-04T17:20:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "PG294",
+            "icaoNumber": "BKP294",
+            "number": "294"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "WY",
+            "icaoCode": "OMA",
+            "name": "Oman Air"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T18:14:00.000",
+            "gate": null,
+            "iataCode": "USM",
+            "icaoCode": "VTSM",
+            "scheduledTime": "2023-03-04T18:30:00.000",
+            "terminal": null
+        },
+        "codeshared": {
+            "airline": {
+                "iataCode": "pg",
+                "icaoCode": "bkp",
+                "name": "bangkok airways"
+            },
+            "flight": {
+                "iataNumber": "pg294",
+                "icaoNumber": "bkp294",
+                "number": "294"
+            }
+        },
+        "departure": {
+            "actualRunway": "2023-03-04T17:17:00.000",
+            "actualTime": "2023-03-04T17:17:00.000",
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": "2023-03-04T17:17:00.000",
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "UTP",
+            "icaoCode": "VTBU",
+            "scheduledTime": "2023-03-04T17:20:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "WY5745",
+            "icaoNumber": "OMA5745",
+            "number": "5745"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "TG",
+            "icaoCode": "THA",
+            "name": "Thai Airways International"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T18:14:00.000",
+            "gate": null,
+            "iataCode": "USM",
+            "icaoCode": "VTSM",
+            "scheduledTime": "2023-03-04T18:30:00.000",
+            "terminal": null
+        },
+        "codeshared": {
+            "airline": {
+                "iataCode": "pg",
+                "icaoCode": "bkp",
+                "name": "bangkok airways"
+            },
+            "flight": {
+                "iataNumber": "pg294",
+                "icaoNumber": "bkp294",
+                "number": "294"
+            }
+        },
+        "departure": {
+            "actualRunway": "2023-03-04T17:17:00.000",
+            "actualTime": "2023-03-04T17:17:00.000",
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": "2023-03-04T17:17:00.000",
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "UTP",
+            "icaoCode": "VTBU",
+            "scheduledTime": "2023-03-04T17:20:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "TG5786",
+            "icaoNumber": "THA5786",
+            "number": "5786"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "QR",
+            "icaoCode": "QTR",
+            "name": "Qatar Airways"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T18:14:00.000",
+            "gate": null,
+            "iataCode": "USM",
+            "icaoCode": "VTSM",
+            "scheduledTime": "2023-03-04T18:30:00.000",
+            "terminal": null
+        },
+        "codeshared": {
+            "airline": {
+                "iataCode": "pg",
+                "icaoCode": "bkp",
+                "name": "bangkok airways"
+            },
+            "flight": {
+                "iataNumber": "pg294",
+                "icaoNumber": "bkp294",
+                "number": "294"
+            }
+        },
+        "departure": {
+            "actualRunway": "2023-03-04T17:17:00.000",
+            "actualTime": "2023-03-04T17:17:00.000",
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": "2023-03-04T17:17:00.000",
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "UTP",
+            "icaoCode": "VTBU",
+            "scheduledTime": "2023-03-04T17:20:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "QR6514",
+            "icaoNumber": "QTR6514",
+            "number": "6514"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "GJ",
+            "icaoCode": "CDC",
+            "name": "Loong Air"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "XIY",
+            "icaoCode": "ZLXY",
+            "scheduledTime": "2023-03-04T22:30:00.000",
+            "terminal": "3"
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "UTP",
+            "icaoCode": "VTBU",
+            "scheduledTime": "2023-03-04T17:35:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "GJ8974",
+            "icaoNumber": "CDC8974",
+            "number": "8974"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "DD",
+            "icaoCode": "NOK",
+            "name": "Nok Air"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "DMK",
+            "icaoCode": "VTBD",
+            "scheduledTime": "2023-03-04T18:50:00.000",
+            "terminal": "2"
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T17:20:00.000",
+            "gate": null,
+            "iataCode": "SNO",
+            "icaoCode": "VTUI",
+            "scheduledTime": "2023-03-04T17:20:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "DD369",
+            "icaoNumber": "NOK369",
+            "number": "369"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "",
+            "icaoCode": "CWA",
+            "name": "CanWest Air"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": "5",
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T04:25:00.000",
+            "gate": null,
+            "iataCode": "YQF",
+            "icaoCode": "CYQF",
+            "scheduledTime": "2023-03-04T04:20:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": "2023-03-04T03:41:00.000",
+            "actualTime": "2023-03-04T03:41:00.000",
+            "baggage": null,
+            "delay": "12",
+            "estimatedRunway": "2023-03-04T03:41:00.000",
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "YLL",
+            "icaoCode": "CYLL",
+            "scheduledTime": "2023-03-04T03:30:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "",
+            "icaoNumber": "CWA935",
+            "number": "935"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "7R",
+            "icaoCode": "RLU",
+            "name": "RusLine"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "LED",
+            "icaoCode": "ULLI",
+            "scheduledTime": "2023-03-04T15:00:00.000",
+            "terminal": "1"
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "IWA",
+            "icaoCode": "UUBI",
+            "scheduledTime": "2023-03-04T13:30:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "7R104",
+            "icaoNumber": "RLU104",
+            "number": "104"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "ET",
+            "icaoCode": "ETH",
+            "name": "Ethiopian Airlines"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "ADD",
+            "icaoCode": "HAAB",
+            "scheduledTime": "2023-03-04T14:40:00.000",
+            "terminal": "1"
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "LLI",
+            "icaoCode": "HALL",
+            "scheduledTime": "2023-03-04T13:25:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "ET121",
+            "icaoNumber": "ETH121",
+            "number": "121"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "G8",
+            "icaoCode": "GOW",
+            "name": "GoAir"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": "04",
+            "delay": "8",
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T18:03:00.000",
+            "gate": "7",
+            "iataCode": "BLR",
+            "icaoCode": "VOBL",
+            "scheduledTime": "2023-03-04T17:55:00.000",
+            "terminal": "1"
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": "2023-03-04T15:41:00.000",
+            "actualTime": "2023-03-04T15:41:00.000",
+            "baggage": null,
+            "delay": "11",
+            "estimatedRunway": "2023-03-04T15:41:00.000",
+            "estimatedTime": "2023-03-04T15:30:00.000",
+            "gate": null,
+            "iataCode": "IXZ",
+            "icaoCode": "VOPB",
+            "scheduledTime": "2023-03-04T15:30:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "G8803",
+            "icaoNumber": "GOW803",
+            "number": "803"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "OQ",
+            "icaoCode": "CQN",
+            "name": "Chongqing Airlines"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "PZI",
+            "icaoCode": "ZUZH",
+            "scheduledTime": "2023-03-04T18:50:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T18:00:00.000",
+            "gate": null,
+            "iataCode": "NLH",
+            "icaoCode": "ZPNL",
+            "scheduledTime": "2023-03-04T18:00:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "OQ2187",
+            "icaoNumber": "CQN2187",
+            "number": "2187"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "FD",
+            "icaoCode": "AIQ",
+            "name": "Thai AirAsia"
+        },
+        "arrival": {
+            "actualRunway": "2023-03-04T18:10:00.000",
+            "actualTime": "2023-03-04T18:10:00.000",
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": "2023-03-04T18:10:00.000",
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "DMK",
+            "icaoCode": "VTBD",
+            "scheduledTime": "2023-03-04T18:30:00.000",
+            "terminal": "2"
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": "2023-03-04T17:30:00.000",
+            "actualTime": "2023-03-04T17:30:00.000",
+            "baggage": null,
+            "delay": "1",
+            "estimatedRunway": "2023-03-04T17:30:00.000",
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "LOE",
+            "icaoCode": "VTUL",
+            "scheduledTime": "2023-03-04T17:30:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "FD3549",
+            "icaoNumber": "AIQ3549",
+            "number": "3549"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "",
+            "icaoCode": "",
+            "name": "empty"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "OBN",
+            "icaoCode": "EGEO",
+            "scheduledTime": "2023-03-04T11:15:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "CSA",
+            "icaoCode": "EGEY",
+            "scheduledTime": "2023-03-04T10:45:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "",
+            "icaoNumber": "",
+            "number": "214"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "KL",
+            "icaoCode": "KLM",
+            "name": "KLM"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": "12",
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": "A04",
+            "iataCode": "AMS",
+            "icaoCode": "EHAM",
+            "scheduledTime": "2023-03-04T13:45:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": "20",
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T12:15:00.000",
+            "gate": "2",
+            "iataCode": "LPI",
+            "icaoCode": "ESSL",
+            "scheduledTime": "2023-03-04T11:55:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "KL1180",
+            "icaoNumber": "KLM1180",
+            "number": "1180"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "KQ",
+            "icaoCode": "KQA",
+            "name": "Kenya Airways"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": "12",
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": "A04",
+            "iataCode": "AMS",
+            "icaoCode": "EHAM",
+            "scheduledTime": "2023-03-04T13:45:00.000",
+            "terminal": null
+        },
+        "codeshared": {
+            "airline": {
+                "iataCode": "kl",
+                "icaoCode": "klm",
+                "name": "klm"
+            },
+            "flight": {
+                "iataNumber": "kl1180",
+                "icaoNumber": "klm1180",
+                "number": "1180"
+            }
+        },
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": "20",
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T12:15:00.000",
+            "gate": "2",
+            "iataCode": "LPI",
+            "icaoCode": "ESSL",
+            "scheduledTime": "2023-03-04T11:55:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "KQ1180",
+            "icaoNumber": "KQA1180",
+            "number": "1180"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "DL",
+            "icaoCode": "DAL",
+            "name": "Delta Air Lines"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": "12",
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": "A04",
+            "iataCode": "AMS",
+            "icaoCode": "EHAM",
+            "scheduledTime": "2023-03-04T13:45:00.000",
+            "terminal": null
+        },
+        "codeshared": {
+            "airline": {
+                "iataCode": "kl",
+                "icaoCode": "klm",
+                "name": "klm"
+            },
+            "flight": {
+                "iataNumber": "kl1180",
+                "icaoNumber": "klm1180",
+                "number": "1180"
+            }
+        },
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": "20",
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T12:15:00.000",
+            "gate": "2",
+            "iataCode": "LPI",
+            "icaoCode": "ESSL",
+            "scheduledTime": "2023-03-04T11:55:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "DL9510",
+            "icaoNumber": "DAL9510",
+            "number": "9510"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "7R",
+            "icaoCode": "RLU",
+            "name": "RusLine"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "LED",
+            "icaoCode": "ULLI",
+            "scheduledTime": "2023-03-04T15:10:00.000",
+            "terminal": "1"
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "LPK",
+            "icaoCode": "UUOL",
+            "scheduledTime": "2023-03-04T13:10:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "7R262",
+            "icaoNumber": "RLU262",
+            "number": "262"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "EU",
+            "icaoCode": "UEA",
+            "name": "Chengdu Airlines"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "LHW",
+            "icaoCode": "ZLLL",
+            "scheduledTime": "2023-03-04T19:30:00.000",
+            "terminal": "T1"
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T18:36:00.000",
+            "gate": null,
+            "iataCode": "JIC",
+            "icaoCode": "ZLJC",
+            "scheduledTime": "2023-03-04T18:45:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "EU2274",
+            "icaoNumber": "UEA2274",
+            "number": "2274"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "CZ",
+            "icaoCode": "CSN",
+            "name": "China Southern Airlines"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "LHW",
+            "icaoCode": "ZLLL",
+            "scheduledTime": "2023-03-04T19:30:00.000",
+            "terminal": "T1"
+        },
+        "codeshared": {
+            "airline": {
+                "iataCode": "eu",
+                "icaoCode": "uea",
+                "name": "chengdu airlines"
+            },
+            "flight": {
+                "iataNumber": "eu2274",
+                "icaoNumber": "uea2274",
+                "number": "2274"
+            }
+        },
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T18:36:00.000",
+            "gate": null,
+            "iataCode": "JIC",
+            "icaoCode": "ZLJC",
+            "scheduledTime": "2023-03-04T18:45:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "CZ2344",
+            "icaoNumber": "CSN2344",
+            "number": "2344"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "ST",
+            "icaoCode": "RTL",
+            "name": "Air Thanlwin"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "RGN",
+            "icaoCode": "VYYY",
+            "scheduledTime": "2023-03-04T18:45:00.000",
+            "terminal": "3"
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "LSH",
+            "icaoCode": "VYLS",
+            "scheduledTime": "2023-03-04T17:00:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "ST756",
+            "icaoNumber": "RTL756",
+            "number": "756"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "7Y",
+            "icaoCode": "MYP",
+            "name": "Mann Yadanarpon Airlines"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "RGN",
+            "icaoCode": "VYYY",
+            "scheduledTime": "2023-03-04T18:20:00.000",
+            "terminal": "3"
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "LSH",
+            "icaoCode": "VYLS",
+            "scheduledTime": "2023-03-04T16:40:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "7Y676",
+            "icaoNumber": "MYP676",
+            "number": "676"
+        },
+        "status": "unknown",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "UL",
+            "icaoCode": "ALK",
+            "name": "SriLankan Airlines"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "CMB",
+            "icaoCode": "VCBI",
+            "scheduledTime": "2023-03-04T17:00:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "GIU",
+            "icaoCode": "VCCS",
+            "scheduledTime": "2023-03-04T16:15:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "UL5007",
+            "icaoNumber": "ALK5007",
+            "number": "5007"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "C7",
+            "icaoCode": "CIN",
+            "name": "Cinnamon Air"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "CMB",
+            "icaoCode": "VCBI",
+            "scheduledTime": "2023-03-04T17:00:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "GIU",
+            "icaoCode": "VCCS",
+            "scheduledTime": "2023-03-04T16:15:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "C79404",
+            "icaoNumber": "CIN9404",
+            "number": "9404"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "AH",
+            "icaoCode": "DAH",
+            "name": "Air Algerie"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "ALG",
+            "icaoCode": "DAAG",
+            "scheduledTime": "2023-03-04T12:30:00.000",
+            "terminal": "D"
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "GJL",
+            "icaoCode": "DAAV",
+            "scheduledTime": "2023-03-04T11:40:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "AH6057",
+            "icaoNumber": "DAH6057",
+            "number": "6057"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "",
+            "icaoCode": "",
+            "name": "empty"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "CSA",
+            "icaoCode": "EGEY",
+            "scheduledTime": "2023-03-04T10:35:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "OBN",
+            "icaoCode": "EGEO",
+            "scheduledTime": "2023-03-04T10:05:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "",
+            "icaoNumber": "",
+            "number": "213"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "AQ",
+            "icaoCode": "JYH",
+            "name": "9 Air Co"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "WUH",
+            "icaoCode": "ZHHH",
+            "scheduledTime": "2023-03-04T21:30:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T16:27:00.000",
+            "gate": null,
+            "iataCode": "YZY",
+            "icaoCode": "ZLZY",
+            "scheduledTime": "2023-03-04T18:40:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "AQ1312",
+            "icaoNumber": "JYH1312",
+            "number": "1312"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "MU",
+            "icaoCode": "CES",
+            "name": "China Eastern Airlines"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": "307",
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "XIY",
+            "icaoCode": "ZLXY",
+            "scheduledTime": "2023-03-04T20:20:00.000",
+            "terminal": "3"
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T18:25:00.000",
+            "gate": null,
+            "iataCode": "YZY",
+            "icaoCode": "ZLZY",
+            "scheduledTime": "2023-03-04T18:25:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "MU2296",
+            "icaoNumber": "CES2296",
+            "number": "2296"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "MF",
+            "icaoCode": "CXA",
+            "name": "Xiamen Airlines"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": "307",
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "XIY",
+            "icaoCode": "ZLXY",
+            "scheduledTime": "2023-03-04T20:20:00.000",
+            "terminal": "3"
+        },
+        "codeshared": {
+            "airline": {
+                "iataCode": "mu",
+                "icaoCode": "ces",
+                "name": "china eastern airlines"
+            },
+            "flight": {
+                "iataNumber": "mu2296",
+                "icaoNumber": "ces2296",
+                "number": "2296"
+            }
+        },
+        "departure": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T18:25:00.000",
+            "gate": null,
+            "iataCode": "YZY",
+            "icaoCode": "ZLZY",
+            "scheduledTime": "2023-03-04T18:25:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "MF3747",
+            "icaoNumber": "CXA3747",
+            "number": "3747"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "HZ",
+            "icaoCode": "SHU",
+            "name": "Aurora"
+        },
+        "arrival": {
+            "actualRunway": "2023-03-04T21:39:00.000",
+            "actualTime": "2023-03-04T21:39:00.000",
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": "2023-03-04T21:39:00.000",
+            "estimatedTime": "2023-03-04T21:31:00.000",
+            "gate": null,
+            "iataCode": "UUS",
+            "icaoCode": "UHSS",
+            "scheduledTime": "2023-03-04T22:10:00.000",
+            "terminal": null
+        },
+        "codeshared": null,
+        "departure": {
+            "actualRunway": "2023-03-04T20:30:00.000",
+            "actualTime": "2023-03-04T20:30:00.000",
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": "2023-03-04T20:30:00.000",
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "DEE",
+            "icaoCode": "UHSM",
+            "scheduledTime": "2023-03-04T21:45:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "HZ4622",
+            "icaoNumber": "SHU4622",
+            "number": "4622"
+        },
+        "status": "active",
+        "type": "departure"
+    },
+    {
+        "airline": {
+            "iataCode": "ZH",
+            "icaoCode": "CSZ",
+            "name": "Shenzhen Airlines"
+        },
+        "arrival": {
+            "actualRunway": null,
+            "actualTime": null,
+            "baggage": null,
+            "delay": null,
+            "estimatedRunway": null,
+            "estimatedTime": "2023-03-04T20:33:00.000",
+            "gate": null,
+            "iataCode": "NKG",
+            "icaoCode": "ZSNJ",
+            "scheduledTime": "2023-03-04T21:00:00.000",
+            "terminal": "1"
+        },
+        "codeshared": {
+            "airline": {
+                "iataCode": "tv",
+                "icaoCode": "tba",
+                "name": "tibet airlines"
+            },
+            "flight": {
+                "iataNumber": "tv9829",
+                "icaoNumber": "tba9829",
+                "number": "9829"
+            }
+        },
+        "departure": {
+            "actualRunway": "2023-03-04T18:42:00.000",
+            "actualTime": "2023-03-04T18:42:00.000",
+            "baggage": null,
+            "delay": "2",
+            "estimatedRunway": "2023-03-04T18:42:00.000",
+            "estimatedTime": null,
+            "gate": null,
+            "iataCode": "GYS",
+            "icaoCode": "ZUGU",
+            "scheduledTime": "2023-03-04T18:40:00.000",
+            "terminal": null
+        },
+        "flight": {
+            "iataNumber": "ZH3963",
+            "icaoNumber": "CSZ3963",
+            "number": "3963"
+        },
+        "status": "active",
+        "type": "departure"
+    }
+]

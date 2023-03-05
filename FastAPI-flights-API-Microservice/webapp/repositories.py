@@ -1,10 +1,11 @@
 import datetime
 
 import httpx
-from .models import Flight
+from .models import Airport, Flight
 from fastapi import Form
 from .exceptions import *
 from .config import Settings
+import json
 
 
 class FlightsRepository:
@@ -15,6 +16,8 @@ class FlightsRepository:
         # to later call it in the get_flights_by_params method 
         global EXTERNAL_API_URL_01
         EXTERNAL_API_URL_01 = Settings().EXTERNAL_API_URL_01
+        global EXTERNAL_API_KEY_01
+        EXTERNAL_API_KEY_01 = Settings().EXTERNAL_API_KEY_01
 
 
     def get_local_flights_by_params(self) -> list:
@@ -36,7 +39,7 @@ class FlightsRepository:
             (status_code = 200)
         """
         with self.session_factory() as s:
-            rec: Flight = s.query(Flight).filter(status='deperture').all()
+            rec: Flight = s.query(Flight).filter(Flight.status == 'deperture').all()
 
             if not rec:
                 raise FlightNotFoundException('No flights in the database!')
@@ -60,22 +63,33 @@ class FlightsRepository:
             FlightNotFoundException: Something went wrong while getting the flights from the external api
 
         Returns:
-            A list of all flightss in the database
+            A list of all flights in the database
             (status_code = 200)
         """
 
         # Send a request to the external api to get the flights
         # httpx.get('https://api.skypicker.com/flights?flyFrom=TLV&to=JFK&dateFrom=01/01/2021&dateTo=01/01/2021&partner=picky&v=3')
         external_flights = httpx.get(EXTERNAL_API_URL_01 + '/timetable',
-                                        params={'status': 'scheduled', 'type': 'departure'})
+                                        params={'status': 'scheduled',      'type': 'departure', 
+                                                'key': EXTERNAL_API_KEY_01, 'limit': '50'},
+                                    )
         
         # Check if the external api returned a valid response
-        if external_flights.status_code != 200:
-            raise FlightNotFoundException('Something went wrong while getting the flights from the external api')
+        # if external_flights.status_code != 200 or json.loads(external_flights.text).success:
+        #     raise FlightNotFoundException('Something went wrong while getting the flights from the external api')
 
-        # Turn each record in rec into a list of flightss in JSON
-        json_list = [f.to_json() for f in external_flights.json()]
-        return json_list
+        print(json.loads(external_flights.text))
+        print(type(json.loads(external_flights.text)))
+
+        # if json.loads(external_flights.text).success == False:
+        #     print('Something went wrong...')
+        #     print(json.loads(external_flights.text).message)
+        
+        # Turn the response into a list of flights as a list
+        return json.loads(external_flights.text)
+        # Turn each record in rec into a list of flights in JSON
+        # json_list = [f.json() for f in external_flights.json()]
+        # return json_list
 
 
         # with self.session_factory() as s:
