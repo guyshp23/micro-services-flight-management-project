@@ -68,8 +68,6 @@ class FlightService(BaseServiceInterface):
         return response
 
 
-
-
     def get_by_id(flight_id: int):
         logger.debug("FlightService.get_by_id() called")
         
@@ -82,3 +80,13 @@ class FlightService(BaseServiceInterface):
         
         logger.debug('Returned flight: ' + str(flight))
         return flight
+
+
+    def get_all_airports_display_name_by_query(query: str) -> list:
+        logger.debug("FlightService.get_all_airports_display_name_by_query() called")
+
+        # Find all airports that match the query
+        airports = Airport.objects.filter(display_name__icontains=query)
+
+        # Return the airports that match the query
+        return airports

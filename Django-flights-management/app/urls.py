@@ -1,12 +1,14 @@
 from django.urls    import path
+
 from .views         import *
 from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
     # ... other API routes
 
-
-      # Authentication-related routes
+      #
+      # Authentication
+      #
       path('auth/logout/', LogoutView.as_view(),
             name ='logout'),
 
@@ -22,6 +24,19 @@ urlpatterns = [
             jwt_views.TokenRefreshView.as_view(),
             name ='token_refresh'),
 
+
+      #
+      # Airports
+      #
+      path('airports/locations/',
+           GetAllAirportLocations.as_view(),
+           name='flights_locations'
+           ),
+
+
+      #
+      # Flights
+      #
       path('flights/',
            GetFlightsByParams.as_view(),
            name='flights_get_by_params'
@@ -31,4 +46,37 @@ urlpatterns = [
            GetFlightDetailsByID.as_view(),
            name='flights_get_by_id'
            ),
+
+
+      #
+      # Users
+      #      
+      path('users/<int:user_id>/flights/',
+             GetUserFlights.as_view(),
+            name='users_flights'
+            ),
+
+      path('users/<int:user_id>/',
+            DeleteUser.as_view(),
+            name='users_delete'
+           ),
+
+
+      #
+      # Tickets
+      #
+      path('tickets/book/<int:flight_id>/',
+             BookTicket.as_view(),
+            name='tickets_book'
+            ),
+      
+      path('tickets/cancel/<int:ticket_id>/',
+            CancelTicket.as_view(),
+            name='tickets_cancel'
+            ),
+      
+      path('tickets/delete/<int:ticket_id>/',
+            DeleteTicket.as_view(),
+            name='tickets_delete'
+            ),
 ]

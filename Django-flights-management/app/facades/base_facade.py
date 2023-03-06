@@ -22,8 +22,8 @@ class BaseFacade():
         return FlightService.get_by_id(flight_id)
 
 
-    def get_all_airports(self):
-        pass
+    def get_all_airports_display_name_by_query(self, query: str):
+        return FlightService.get_all_airports_display_name_by_query(query)
 
 
     def create_new_user(self, user: User):

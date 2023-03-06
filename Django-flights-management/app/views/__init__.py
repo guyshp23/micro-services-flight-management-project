@@ -6,8 +6,12 @@
 # Instead of manually importing each one...
 # + I can put notes here so that's cool
 
-from .auth    import *
-from .flights import *
+from app.views.auth     import *
+from app.views.flights  import *
+from app.views.tickets  import *
+from app.views.users    import *
+from app.views.airports import *
+
 """
 ### All required views by category (different category in each file) ###
 
@@ -26,7 +30,7 @@ from .flights import *
 --> Flights
 (GET)    /api/flights/                   [ User, Guest ] -- Get all flights by params
 (GET)    /api/flights/<flight_id>/       [ User, Guest ] -- Get a specific flight by flight id (to show the details of the flight in the UI)
-(GET)    /api/flights/location/          [ User, Guest ] -- Get all available countries, cities of airports to display in "from:" & "to:" dropdown in UI\
+(GET)    /api/flights/locations/         [ User, Guest ] -- Get all available countries, cities of airports to display in "from:" & "to:" dropdown in UI\
 
 
 --> Users
