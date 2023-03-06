@@ -65,7 +65,7 @@ class GetFlightDetailsByID(APIView):
     def get(self, request, flight_id):
 
         try:
-            flight_details = BaseFacade.get_flight_by_id(flight_id)
+            flight_details = BaseFacade.get_flight_by_id(self, flight_id)
             serializer     = self.serializer_class(flight_details)
 
 

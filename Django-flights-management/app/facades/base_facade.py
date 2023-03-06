@@ -15,15 +15,15 @@ class BaseFacade():
 
 
     def get_flights_by_parameters(self, origin_display_name: int, destination_display_name: int, departure_date, landing_date):
-        return FlightService.get_by_params(origin_display_name, destination_display_name, departure_date, landing_date)
+        return FlightService.get_by_params(self, origin_display_name, destination_display_name, departure_date, landing_date)
 
 
     def get_flight_by_id(self, flight_id: int):
-        return FlightService.get_by_id(flight_id)
+        return FlightService.get_by_id(self, flight_id)
 
 
     def get_all_airports_display_name_by_query(self, query: str):
-        return FlightService.get_all_airports_display_name_by_query(query)
+        return FlightService.get_all_airports_display_name_by_query(self, query)
 
 
     def create_new_user(self, user: User):

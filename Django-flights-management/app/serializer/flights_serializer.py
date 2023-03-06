@@ -2,9 +2,9 @@ from rest_framework import serializers
 from ..models import Flight
 
 """
-Serializers to turn queryset objects to JSON data structures 
+Serializers to turn queryset objects to JSON data structures
 """
-  
+
 class FlightsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Flight

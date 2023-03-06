@@ -18,7 +18,7 @@ class FlightService(BaseServiceInterface):
     def __init__(self):
         logger.debug("FlightService initialized")
 
-    async def get_by_params(origin_display_name: str, destination_display_name: str,
+    async def get_by_params(self, origin_display_name: str, destination_display_name: str,
                             departure_time,           landing_time):
         logger.debug("FlightService.get_by_params() called")
         print("FlightService.get_by_params() called")
@@ -68,7 +68,7 @@ class FlightService(BaseServiceInterface):
         return response
 
 
-    def get_by_id(flight_id: int):
+    def get_by_id(self, flight_id: int):
         logger.debug("FlightService.get_by_id() called")
         
         # Check if the flight exists by ID
@@ -82,7 +82,7 @@ class FlightService(BaseServiceInterface):
         return flight
 
 
-    def get_all_airports_display_name_by_query(query: str) -> list:
+    def get_all_airports_display_name_by_query(self, query: str) -> list:
         logger.debug("FlightService.get_all_airports_display_name_by_query() called")
 
         # Find all airports that match the query
