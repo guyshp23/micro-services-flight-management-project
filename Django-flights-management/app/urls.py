@@ -52,7 +52,7 @@ urlpatterns = [
       # Users
       #      
       path('users/<int:user_id>/flights/',
-             GetUserFlights.as_view(),
+             GetCustomerFlights.as_view(),
             name='users_flights'
             ),
 

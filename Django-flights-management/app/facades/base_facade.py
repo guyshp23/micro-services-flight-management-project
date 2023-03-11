@@ -32,3 +32,7 @@ class BaseFacade():
 
     def get_user_by_id(self, user: User):
         pass
+
+
+    def get_all_customer_flights(self, user_id: int) -> list:
+        return FlightService.get_all_customer_flights(self, user_id)

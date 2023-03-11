@@ -1,7 +1,9 @@
 import logging
+
+from app.services.users_service import UsersService
 from ..exceptions.model_not_found import ModelNotFoundException
 from .base_service_interface import BaseServiceInterface
-from ..models import Airport, Flight
+from ..models import Airport, Flight, Ticket
 import requests
 
 
@@ -87,6 +89,36 @@ class FlightService(BaseServiceInterface):
 
         # Find all airports that match the query
         airports = Airport.objects.filter(display_name__icontains=query)
-
+ 
         # Return the airports that match the query
         return airports
+
+
+    def get_all_customer_flights(self, customer_id: int) -> list:
+        """
+        Get all the flights the user booked.
+
+        Args:
+            customer_id (int): The ID of the user to get the flights of.
+        
+        Raises:
+            ModelNotFoundException: If the user with the given ID doesn't exist.
+
+        Returns:
+            list: A list of the flights the user booked.
+        """
+
+        # Check if the user exists by ID
+        UsersService.does_user_exist(customer_id)
+
+        user_tickets = Ticket.objects.filter(customer=customer_id).all()
+        user_flights = []
+
+        for ticket in user_tickets:
+            flight = Flight.objects.filter(id=ticket.flight_id).first()
+            # print(flight)
+            user_flights.append(flight)
+
+        logger.debug('Returned user flights: ' + str(user_flights))
+        # print(user_flights)
+        return user_flights
