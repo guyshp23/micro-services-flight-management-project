@@ -1,4 +1,5 @@
 from rest_framework.views  import APIView, Response
+from app.exceptions.factory import ExceptionsFactory
 from app.exceptions.model_not_found import ModelNotFoundException
 from app.facades.administrator_facade import AdministratorFacade
 from app.facades.base_facade import BaseFacade
@@ -14,7 +15,7 @@ class DeleteUser(APIView):
             # Return the user flights.
             return Response(status=200)
         except ModelNotFoundException as e:
-            return Response(str(e), status=404)
+            return ExceptionsFactory.handle(e)
 
 class GetUserByID(APIView):
     serializer_class = UsersSerializer
@@ -28,6 +29,6 @@ class GetUserByID(APIView):
             # Return the user flights.
             return Response(serializer.data, status=200)
         except ModelNotFoundException as e:
-            return Response(str(e), status=404)
+            return ExceptionsFactory.handle(e)
         except ValueError as e:
-            return Response(str(e), status=400)
+            return ExceptionsFactory.handle(e)

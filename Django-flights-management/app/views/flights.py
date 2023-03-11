@@ -1,4 +1,6 @@
 from rest_framework.views  import APIView, Response
+
+from app.exceptions.factory import ExceptionsFactory
 from ..exceptions.model_not_found import ModelNotFoundException
 from ..facades.base_facade import BaseFacade
 from ..serializer.flights_serializer import FlightsSerializer
@@ -43,8 +45,7 @@ class GetFlightsByParams(APIView):
             return Response(serializer.data, status=200)
         except Exception as e:
             # Return the error message.
-            # TODO: Tranform this to a custom error handling function that will convert this to a formated error message.
-            return Response(str(e), status=400)
+            return ExceptionsFactory.handle(e)
 
 class GetFlightDetailsByID(APIView):
     """
@@ -72,7 +73,6 @@ class GetFlightDetailsByID(APIView):
             return Response(serializer.data, status=200)
 
         except ModelNotFoundException as e:
-            return Response(str(e), status=500)
+            return ExceptionsFactory.handle(e)
         except Exception as e:
-            # TODO: Call the class to handle the exception and return the appro. object
-            return Response(str(e), status=500)
+            return ExceptionsFactory.handle(e)

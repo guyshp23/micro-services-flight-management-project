@@ -3,6 +3,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
+from rest_framework_simplejwt.exceptions import TokenError
+from app.exceptions.factory import ExceptionsFactory
 from ..services.users_service import UsersService
 
 
@@ -20,7 +22,7 @@ class LoginView(APIView):
             return Response(user, status=status.HTTP_200_OK)
 
         except Exception as e:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return ExceptionsFactory.handle(e)
 
 
 class LogoutView(APIView):
@@ -35,7 +37,7 @@ class LogoutView(APIView):
 
         try:
             UsersService.logout(request.data["refresh_token"])
-            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except TokenError as e:
+            return ExceptionsFactory.handle(e)
 
-        except Exception as e:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_205_RESET_CONTENT)
