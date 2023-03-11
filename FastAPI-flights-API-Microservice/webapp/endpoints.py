@@ -1,7 +1,10 @@
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, Query
 from dependency_injector.wiring import inject, Provide
-from .containers import Container
-from .services import FlightsService
+from webapp.exceptions import InvalidParametersWereProvidedInRequestException, AirportNotFoundException
+from webapp.containers import Container
+from webapp.services import FlightsService
+from pydantic import Required
+from webapp.validators.requests_validator import RequestsValidator
 
 router = APIRouter()
 
@@ -9,9 +12,31 @@ router = APIRouter()
 # Get flights by parameters
 @router.get("/flights/", status_code=200, response_class='application/json')
 @inject
-def get_flights_by_parmas(request: Request, flights_service: FlightsService =
-                      Depends(Provide[Container.flights_service])):
-    return flights_service.get_flights_by_params(request)
+def get_flights_by_parmas(
+                          flights_service: FlightsService = Depends(Provide[Container.flights_service]),
+                          origin_display_name:      str = Query(default = Required, min_length=3, max_length=50),
+                          destination_display_name: str = Query(default = Required, min_length=3, max_length=50),
+                          deperture_time:           str = Query(default = Required),
+                          landing_time:             str = Query(default = Required)
+                        ):
+
+    # Validate query parameters
+    try:
+        RequestsValidator.validate_get_flights_by_parmas(origin_display_name, destination_display_name,
+                                                         deperture_time,      landing_time)
+    except InvalidParametersWereProvidedInRequestException as e:
+        # TODO: Replace later with our own custom exception handler
+        #       that will return a custom response (& status code) based on the exception type
+        return {'error': e.message}
+
+    except AirportNotFoundException as e:
+        # TODO: Replace later with our own custom exception handler
+        #       that will return a custom response (& status code) based on the exception type
+        return {'error': e.message}
+
+    return flights_service.get_flights_by_params(origin_display_name, destination_display_name,
+                                                 deperture_time,      landing_time)
+
 
 # Get the specific flights for the specified flight ID
 @router.post("/flights/{flight_id}/", status_code=200)

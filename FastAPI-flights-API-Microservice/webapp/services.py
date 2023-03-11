@@ -13,68 +13,25 @@ from .config import Settings
 class FlightsService:
     def __init__(self, flights_repository: FlightsRepository):
         self.flights_repo: FlightsRepository = flights_repository
-        
+
         # Get external api url from .env file
         # to later call it in the get_flights_by_params method 
         global EXTERNAL_API_URL_01
         EXTERNAL_API_URL_01 = Settings().EXTERNAL_API_URL_01
 
 
-    def get_flights_by_params(self, request: Request):
+    def get_flights_by_params(self, origin_display_name: str, destination_display_name: str,
+                                    deperture_time:      str, landing_time:             str):
         # try:
         #     r = self.flights_repo.get_by_params(params)
         # except FlightNotFoundException as e:
         #     return Response(content=str(e), status_code=404)
 
         # All params from request
-        origin_display_name      = request.query_params['origin_display_name']
-        destination_display_name = request.query_params['destination_display_name']
-        deperture_time           = request.query_params['deperture_time']
-        landing_time             = request.query_params['landing_time']
-
-        # Check if the params are valid
-        if origin_display_name == '' or destination_display_name == '' or deperture_time == '' or landing_time == '':
-            # TODO: replace with an exception, don't return Response here
-            return Response(content='Invalid parameters were provided in the request', status_code=402)
-
-
-        ###########################
-        ### Move somewhere else ###
-        ###########################
-        # Check if the given deperture time is valid
-        try:
-            datetime.datetime.strptime(deperture_time, '%Y-%m-%d %H:%M:%S')
-        except ValueError:
-            raise InvalidParametersWereProvidedInRequestException('The given deperture time is invalid!')
-        
-        # Check if the given landing time is valid
-        try:
-            datetime.datetime.strptime(landing_time, '%Y-%m-%d %H:%M:%S')
-        except ValueError:
-            raise InvalidParametersWereProvidedInRequestException('The given landing time is invalid!')
-        
-        # Check if the given deperture time is before the given landing time
-        if deperture_time > landing_time:
-            raise InvalidParametersWereProvidedInRequestException('The given deperture time is after the given landing time!')
-        
-        # Check if the given deperture time is before the current time
-        if deperture_time < datetime.datetime.now():
-            raise InvalidParametersWereProvidedInRequestException('The given deperture time is before the current time!')
-        
-        # Check if the given landing time is before the current time
-        if landing_time < datetime.datetime.now():
-            raise InvalidParametersWereProvidedInRequestException('The given landing time is before the current time!')
-
-
-        # Check if params can be found in the local database
-        with self.session_factory() as s:
-            rec = s.query(Airport).filter(Airport.display_name == origin_display_name).first()
-            if not rec:
-                raise AirportNotFoundException('No airport was found with the given origin display name!')
-            
-            rec = s.query(Airport).filter(Airport.display_name == destination_display_name).first()
-            if not rec:
-                raise AirportNotFoundException('No airport was found with the given destination display name!')
+        # origin_display_name      = request.query_params['origin_display_name']
+        # destination_display_name = request.query_params['destination_display_name']
+        # deperture_time           = request.query_params['deperture_time']
+        # landing_time             = request.query_params['landing_time']
 
 
         # Turn the 'deperture_time' and 'landing_time' into datetime objects
@@ -84,8 +41,10 @@ class FlightsService:
         # Call the repository to check if flights exist with the following params
         try:
             # Get all flights from the our database
-            local_flights    = self.flights_repo.get_local_flights_by_params()
-            external_flights = self.flights_repo.get_external_flights_by_params(origin_display_name, destination_display_name, deperture_time, landing_time)
+            local_flights    = self.flights_repo.get_local_flights_by_params(origin_display_name, destination_display_name,
+                                                                             deperture_time,      landing_time)
+            external_flights = self.flights_repo.get_external_flights_by_params(origin_display_name, destination_display_name,
+                                                                                deperture_time,      landing_time)
 
             # Check which flights need to be removed
             for f in local_flights:

@@ -24,8 +24,8 @@ class GetFlightsByParams(APIView):
     """
     serializer_class = FlightsSerializer
 
-    def get(self, request):
 
+    def get(self, request):
         # Get the parameters from the request.
         origin_display_name      = request.GET.get("origin_display_name",      None)
         destination_display_name = request.GET.get("destination_display_name", None)

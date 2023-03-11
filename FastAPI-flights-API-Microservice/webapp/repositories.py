@@ -15,12 +15,14 @@ class FlightsRepository:
         # Get external api url from .env file
         # to later call it in the get_flights_by_params method 
         global EXTERNAL_API_URL_01
-        EXTERNAL_API_URL_01 = Settings().EXTERNAL_API_URL_01
         global EXTERNAL_API_KEY_01
+
+        EXTERNAL_API_URL_01 = Settings().EXTERNAL_API_URL_01
         EXTERNAL_API_KEY_01 = Settings().EXTERNAL_API_KEY_01
 
 
-    def get_local_flights_by_params(self) -> list:
+    def get_local_flights_by_params(self, origin_display_name: str, destination_display_name: str,
+                                          deperture_time:      str, landing_time:             str) -> list:
         """
         Get all flights from the database that match the given parameters
 
@@ -39,17 +41,21 @@ class FlightsRepository:
             (status_code = 200)
         """
         with self.session_factory() as s:
-            rec: Flight = s.query(Flight).filter(Flight.status == 'deperture').all()
+            # Get the origin and destination airport by their display_name
+            origin_airport      = s.query(Airport).filter(Airport.display_name == origin_display_name).first()
+            destination_airport = s.query(Airport).filter(Airport.display_name == destination_display_name).first()
+
+            rec: list = s.query(Flight).filter(Flight.status == 'deperture', Flight.origin_airport_id == origin_airport,
+                                               Flight.destination_airport_id == destination_airport).all()
 
             if not rec:
                 raise FlightNotFoundException('No flights in the database!')
 
-            # Turn each record in rec into a list of flights in JSON
-            json_list = [f.to_json() for f in rec]
-            return json_list
+            return rec
 
 
-    def get_external_flights_by_params(self, origin_display_name: str, destination_display_name: str, deperture_time, landing_time) -> list:
+    def get_external_flights_by_params(self, origin_display_name: str, destination_display_name: str,
+                                             deperture_time:      str, landing_time:             str) -> list:
         """
         Get flights by paramaters from the database
 
@@ -71,7 +77,7 @@ class FlightsRepository:
         # httpx.get('https://api.skypicker.com/flights?flyFrom=TLV&to=JFK&dateFrom=01/01/2021&dateTo=01/01/2021&partner=picky&v=3')
         external_flights = httpx.get(EXTERNAL_API_URL_01 + '/timetable',
                                         params={'status': 'scheduled',      'type': 'departure', 
-                                                'key': EXTERNAL_API_KEY_01, 'limit': '50'},
+                                                'key': EXTERNAL_API_KEY_01, 'limit': '50'}, # TODO: remove limit, only here for debug
                                     )
         
         # Check if the external api returned a valid response
