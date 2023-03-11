@@ -2,8 +2,7 @@ from rest_framework.views  import APIView, Response
 from app.exceptions.model_not_found import ModelNotFoundException
 from app.facades.administrator_facade import AdministratorFacade
 from app.facades.base_facade import BaseFacade
-from app.serializer.flights_serializer import FlightsSerializer
-
+from app.serializer.users_serializer import UsersSerializer
 
 
 class DeleteUser(APIView):
@@ -17,16 +16,18 @@ class DeleteUser(APIView):
         except ModelNotFoundException as e:
             return Response(str(e), status=404)
 
-class GetCustomerFlights(APIView):
-    serializer_class = FlightsSerializer
- 
+class GetUserByID(APIView):
+    serializer_class = UsersSerializer
+
     def get(self, request, user_id):
         try:
             # Get the user flights.
-            user_flights = BaseFacade.get_all_customer_flights(self, user_id)
-            serializer = self.serializer_class(user_flights, many=True)
+            user       = BaseFacade.get_user_by_id(self, user_id)
+            serializer = self.serializer_class(user, many=False)
 
             # Return the user flights.
             return Response(serializer.data, status=200)
         except ModelNotFoundException as e:
             return Response(str(e), status=404)
+        except ValueError as e:
+            return Response(str(e), status=400)

@@ -1,4 +1,6 @@
 from django.contrib.auth.models import User
+
+from app.services.users_service import UsersService
 from ..services.flights_service import FlightService
 
 
@@ -31,7 +33,7 @@ class BaseFacade():
 
 
     def get_user_by_id(self, user: User):
-        pass
+        return UsersService.get_user_by_id(self, user)
 
 
     def get_all_customer_flights(self, user_id: int) -> list:

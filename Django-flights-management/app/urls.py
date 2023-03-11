@@ -47,14 +47,21 @@ urlpatterns = [
            name='flights_get_by_id'
            ),
 
+      #
+      # Customers
+      #
+      path('customers/<int:user_id>/flights/',
+             GetCustomerFlights.as_view(),
+            name='customers_flights'
+            ),
 
       #
       # Users
-      #      
-      path('users/<int:user_id>/flights/',
-             GetCustomerFlights.as_view(),
-            name='users_flights'
-            ),
+      #
+      path('users/<int:user_id>/',
+            GetUserByID.as_view(),
+            name='users_get_by_id'
+           ),
 
       path('users/<int:user_id>/',
             DeleteUser.as_view(),

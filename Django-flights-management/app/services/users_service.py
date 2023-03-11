@@ -40,7 +40,7 @@ class UsersService(BaseServiceInterface):
             ModelNotFoundException: If the user with the given ID doesn't exist.
 
         Returns:
-            bool: True if the user was successfully deleted, False otherwise.
+            bool: True if the user was successfully deleted, Raises a ValueError otherwise.
         """
 
         # Check if the user exists
@@ -50,7 +50,11 @@ class UsersService(BaseServiceInterface):
             raise ModelNotFoundException("User with ID " + str(user_id) + " doesn't exist.")
 
         # Delete the user.
-        return user.delete()
+        user.delete()
+
+        return True
+
+
 
 
     def get_user_by_id(self, user_id: int) -> User:

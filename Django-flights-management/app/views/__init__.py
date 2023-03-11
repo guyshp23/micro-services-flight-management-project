@@ -6,11 +6,12 @@
 # Instead of manually importing each one...
 # + I can put notes here so that's cool
 
-from app.views.auth     import *
-from app.views.flights  import *
-from app.views.tickets  import *
-from app.views.users    import *
-from app.views.airports import *
+from app.views.auth      import *
+from app.views.flights   import *
+from app.views.tickets   import *
+from app.views.users     import *
+from app.views.airports  import *
+from app.views.customers import *
 
 """
 ### All required views by category (different category in each file) ###
