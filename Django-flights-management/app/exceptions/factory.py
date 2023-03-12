@@ -1,23 +1,47 @@
 # from exceptions.model_not_found import ModelNotFoundException
 from rest_framework.views  import Response
 from rest_framework_simplejwt.exceptions import TokenError
+from django.http import JsonResponse
+from app.exceptions.invalid_params import InvalidParamsException
 
 class ExceptionsFactory():
     def transform_exception(e: Exception) -> dict:
-        # Handle the exception.
+        """
+        A factory to transform the given exception to an error object.
+        Turns the Exception python object into a dictionairy. Will take care of
+        unhandled/built-in exceptions locally that were forgetten/shouldn't be
+        overwritten and assign them a 'general error' 500 status code and a
+        general error message if necessary.
+
+        Params:
+            e: The Exception to transform.
+        
+        Returns:
+            A dict representing the error object.
+        
+        Raises:
+            None
+        """
         
         # Take care of built-in exceptions that cannot/shouldn't be overwritten
         # And set their required fields here so they will be processed properly
         if isinstance(e, TokenError):
             e.status_code = 400
             e.message     = "The sent token is invalid"
+        
+        # Incase where the exception was forgetten to be handled/shouldn't be.
+        # Report it in log as a warning and assign it a 500 status code for now
+        if not e.status_code or e.message:
+            e.message     = "Something went wrong"
+            e.status_code = 500
 
-        # A custom exception.
+
         return {
             "object":      "error",
             "message":     e.message,
             "status_code": e.status_code,
         }
+
 
     def handle(e: Exception) -> Response:
         """
@@ -27,7 +51,7 @@ class ExceptionsFactory():
             exception: The Exception to handle.
 
         Returns:
-            An object with the following attributes
+            A JSON response with the following attributes
                 - object:  The object's type. In this case: "error".
                 - message: The error message.
                 - description: Possible solutions, for example:
@@ -43,13 +67,17 @@ class ExceptionsFactory():
                     }
         """
 
-        # Check if the given exception is an instance of Exception.
-        # TODO: Test this
-        if not isinstance(e, Exception):
-            raise Exception("The given exception is not an instance of Exception.")
+        try:
+            # Check if the given exception is an instance of Exception.
+            # TODO: Test this, send something other than an exception and see if it raises an error
+            if not isinstance(e, Exception):
+                raise InvalidParamsException("The given exception is not an instance of Exception.")
 
-        # Get the appro. error object.
-        error_object = ExceptionsFactory.transform_exception(e)
+            # Get the appro. error object.
+            error_object = ExceptionsFactory.transform_exception(e)
 
-        # Return the appro. error object.
-        return Response(error_object, status=error_object["status_code"])
+            # Return the appropriate error object.
+            return JsonResponse(error_object, status=error_object["status_code"], safe=True)
+        except InvalidParamsException as e:
+            # TODO: Test this
+            return ExceptionsFactory.transform_exception(e)
