@@ -1,6 +1,5 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
 from app.serializer.airport_serializer import AirportSerializer
 from ..facades.base_facade import BaseFacade
 

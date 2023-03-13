@@ -5,7 +5,7 @@ class ModelNotFoundException(Exception):
 
     def __init__(self, custom_msg):
         """
-        Holds the exception's status code
+        Holds the exception's custom attributes
         """
         self.status_code = 404
         self.message     = "The requested resource was not found. Make sure it exists and try again."
