@@ -1,5 +1,4 @@
 import logging
-
 from app.services.users_service import UsersService
 from ..exceptions.model_not_found import ModelNotFoundException
 from .base_service_interface import BaseServiceInterface

@@ -1,8 +1,8 @@
 from rest_framework.views  import APIView, Response
 
 from app.exceptions.factory import ExceptionsFactory
+from app.services.flights_service import FlightService
 from ..exceptions.model_not_found import ModelNotFoundException
-from ..facades.base_facade import BaseFacade
 from ..serializer.flights_serializer import FlightsSerializer
 
 
@@ -35,7 +35,7 @@ class GetFlightsByParams(APIView):
         landing_time             = request.GET.get("landing_time",             None)
 
         try:
-            flights    = BaseFacade.get_flights_by_parameters(request, origin_display_name,
+            flights    = FlightService.get_by_params(request, origin_display_name,
                                                               destination_display_name,
                                                               departure_time, landing_time)
             serializer = self.serializer_class(flights, many=True)
@@ -66,9 +66,8 @@ class GetFlightDetailsByID(APIView):
     def get(self, request, flight_id):
 
         try:
-            flight_details = BaseFacade.get_flight_by_id(self, flight_id)
+            flight_details = FlightService.get_by_id(self, flight_id)
             serializer     = self.serializer_class(flight_details)
-
 
             return Response(serializer.data, status=200)
 

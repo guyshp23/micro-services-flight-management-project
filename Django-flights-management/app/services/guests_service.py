@@ -1,4 +1,4 @@
-class AnonymousFacade():
+class GuestsService():
     def login():
         pass
 

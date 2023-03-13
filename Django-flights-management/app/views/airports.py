@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from app.serializer.airport_serializer import AirportSerializer
-from ..facades.base_facade import BaseFacade
+from app.services.flights_service import FlightService
 
 class GetAllAirportLocations(APIView):
     serializer_class = AirportSerializer
@@ -11,7 +11,7 @@ class GetAllAirportLocations(APIView):
         query = request.GET.get("query", None)
 
         try:
-            airports = BaseFacade.get_all_airports_display_name_by_query(self, query)
+            airports   = FlightService.get_all_airports_display_name_by_query(self, query)
             serializer = self.serializer_class(airports, many=True)
 
             return Response(serializer.data, status=200)
