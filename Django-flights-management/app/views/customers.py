@@ -17,3 +17,5 @@ class GetCustomerFlights(APIView):
             return Response(serializer.data, status=200)
         except ModelNotFoundException as e:
             return ExceptionsFactory.handle(e)
+        except Exception as e:
+            return ExceptionsFactory.handle(e)

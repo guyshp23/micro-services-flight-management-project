@@ -1,5 +1,4 @@
 import logging
-
 from app.exceptions.model_not_found import ModelNotFoundException
 from .base_service_interface import BaseServiceInterface
 from app.models import Ticket, Flight, Customer
@@ -44,3 +43,26 @@ class TicketService(BaseServiceInterface):
 
         logger.debug('Booked a new ticket: ' + str(ticket))
         return ticket
+
+
+    def delete_ticket(self, ticket_id: int):
+        """
+        Delete a ticket in the database
+
+        Params:
+            - ticket_id: The ticket ID.
+
+        Raises:
+            - ModelNotFoundException: If the ticket was not found.
+            - Exception: If a general error occurred in the flights service.
+            - InvalidParamsException: If the given ticket ID is in an invalid format
+
+        Returns:
+            - The ticket that was deleted.
+        """
+        ticket = Ticket.object.filter(id=ticket_id).first()
+
+        if ticket == None:
+            raise ModelNotFoundException(f'Ticket not found by ID {ticket_id}')
+        
+        ticket.delete()

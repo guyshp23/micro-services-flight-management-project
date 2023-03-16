@@ -39,5 +39,7 @@ class LogoutView(APIView):
             UsersService.logout(request.data["refresh_token"])
         except TokenError as e:
             return ExceptionsFactory.handle(e)
+        except Exception as e:
+            return ExceptionsFactory.handle(e)
 
         return Response(status=status.HTTP_205_RESET_CONTENT)
