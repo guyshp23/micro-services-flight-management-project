@@ -67,6 +67,10 @@ urlpatterns = [
       #
       # Tickets
       #
+      path('tickets/<int:ticket_id>/',
+            GetSpecificTicketByID.as_view(),
+            name='tickets_book'
+            ),
       path('tickets/book/<int:flight_id>/',
             BookTicket.as_view(),
             name='tickets_book'

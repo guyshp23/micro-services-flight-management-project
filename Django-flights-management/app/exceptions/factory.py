@@ -40,16 +40,17 @@ class ExceptionsFactory():
 
         # Incase where the exception was forgetten to be handled/shouldn't be.
         # Report it in log as a warning and assign it a 500 status code for now
-        if not e.status_code or e.message:
+        if (not e.status_code or not e.message):
             e.message     = "Something went wrong"
             e.status_code = 500
-            # LOG: warning, unassigned status_code & message to exception
+            # TOLOG: warning, unassigned status_code & message to exception
 
-
+        # TOLOG: Log the exception here as an error
         return {
-            "object":      "error",
-            "message":     e.message,
-            "status_code": e.status_code,
+            "object":         "error",
+            "message":        e.message,
+            "custom_message": e.custom_msg,
+            "status_code":    e.status_code,
         }
 
 

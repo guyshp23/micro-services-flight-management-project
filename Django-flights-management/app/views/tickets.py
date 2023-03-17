@@ -1,8 +1,27 @@
 from rest_framework.views  import APIView, Response
 from app.exceptions.factory import ExceptionsFactory
+from app.exceptions.invalid_params import InvalidParamsException
 from app.exceptions.model_not_found import ModelNotFoundException
 from app.serializer.tickets_serializer import TicketsSerializer
 from app.services.tickets_service import TicketService
+
+class GetSpecificTicketByID(APIView):
+    """
+    Get a ticket (used by customers)
+    """
+    serializer_class = TicketsSerializer
+
+    def get(self, request, ticket_id: int):
+        try:
+            ticket     = TicketService.get_ticket_by_id(self, ticket_id)
+            serializer = self.serializer_class(ticket)
+
+            # Return the ticket that was requested
+            return Response(serializer.data, status=200)
+        except ModelNotFoundException as e:
+            return ExceptionsFactory.handle(e)
+        except Exception as e:
+            return ExceptionsFactory.handle(e)
 
 
 class BookTicket(APIView):
@@ -28,7 +47,10 @@ class BookTicket(APIView):
             # Return the ticket that was booked.
             return Response(serializer.data, status=200)
         except ModelNotFoundException as e:
-            # Return the error message.
+            return ExceptionsFactory.handle(e)
+        except InvalidParamsException as e:
+            return ExceptionsFactory.handle(e)
+        except Exception as e:
             return ExceptionsFactory.handle(e)
 
 
