@@ -57,20 +57,20 @@ urlpatterns = [
       #
       # Users
       #
-      path('users/<int:user_id>/',
-            GetUserByID.as_view(),
-            name='users_get_by_id'
-           ),
 
       path('users/<int:user_id>/',
-            DeleteUser.as_view(),
-            name='users_delete'
+            UserActions.as_view(),
+            name='user_actions'
            ),
 
 
       #
       # Tickets
       #
+      path('tickets/<int:ticket_id>/',
+            GetSpecificTicketByID.as_view(),
+            name='tickets_book'
+            ),
       path('tickets/book/<int:flight_id>/',
             BookTicket.as_view(),
             name='tickets_book'

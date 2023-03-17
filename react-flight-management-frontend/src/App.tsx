@@ -8,6 +8,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import { Helmet } from "react-helmet";
 import Footer from './components/footer';
+import TeapotPage from './pages/TeapotPage';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/"         element={HomePage()} />
         <Route path="/login"    element={LoginPage()} />
         <Route path="/register" element={RegisterPage()} />
+        <Route path="/teapot"   element={TeapotPage()} />
       </Routes>
       <Footer />
       </Context.Provider>
