@@ -1,7 +1,7 @@
 from app.exceptions.model_not_found import ModelNotFoundException
 from .base_service_interface import BaseServiceInterface
 from rest_framework_simplejwt.tokens import RefreshToken
-from ..models import User
+from ..models import Customer, User
 
 class UsersService(BaseServiceInterface):
 
@@ -53,8 +53,6 @@ class UsersService(BaseServiceInterface):
         user.delete()
 
         return True
-
-
 
 
     def get_user_by_id(self, user_id: int) -> User:

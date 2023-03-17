@@ -48,3 +48,8 @@ class Customer(models.Model):
 class Ticket(models.Model):
     flight      = models.ForeignKey(Flight,   on_delete=models.CASCADE)
     customer    = models.ForeignKey(Customer, on_delete=models.CASCADE)
+
+
+class CanceledTickets(models.Model):
+    flight      = models.ForeignKey(Flight,   on_delete=models.CASCADE)
+    customer    = models.ForeignKey(Customer, on_delete=models.CASCADE)

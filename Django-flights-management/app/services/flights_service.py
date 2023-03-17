@@ -107,17 +107,12 @@ class FlightService(BaseServiceInterface):
             list: A list of the flights the user booked.
         """
 
-        # Check if the user exists by ID
-        UsersService.does_user_exist(customer_id)
-
         user_tickets = Ticket.objects.filter(customer=customer_id).all()
         user_flights = []
 
         for ticket in user_tickets:
             flight = Flight.objects.filter(id=ticket.flight_id).first()
-            # print(flight)
             user_flights.append(flight)
 
         logger.debug('Returned user flights: ' + str(user_flights))
-        # print(user_flights)
         return user_flights

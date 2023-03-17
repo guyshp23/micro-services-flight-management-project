@@ -9,15 +9,6 @@ from app.services.tickets_service import TicketService
 class BookTicket(APIView):
     """
     Book a ticket for a flight.
-
-    Params:
-        - flight_id: The flight ID.
-
-    Raises:
-        - Exception: If a general error occurred in the flights service.
-
-    Returns:
-        - The ticket that was booked.
     """
     serializer_class = TicketsSerializer
 
@@ -34,23 +25,29 @@ class BookTicket(APIView):
 
 
 class CancelTicket(APIView):
-    pass
+    """
+    Cancel a ticket (used by customers).
+    """
+
+    serializer_class = TicketsSerializer
+
+    def post(self, request, ticket_id: int):
+        try:
+            TicketService.cancel_ticket(self, ticket_id)
+
+            # Return the ticket that was canceled.
+            return Response('', status=200)
+        except ModelNotFoundException as e:
+            return ExceptionsFactory.handle(e)
+        except InvalidParamsException as e:
+            return ExceptionsFactory.handle(e)
+        except Exception as e:
+            return ExceptionsFactory.handle(e)
 
 
 class DeleteTicket(APIView):
     """
     Forcfuly delete a ticket (used by admins).
-
-    Params:
-        - ticket_id: The ticket ID.
-    
-    Raises:
-        - Exception: If a general error occurred in the flights service.
-        - ModelNotFoundException: If the ticket was not found.
-        - InvalidParamsException: If the given ticket ID is in an invalid format
-
-    Returns:
-        - The ticket that was deleted.
     """
     serializer_class = TicketsSerializer
 
