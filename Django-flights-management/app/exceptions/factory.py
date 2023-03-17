@@ -40,10 +40,14 @@ class ExceptionsFactory():
 
         # Incase where the exception was forgetten to be handled/shouldn't be.
         # Report it in log as a warning and assign it a 500 status code for now
-        if (not e.status_code or not e.message):
+        # if (not e.status_code or not e.message):
+        if (not hasattr(e, "status_code")) or (not hasattr(e, "message")):
             e.message     = "Something went wrong"
             e.status_code = 500
             # TOLOG: warning, unassigned status_code & message to exception
+
+        if not hasattr(e, "custom_msg"):
+            e.custom_msg = str(e)
 
         # TOLOG: Log the exception here as an error
         return {
