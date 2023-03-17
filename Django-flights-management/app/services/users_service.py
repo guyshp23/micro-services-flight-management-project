@@ -40,7 +40,7 @@ class UsersService(BaseServiceInterface):
             ModelNotFoundException: If the user with the given ID doesn't exist.
 
         Returns:
-            bool: True if the user was successfully deleted, Raises a ValueError otherwise.
+            bool: True if the user was successfully deleted
         """
 
         # Check if the user exists
