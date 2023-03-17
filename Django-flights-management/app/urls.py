@@ -58,14 +58,10 @@ urlpatterns = [
       #
       # Users
       #
-      path('users/<int:user_id>/',
-            GetUserByID.as_view(),
-            name='users_get_by_id'
-           ),
 
       path('users/<int:user_id>/',
-            DeleteUser.as_view(),
-            name='users_delete'
+            UserActions.as_view(),
+            name='user_actions'
            ),
 
 

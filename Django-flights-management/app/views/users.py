@@ -5,7 +5,9 @@ from app.serializer.users_serializer import UserSerializer
 from app.services.users_service import UsersService
 
 
-class DeleteUser(APIView):
+class UserActions(APIView):
+    serializer_class = UserSerializer
+
     def delete(self, request, user_id):
         try:
             # Delete the user.
@@ -15,9 +17,6 @@ class DeleteUser(APIView):
             return Response(status=200)
         except ModelNotFoundException as e:
             return ExceptionsFactory.handle(e)
-
-class GetUserByID(APIView):
-    serializer_class = UserSerializer
 
     def get(self, request, user_id):
         try:

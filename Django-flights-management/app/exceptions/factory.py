@@ -7,20 +7,20 @@ from app.exceptions.invalid_params import InvalidParamsException
 class ExceptionsFactory():
     def transform_exception(e: Exception) -> dict:
         """
-        A factory to transform the given exception to an error object.
+        Transform the given exception to an error object.
         Turns the Exception python object into a dictionairy. Will take care of
         unhandled/built-in exceptions locally that were forgetten/shouldn't be
-        overwritten and assign them a 'general error' 500 status code and a
+        overwritten and assigns them a 'general error' 500 status code and a
         general error message if necessary.
 
         Params:
             e: The Exception to transform.
-        
-        Returns:
-            A dict representing the error object.
-        
+
         Raises:
             None
+
+        Returns:
+            A dict representing the error object.
         """
         
         # Take care of built-in exceptions that cannot/shouldn't be overwritten
@@ -28,12 +28,22 @@ class ExceptionsFactory():
         if isinstance(e, TokenError):
             e.status_code = 400
             e.message     = "The sent token is invalid"
-        
+        if isinstance(e, ValueError):
+            e.status_code = 400
+            e.message     = "The given value is invalid"
+        if isinstance(e, TypeError):
+            e.status_code = 400
+            e.message     = "The given type is invalid"
+        if isinstance(e, AttributeError):
+            e.status_code = 404
+            e.message     = "The given attribute is invalid"
+
         # Incase where the exception was forgetten to be handled/shouldn't be.
         # Report it in log as a warning and assign it a 500 status code for now
         if not e.status_code or e.message:
             e.message     = "Something went wrong"
             e.status_code = 500
+            # LOG: warning, unassigned status_code & message to exception
 
 
         return {
