@@ -1,5 +1,4 @@
 from django.urls    import path
-
 from .views         import *
 from rest_framework_simplejwt import views as jwt_views
 
@@ -69,7 +68,7 @@ urlpatterns = [
       # Tickets
       #
       path('tickets/book/<int:flight_id>/',
-             BookTicket.as_view(),
+            BookTicket.as_view(),
             name='tickets_book'
             ),
       
