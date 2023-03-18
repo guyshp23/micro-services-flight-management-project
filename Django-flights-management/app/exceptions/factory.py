@@ -28,18 +28,18 @@ class ExceptionsFactory():
         if isinstance(e, TokenError):
             e.status_code = 400
             e.message     = "The sent token is invalid"
-            e.custom_msg  = str(e)
         if isinstance(e, ValueError):
             e.status_code = 400
             e.message     = "The given value is invalid"
-            e.custom_msg  = str(e)
         if isinstance(e, TypeError):
             e.status_code = 400
             e.message     = "The given type is invalid"
-            e.custom_msg  = str(e)
         if isinstance(e, AttributeError):
             e.status_code = 404
             e.message     = "The given attribute is invalid"
+
+        # Incase where the exception was forgetten to be handled/shouldn't be.
+        if not hasattr(e, "status_code"):
             e.custom_msg  = str(e)
 
         # Incase where the exception was forgetten to be handled/shouldn't be.
@@ -49,6 +49,9 @@ class ExceptionsFactory():
             e.status_code = 500
             e.custom_msg = "A general 500 exception occurred."
             # TOLOG: warning, unassigned status_code & message to exception
+
+        if not hasattr(e, "custom_msg"):
+            e.custom_msg = str(e)
 
         # TOLOG: Log the exception here as an error
         return {

@@ -9,22 +9,24 @@ class UserActions(APIView):
     serializer_class = UserSerializer
 
     def delete(self, request, user_id):
+        """
+        Delete the user by the user id (used by admins).
+        """
         try:
-            # Delete the user.
             UsersService.delete_user(user_id)
 
-            # Return the user flights.
             return Response(status=200)
         except ModelNotFoundException as e:
             return ExceptionsFactory.handle(e)
 
     def get(self, request, user_id):
+        """
+        Get the user details by the user id.
+        """
         try:
-            # Get the user flights.
             user       = UsersService.get_user_by_id(self, user_id)
             serializer = self.serializer_class(user, many=False)
 
-            # Return the user flights.
             return Response(serializer.data, status=200)
         except ModelNotFoundException as e:
             return ExceptionsFactory.handle(e)
