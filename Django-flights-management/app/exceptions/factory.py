@@ -28,21 +28,26 @@ class ExceptionsFactory():
         if isinstance(e, TokenError):
             e.status_code = 400
             e.message     = "The sent token is invalid"
+            e.custom_msg  = str(e)
         if isinstance(e, ValueError):
             e.status_code = 400
             e.message     = "The given value is invalid"
+            e.custom_msg  = str(e)
         if isinstance(e, TypeError):
             e.status_code = 400
             e.message     = "The given type is invalid"
+            e.custom_msg  = str(e)
         if isinstance(e, AttributeError):
             e.status_code = 404
             e.message     = "The given attribute is invalid"
+            e.custom_msg  = str(e)
 
         # Incase where the exception was forgetten to be handled/shouldn't be.
         # Report it in log as a warning and assign it a 500 status code for now
-        if (not e.status_code or not e.message):
+        if ((not hasattr(e, str(e.status_code))) or (not hasattr(e, str(e.message))) or (not hasattr(e, str(e.custom_msg)))):
             e.message     = "Something went wrong"
             e.status_code = 500
+            e.custom_msg = "A general 500 exception occurred."
             # TOLOG: warning, unassigned status_code & message to exception
 
         # TOLOG: Log the exception here as an error
