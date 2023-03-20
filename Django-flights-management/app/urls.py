@@ -31,6 +31,16 @@ urlpatterns = [
            GetAllAirportLocations.as_view(),
            name='flights_locations'
            ),
+      
+      path('airports/',
+            AirportsCreateAndList.as_view(),
+            name='airports_create_and_list'
+            ),
+      
+      path('airports/<int:pk>',
+            AirportsGetByIDUpdateDelete.as_view(),
+            name='airports_get_by_id_update_delete'
+            ),
 
 
       #
@@ -41,17 +51,22 @@ urlpatterns = [
            name='flights_get_by_params'
            ),
 
-      path('flights/<int:flight_id>/',
-           GetFlightDetailsByID.as_view(),
-           name='flights_get_by_id'
+      path('flights/<int:pk>/',
+           FlightsCRUD.as_view(),
+           name='flights_crud'
            ),
 
       #
       # Customers
       #
-      path('customers/<int:customer_id>/',
-            CustomerActions.as_view(),
-            name='customers_get_by_id'
+      path('customers/',
+           CustomerList.as_view(),
+           name='customers_list',
+           ),
+
+      path('customers/<int:pk>/',
+            CustomerRUD.as_view(),
+            name='customers_rud'
             ),
 
       path('customers/<int:customer_id>/flights/',
@@ -62,7 +77,6 @@ urlpatterns = [
       #
       # Users
       #
-
       path('users/<int:user_id>/',
             UserActions.as_view(),
             name='user_actions'

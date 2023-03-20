@@ -1,9 +1,9 @@
 from rest_framework.views  import APIView, Response
-
 from app.exceptions.factory import ExceptionsFactory
 from app.services.flights_service import FlightService
-from ..exceptions.model_not_found import ModelNotFoundException
-from ..serializer.flights_serializer import FlightsSerializer
+from app.models import Flight
+from app.serializer.flights_serializer import FlightsSerializer
+from rest_framework import mixins, generics
 
 
 class GetFlightsByParams(APIView):
@@ -47,31 +47,20 @@ class GetFlightsByParams(APIView):
             # Return the error message.
             return ExceptionsFactory.handle(e)
 
-class GetFlightDetailsByID(APIView):
-    """
-    Get flight details by ID
-
-    Params:
-        - id: The flight ID
-
-    Raises:
-        - NotFoundException: Flight ID is not found in DB, a flight with that ID doesn't exist
-
-    Returns:
-        - The flight details object
+class FlightsCRUD(mixins.ListModelMixin,
+                      mixins.RetrieveModelMixin,
+                      mixins.DestroyModelMixin,
+                      mixins.UpdateModelMixin,
+                      generics.GenericAPIView):
     
-    """
+    queryset = Flight.objects.all()
     serializer_class = FlightsSerializer
 
-    def get(self, request, flight_id):
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
 
-        try:
-            flight_details = FlightService.get_by_id(self, flight_id)
-            serializer     = self.serializer_class(flight_details)
+    def put(self,request, *args , **kwargs):
+        return self.update(request, *args, **kwargs)
 
-            return Response(serializer.data, status=200)
-
-        except ModelNotFoundException as e:
-            return ExceptionsFactory.handle(e)
-        except Exception as e:
-            return ExceptionsFactory.handle(e)
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)

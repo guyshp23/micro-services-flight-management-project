@@ -2,35 +2,37 @@ from rest_framework.views  import APIView, Response
 from app.exceptions.factory import ExceptionsFactory
 from app.exceptions.model_not_found import ModelNotFoundException
 from app.serializer.flights_serializer import FlightsSerializer
-from app.services.customers_service import CustomersService
 from app.services.flights_service import FlightService
+from rest_framework import mixins, generics
+from app.models import Customer
+from app.serializer.customers_serializer import CustomerSerializer
 
 
-class CustomerActions(APIView):
-    def get(self, request, customer_id):
-        """
-        Get the customer details by the customer_id
-        """
-        try:
-            user       = CustomersService.get_user_by_id(self, customer_id)
-            serializer = self.serializer_class(user, many=False)
-
-            return Response(serializer.data, status=200)
-        except Exception as e:
-            return ExceptionsFactory.handle(e)
+class CustomerRUD(mixins.ListModelMixin,
+                      mixins.RetrieveModelMixin,
+                      mixins.DestroyModelMixin,
+                      mixins.UpdateModelMixin,
+                      generics.GenericAPIView):
     
-    def delete(self, request, customer_id):
-        """
-        Delete the customer by the customer_id
-        """
-        try:
-            CustomersService.delete_customer(customer_id)
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
 
-            return Response(status=200)
-        except ModelNotFoundException as e:
-            return ExceptionsFactory.handle(e)
-        except Exception as e:
-            return ExceptionsFactory.handle(e)
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self,request, *args , **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+
+class CustomerList(mixins.ListModelMixin, generics.GenericAPIView):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
 
 
 class GetCustomerFlights(APIView):

@@ -69,20 +69,6 @@ class FlightService(BaseServiceInterface):
         return response
 
 
-    def get_by_id(self, flight_id: int):
-        logger.debug("FlightService.get_by_id() called")
-        
-        # Check if the flight exists by ID
-        flight = Flight.objects.filter(id=flight_id).first()
-
-        if flight == None:
-            logger.error('Flight not found, id: ' + str(flight_id))
-            raise ModelNotFoundException('Flight not found')
-        
-        logger.debug('Returned flight: ' + str(flight))
-        return flight
-
-
     def get_all_airports_display_name_by_query(self, query: str) -> list:
         logger.debug("FlightService.get_all_airports_display_name_by_query() called")
 
