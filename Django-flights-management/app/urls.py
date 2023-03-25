@@ -56,6 +56,7 @@ urlpatterns = [
            name='flights_crud'
            ),
 
+
       #
       # Customers
       #
@@ -73,6 +74,7 @@ urlpatterns = [
             GetCustomerFlights.as_view(),
             name='customers_flights'
             ),
+
 
       #
       # Users

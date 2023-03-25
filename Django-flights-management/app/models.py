@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
-
 from app.exceptions.invalid_params import InvalidParamsException
 
 # TODO: Add random activity generator facade to generate fake user activity:
@@ -30,11 +29,13 @@ class Flight(models.Model):
     destination_airport               = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name='destination')
     departure_time                    = models.DateTimeField()
     landing_time                      = models.DateTimeField()
-    status                            = models.CharField(max_length=50)
+    # status                            = models.CharField(max_length=50)
     remaining_tickets                 = models.IntegerField()
     ticket_economy_price              = models.FloatField()
-    ticket_economy_manual_override    = models.BooleanField(default=0)
-    remaining_tickets_manual_override = models.BooleanField(default=0)
+    # 'default' didn't work by default on this one, for some reason... anyway, added default manually in the db, hopefully that won't be an issue...
+    ticket_economy_manual_override    = models.BooleanField(default=0) 
+    # 'default' didn't work by default on this one, for some reason... anyway, added default manually in the db, hopefully that won't be an issue...
+    remaining_tickets_manual_override = models.BooleanField(default=0) 
 
     def is_booked(self, customer_obj) -> bool:
         """

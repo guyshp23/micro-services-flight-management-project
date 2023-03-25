@@ -1,4 +1,8 @@
 #  A list of exceptions that will be raised when something goes wrong
+# TODO: Add an init function to all exceptions and hold 
+#       the status_code, custom message, etc. in self variables
+#       Just like in the Django exceptions, create a factory as well for handling in the views.
+
 
 class FlightNotFoundException(Exception):
     """
@@ -36,3 +40,4 @@ class AirportNotFoundException(Exception):
      :status_code: 404
     """
     pass
+

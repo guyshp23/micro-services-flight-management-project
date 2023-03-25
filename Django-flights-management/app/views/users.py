@@ -32,3 +32,16 @@ class UserActions(APIView):
             return ExceptionsFactory.handle(e)
         except ValueError as e:
             return ExceptionsFactory.handle(e)
+
+
+    def put(self, request, user_id):
+        """
+        Update the user details by the user id.
+        """
+        try:
+            user       = UsersService.update_user(self, request, user_id)
+            serializer = self.serializer_class(user, many=False)
+
+            return Response(serializer.data, status=204)
+        except Exception as e:
+            return ExceptionsFactory.handle(e)

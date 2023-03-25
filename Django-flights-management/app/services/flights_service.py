@@ -1,9 +1,9 @@
-import logging
 from app.services.users_service import UsersService
 from ..exceptions.model_not_found import ModelNotFoundException
 from .base_service_interface import BaseServiceInterface
 from ..models import Airport, Flight, Ticket
 import requests
+import logging
 
 
 class FlightService(BaseServiceInterface):
@@ -13,15 +13,15 @@ class FlightService(BaseServiceInterface):
     not funny. If fewer than 2 people unrelated to you have told you that 
     you're funny, you're not funny. And, you should avoid changing this.
     """
-    global logger
     logger = logging.getLogger('main')
+    global MICROSERVICE_APP_URL
+    MICROSERVICE_APP_URL = "http://localhost:8800"
 
     def __init__(self):
-        logger.debug("FlightService initialized")
+        logging.debug("FlightService initialized")
 
-    async def get_by_params(self, origin_display_name: str, destination_display_name: str,
-                            departure_time,           landing_time):
-        logger.debug("FlightService.get_by_params() called")
+    def get_by_params(self, origin_display_name: str, destination_display_name: str, departure_date: str):
+        logging.debug("FlightService.get_by_params() called")
         print("FlightService.get_by_params() called")
 
         # # Find the airport ID in database by the "origin_display_name" variable.
@@ -50,27 +50,65 @@ class FlightService(BaseServiceInterface):
         payload = {
             'origin_display_name':      origin_display_name,
             'destination_display_name': destination_display_name,
-            'deperture_time':           departure_time,
-            'landing_time':             landing_time,
+            'departure_date':           departure_date,
         }
-
+        print('payload:',payload)
 
         # Send an API request to the microservice endpoint
-        rest = requests.post('https://api.ms.aerothree.me/v1/flights',
-                             headers=headers, data=payload)
-        logger.debug("Sending API request to microservice...")
+        rest = requests.get(f'{MICROSERVICE_APP_URL}/flights/', params=payload)
+        # prv
+        print(rest)
+        logging.debug("Sending API request to microservice...")
 
 
-        response = await rest.json()
-        logger.debug("Got response from API: " + str(response))
+        response = rest.json()
+        logging.debug("Got response from API: " + str(response))
 
 
         # Return the response from the microservice
         return response
 
 
+    def get_by_id(self, flight_id: int):
+        """
+        Get the flight with the given ID.
+        Wasn't moved to the MS because it only interacts with 
+        the DB and doesn't contain any business logic.
+
+        Args:
+            flight_id (int): The ID of the flight to get.
+
+        Raises:
+            ModelNotFoundException: If the flight with the given ID doesn't exist.
+
+        Returns:
+            Flight: The flight with the given ID.
+        """
+        logging.debug("FlightService.get_by_id() called")
+        
+        # Check if the flight exists by ID
+        flight = Flight.objects.filter(id=flight_id).first()
+
+        if flight == None:
+            logging.error('Flight not found, id: ' + str(flight_id))
+            raise ModelNotFoundException('Flight not found')
+        
+        logging.debug('Returned flight: ' + str(flight))
+        return flight
+
+
     def get_all_airports_display_name_by_query(self, query: str) -> list:
-        logger.debug("FlightService.get_all_airports_display_name_by_query() called")
+        """
+        Get all the airports that match the given query.
+        Used for the autocomplete feature in the search form.
+
+        Args:
+            query (str): The query to search for.
+
+        Returns:
+            list: A list of the airports that match the query.
+        """
+        logging.debug("FlightService.get_all_airports_display_name_by_query() called")
 
         # Find all airports that match the query
         airports = Airport.objects.filter(display_name__icontains=query)
@@ -82,6 +120,7 @@ class FlightService(BaseServiceInterface):
     def get_all_customer_flights(self, customer_id: int) -> list:
         """
         Get all the flights the user booked.
+        Wasn't moved to the MS because it doesn't have any business logic.
 
         Args:
             customer_id (int): The ID of the user to get the flights of.
@@ -100,5 +139,5 @@ class FlightService(BaseServiceInterface):
             flight = Flight.objects.filter(id=ticket.flight_id).first()
             user_flights.append(flight)
 
-        logger.debug('Returned user flights: ' + str(user_flights))
+        logging.debug('Returned user flights: ' + str(user_flights))
         return user_flights

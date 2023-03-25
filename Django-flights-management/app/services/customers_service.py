@@ -2,6 +2,11 @@ from app.exceptions.model_not_found import ModelNotFoundException
 from .base_service_interface import BaseServiceInterface
 from rest_framework_simplejwt.tokens import RefreshToken
 from ..models import Customer
+import logging
+
+
+logging.basicConfig(level=logging.INFO, filename='main.log', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt='%Y/%m/%d %I:%M:%S %p')
+logger = logging.getLogger(__name__)
 
 class CustomersService(BaseServiceInterface):
 
@@ -25,8 +30,10 @@ class CustomersService(BaseServiceInterface):
         customer = customer.objects.filter(id=customer_id).first()
 
         if customer is None:
+            logging.info('Customer not found!')
             raise ModelNotFoundException(f'Customer with ID {customer_id} doesn\'t exist.')
 
+        logging.info('Customer returned!', customer)
         return customer
 
 
@@ -49,7 +56,8 @@ class CustomersService(BaseServiceInterface):
 
         if customer is None:
             raise ModelNotFoundException(f'Customer with ID {customer_id} doesn\'t exist.')
-
+        
+        logging.info('Customer Deleted', customer)
         # Delete the customer.
         customer.delete()
 

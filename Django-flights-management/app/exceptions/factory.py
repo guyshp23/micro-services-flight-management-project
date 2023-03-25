@@ -1,10 +1,15 @@
 # from exceptions.model_not_found import ModelNotFoundException
+import logging
 from rest_framework.views  import Response
 from rest_framework_simplejwt.exceptions import TokenError
 from django.http import JsonResponse
 from app.exceptions.invalid_params import InvalidParamsException
 
 class ExceptionsFactory():
+    
+    logging.basicConfig(level=logging.INFO, filename='main.log')
+    logger = logging.getLogger(__name__)
+
     def transform_exception(e: Exception) -> dict:
         """
         Transform the given exception to an error object.
@@ -53,6 +58,7 @@ class ExceptionsFactory():
         if not hasattr(e, "custom_msg"):
             e.custom_msg = str(e)
 
+        
         # TOLOG: Log the exception here as an error
         return {
             "object":         "error",

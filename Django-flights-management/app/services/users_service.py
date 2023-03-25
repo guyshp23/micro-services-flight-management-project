@@ -77,6 +77,35 @@ class UsersService(BaseServiceInterface):
             raise ModelNotFoundException("User with ID " + str(user_id) + " doesn't exist.")
 
         return user
+    
+    def update_user(self, user_id: int, data) -> User:
+        """
+        Updates the user with the given ID.
+        
+        Args:
+            user_id (int): The ID of the user to update.
+
+        Raises:
+            ModelNotFoundException: If the user with the given ID doesn't exist.
+
+        Returns:
+            User: The updated user.
+        """
+            
+        # Check if the user exists
+        user = User.objects.filter(id=user_id).first()
+
+        if user is None:
+            raise ModelNotFoundException(f"User with ID {user_id} doesn't exist.")
+
+        # Update the user's fields.
+        user.first_name = data['first_name']
+        
+
+        # Update the user.
+        user.save()
+
+        return user
 
 
     def does_user_exist(user_id: int) -> None:

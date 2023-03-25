@@ -4,10 +4,9 @@ from .repositories import FlightsRepository
 from fastapi import Form, Response, Request
 from fastapi.responses import JSONResponse
 from .exceptions import *
-from fastapi.encoders import jsonable_encoder
-import httpx
 import datetime
 from .config import Settings
+import random
 
 # TODO: When catching an exception, it should return an object with the exception name (like FlightNotFoundException) and the exception message
 class FlightsService:
@@ -20,8 +19,84 @@ class FlightsService:
         EXTERNAL_API_URL_01 = Settings().EXTERNAL_API_URL_01
 
 
-    def get_flights_by_params(self, origin_display_name: str, destination_display_name: str,
-                                    deperture_time:      str, landing_time:             str):
+    def validate_flights(self, origin_display_name,
+                         destination_display_name, date, data):
+        # Check if data has an attribute of error
+        if hasattr(data, 'error'):
+            print("Something went wrong while getting external flights", data.error)
+            return
+
+        # Check if there are any existing flight in the database
+        departure_time = datetime.datetime.strptime(f"{date}T00:00:00", '%Y-%m-%dT%H:%M:%S')
+        check_internal_db_flights = self.flights_repo.is_internal_flights_in_db(origin_display_name, destination_display_name, departure_time)
+
+        if check_internal_db_flights:
+            internal_flights = []
+            print('There are already flights in the database, skipping external fetch from external API, returning existing ones from the db...')
+
+            for flight in check_internal_db_flights:
+                internal_flights.append(flight)
+
+            return internal_flights
+
+
+        removed_flights = 0
+        added_flights = []
+
+        for flight in data:
+            # TODO: Check if the flight already exists in db with the same params
+            #       Call function in repo to check that
+            print('flight=', flight)
+            if 'codeshared' in flight.keys():
+                print('codeshared' in flight.keys())
+                print('removing codeshared flight')
+                del data[data.index(flight)]
+                removed_flights += 1
+
+            # Turn both of these to a datetime format
+            departure_time = datetime.datetime.strptime(f"{date}T{flight['departure']['scheduledTime']}:00", '%Y-%m-%dT%H:%M:%S')
+            arrival_time   = datetime.datetime.strptime(f"{date}T{flight['arrival']['scheduledTime']}:00",   '%Y-%m-%dT%H:%M:%S')
+
+            # Generate ticket price
+            ticket_price    = float(random.randint(200, 2000))
+
+            # Generate random ticket quantity
+            ticket_quantity = int(random.randint(1, 500))
+
+            inserted_flight = self.flights_repo.insert_external_flight(origin_display_name, destination_display_name, 
+                                    departure_time, arrival_time, ticket_price, ticket_quantity).to_json()
+                                    ## to json here, specific flight
+            added_flights.append(inserted_flight)
+
+
+        # return data?
+        print('total =',len(data), 'removed =',removed_flights)
+        print('\n\n\n\n')
+        print(added_flights)
+
+        return added_flights
+            # don't check the first one, there is nothing to compare it to
+            # if flight == data[0]:
+            #     print('skipping first flight')
+            #     continue
+            # print('checking... ' + flight['flight']['number'], data[data.index(flight) - 1]['flight']['number'])
+            # # Check if the flight's number is the same as the previous flight's number
+            # if flight['flight']['number'] == data[data.index(flight) - 1]['flight']['number']:
+            #     print('removing flight', flight.number)
+            #     del data[data.index(flight) - 1]
+            #     continue
+
+
+            # for flight.number in flight:
+                # if flight.number 
+
+
+        # flight.number
+
+
+    def get_flights_by_params(self, origin_display_name: str, 
+                              destination_display_name:  str,
+                              departure_time:            str):
         # try:
         #     r = self.flights_repo.get_by_params(params)
         # except FlightNotFoundException as e:
@@ -30,62 +105,28 @@ class FlightsService:
         # All params from request
         # origin_display_name      = request.query_params['origin_display_name']
         # destination_display_name = request.query_params['destination_display_name']
-        # deperture_time           = request.query_params['deperture_time']
+        # departure_time           = request.query_params['departure_time']
         # landing_time             = request.query_params['landing_time']
 
-
-        # Turn the 'deperture_time' and 'landing_time' into datetime objects
-        deperture_time = datetime.datetime.strptime(deperture_time, '%Y-%m-%d')
-        landing_time   = datetime.datetime.strptime(landing_time,   '%Y-%m-%d')
 
         # Call the repository to check if flights exist with the following params
         try:
             # Get all flights from the our database
-            local_flights    = self.flights_repo.get_local_flights_by_params(origin_display_name, destination_display_name,
-                                                                             deperture_time,      landing_time)
-            external_flights = self.flights_repo.get_external_flights_by_params(origin_display_name, destination_display_name,
-                                                                                deperture_time,      landing_time)
-
-            # Check which flights need to be removed
-            for f in local_flights:
-                pass
-
-
-            for f in external_flights:
-                # Pass all details to repository and check if they can be
-                # resolved in the local database, if not, grab them from the external API
-                pass
-
-
-
-            # # Check which flights need to be removed / updated
-            # for flight in r:
-            #     # If the flight's landing time is less than the current time, remove it from the list
-            #     if flight['landing_time'] < datetime.datetime.now():
-            #         r.remove(flight)
-
-            #     # If the flight's deperture time is less than the current time, update the flight's status to 'in flight'
-            #     if flight['deperture_time'] < datetime.datetime.now():
-            #         flight['status'] = 'in flight'
-
-
-            # # Call the repository to update/remove the flights database
-            # # aka. modify all flights in the database at scale by passing a list of flights
-            # self.flights_repo.modify_all(r)
-
-
-
-        except FlightNotFoundException as e:
+            # TODO: Fix this bug
             pass
-            # No flights were foudn with the given params
-            # Call the external API to get the flights
-            # httpx.get(EXTERNAL_API_URL_01 + '/timetable',
-            #           params={'status': 'scheduled', 'type': 'departure'})
+            # local_flights    = self.flights_repo.delete_expired_local_flights()
+        except FlightNotFoundException as e:
+            # No flights were found with the given params locally
+            # Call the external API to get the flights and skip upadting external flights w/ local ones
+            print(str(e), 'skipping...')
 
-        
+        # try:
+        external_flights = self.flights_repo.get_external_flights_by_params(origin_display_name, destination_display_name, departure_time)
+        # json stringify
+        data = self.validate_flights(origin_display_name, destination_display_name, departure_time, json.loads(external_flights))
 
 
-        return Response(content='flights', status_code=200)
+        return Response(content=json.dumps(data), status_code=200)
 
 
     def book_flight_by_flight_id(self, flight_id: int):
@@ -95,8 +136,6 @@ class FlightsService:
         #     return Response(content=str(e), status_code=404)
         # except Exception as e:
         #     return Response(content=str(e), status_code=402)
-        
-        # return JSONResponse(content=r, status_code=200, media_type='application/json')
         return Response(content='BOOK flights', status_code=200)
 
 

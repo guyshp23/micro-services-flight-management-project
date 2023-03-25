@@ -2,6 +2,7 @@ from datetime import date, datetime
 import json
 from sqlalchemy import Column, ForeignKey, String, Integer, DateTime, Float
 from sqlalchemy.ext.declarative import declarative_base
+
 from .exceptions import InvalidParametersWereProvidedInRequestException
 
 
@@ -15,12 +16,10 @@ class Flight(Base):
     destination_airport_id = Column(ForeignKey('app_airport.id'))
     departure_time         = Column(DateTime)
     landing_time           = Column(DateTime)
-    status                 = Column(String)
     remaining_tickets      = Column(Integer)
     ticket_economy_price   = Column(Float)
 
-    def __init__(self, id, origin_airport_id, destination_airport_id, departure_time, landing_time, remaining_tickets, ticket_economy_price):
-        self.id                   = id
+    def __init__(self, origin_airport_id, destination_airport_id, departure_time, landing_time, remaining_tickets, ticket_economy_price):
         self.origin_airport_id    = origin_airport_id
         self.destination_airport_id  = destination_airport_id
         self.departure_time       = departure_time
@@ -30,7 +29,7 @@ class Flight(Base):
 
         self.validate()
 
-    def json_serial(obj):
+    def json_serial(self, obj):
         """
          JSON serializer for objects not serializable by default json code
          https://stackoverflow.com/a/22238613
@@ -49,13 +48,11 @@ class Flight(Base):
                 "id"                     : self.id,
                 "original_airport"       : self.origin_airport_id,
                 "destination_airport_id" : self.destination_airport_id,
-                "departure_time"         : self.departure_time,
-                "landing_time"           : self.landing_time,
+                "departure_time"         : self.json_serial(self.departure_time),
                 "remaining_tickets"      : self.remaining_tickets,
                 "ticket_economy_price"   : self.ticket_economy_price,
             }
         }
-
 
     def validate(self):
         return True
@@ -67,11 +64,9 @@ class Airport(Base):
     id           = Column(Integer, primary_key=True, auto_increment=True)
     country_name = Column(String(50))
     city_name    = Column(String(50))
-    city_code    = Column(String(50))
     airport_name = Column(String(50))
     airport_code = Column(String(3))
-    # name = Column(String)
-    # city = Column(String, max_length=3)   
+    display_name = Column(String(50))   
 
     def __init__(self, id, name, city):
         self.id   = id
@@ -92,3 +87,10 @@ class Airport(Base):
 
     def validate(self):
         return True
+
+class Ticket(Base):
+    __tablename__ = "app_ticket"
+
+    id          = Column(Integer, primary_key=True, auto_increment=True)
+    customer_id = Column(ForeignKey('app_customer.id'))
+    flight_id   = Column(ForeignKey('app_flight.id'))
