@@ -66,7 +66,7 @@ export default function NavbarComponent(){
             <Button
               className="mr-4 shadow-sm hover:shadow-md bg-sky-500 hover:bg-sky-600 focus:ring-0 focus:border-0"
               pill={true}>
-              Get started
+              Sign up
             </Button>
           </Link>
 
@@ -95,12 +95,6 @@ export default function NavbarComponent(){
         </Navbar.Link>
         <Navbar.Link theme={{active: {off: 'text-gray-600 hover:text-sky-500'}}} href="/navbars">
           Services
-        </Navbar.Link>
-        <Navbar.Link theme={{active: {off: 'text-gray-600 hover:text-sky-500'}}} href="/navbars">
-          Pricing
-        </Navbar.Link>
-        <Navbar.Link theme={{active: {off: 'text-gray-600 hover:text-sky-500'}}} href="/navbars">
-          Contact
         </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>

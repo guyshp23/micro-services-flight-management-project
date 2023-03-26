@@ -1,7 +1,7 @@
 import { FlightCard } from "../components/FlightCard";
 import { FlightForm } from "../components/FlightForm";
 import GetFlightsByParams from "./api/flights/GetFlightsByParams";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function HomePage() {
     
@@ -107,6 +107,10 @@ export function HomePage() {
     // useEffect(() => {
     //     setFlights(CurrentFlights);
     // }, [CurrentFlights]);
+
+    useEffect(() => {
+        // ...
+    }, [])
 
 
     return (
