@@ -44,7 +44,6 @@ export function FlightForm({onSubmitSend}: Props){
 
 
     const [departingDate, setDepartingDate] = useState<Date>();
-    const [returningDate, setReturningDate] = useState<Date>();
 
 
     const [submitting, setSubmitting] = useState<boolean>(false);
@@ -53,7 +52,6 @@ export function FlightForm({onSubmitSend}: Props){
     const handleSubmit = () => {
         console.debug('form submit!', originAirport+ ' --> ' +destinationAirport);
         console.debug('departingDate', departingDate);
-        console.debug('returningDate', returningDate);
         
         setSubmitting(true);
 
@@ -61,7 +59,6 @@ export function FlightForm({onSubmitSend}: Props){
             origin_airport_id: originAirport,
             destination_airport_id: destinationAirport,
             departing_date: departingDate,
-            returning_date: returningDate
         });
 
         setSubmitting(false);
@@ -72,6 +69,7 @@ export function FlightForm({onSubmitSend}: Props){
         <h1  className="text-2xl font-bold text-center mb-8 text-gray-500">Where would you like to go?</h1>
 
 
+        {/* Add tabs component with "OneWay" tab as :active */}
 
             {/* wrapper */}
             <div className='flex flex-row'>
@@ -99,20 +97,11 @@ export function FlightForm({onSubmitSend}: Props){
                 <div className='flex flex-col mr-6'>
                     <Label>Departing:</Label>
                     <DatePickerInput
-                        
                         title='When would you like to depart?'
                         onChange={setDepartingDate}
                     />
                 </div>
 
-                <div className='flex flex-col'>
-                    <Label>Returning:</Label>
-                    <DatePickerInput
-                        
-                        title='When would you like to return?'
-                        onChange={setReturningDate}
-                    />
-                </div>
             </div>
 
             <button

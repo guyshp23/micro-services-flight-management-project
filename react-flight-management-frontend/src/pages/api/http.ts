@@ -1,17 +1,15 @@
 import axios, { AxiosInstance } from 'axios';
 
 const http: AxiosInstance = axios.create({
-    // withCredentials: true,
     timeout: 20000,
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
     },
 });
 
-export const DJANGO_API_ADDRESS  = 'http://localhost:8000';
-export const FASTAPI_API_ADDRESS = 'http://localhost:8080';
+// Use `http://localhost:8000` for testing Django locally
+export const DJANGO_API_URL  = 'https://django-aerothree.onthewifi.com';
 
 export const isAuthenticted = () => {
     const  access_token = localStorage.getItem('access_token');

@@ -1,7 +1,7 @@
 import { FlightCard } from "../components/FlightCard";
 import { FlightForm } from "../components/FlightForm";
 import GetFlightsByParams from "./api/flights/GetFlightsByParams";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function HomePage() {
     
@@ -108,6 +108,10 @@ export function HomePage() {
     //     setFlights(CurrentFlights);
     // }, [CurrentFlights]);
 
+    useEffect(() => {
+        // ...
+    }, [])
+
 
     return (
     <div className="container flex flex-col items-center justify-between mx-auto mt-12">
@@ -119,7 +123,7 @@ export function HomePage() {
                 setFlights(res);
             }
         )}/>
-        <div className="grid lg:grid-cols-2 xl:grid-cols-3 items-center justify-between mx-auto mt-12">
+        <div className="grid items-center justify-between mx-auto mt-12 lg:grid-cols-2 xl:grid-cols-3">
             {
                 Flights.map((flight) => {
                     return (
