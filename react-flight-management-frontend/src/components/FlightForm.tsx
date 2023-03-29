@@ -22,13 +22,13 @@ export function FlightForm({onSubmitSend}: Props){
         {
             id: 1,
             code: 'TLV',
-            display_string: 'Tel Aviv, Israel',
+            display_string: 'Ben Gurion, Tel Aviv, Israel (TLV)',
             country_code: 'il'
         },
         {
             id: 2,
             code: 'NYC',
-            display_string: 'New York, United States',
+            display_string: 'New York, United States (NYC)',
             country_code: 'us'
         },
     ]
@@ -42,8 +42,9 @@ export function FlightForm({onSubmitSend}: Props){
     const [originAirport,      setOriginAirport]      = useState<string>('');
     const [destinationAirport, setDestinationAirport] = useState<string>('');
 
-
-    const [departingDate, setDepartingDate] = useState<Date>();
+    const AWeekFromToday = new Date();
+    AWeekFromToday.setDate(AWeekFromToday.getDate() + 7);
+    const [departureDate, setDepartingDate] = useState<Date>(AWeekFromToday);
 
 
     const [submitting, setSubmitting] = useState<boolean>(false);
@@ -51,22 +52,23 @@ export function FlightForm({onSubmitSend}: Props){
 
     const handleSubmit = () => {
         console.debug('form submit!', originAirport+ ' --> ' +destinationAirport);
-        console.debug('departingDate', departingDate);
-        
+        console.debug('departingDate', departureDate);
+
         setSubmitting(true);
 
         onSubmitSend({
             origin_airport_id: originAirport,
             destination_airport_id: destinationAirport,
-            departing_date: departingDate,
+            departure_date: departureDate,
         });
 
+        console.log('submit false')
         setSubmitting(false);
     }
 
     return (
-        <div className="bg-white border border-gray-200 rounded-md p-4 text-center">
-        <h1  className="text-2xl font-bold text-center mb-8 text-gray-500">Where would you like to go?</h1>
+        <div className="p-4 text-center bg-white border border-gray-200 rounded-md">
+        <h1  className="mb-8 text-2xl font-bold text-center text-gray-500">Where would you like to go?</h1>
 
 
         {/* Add tabs component with "OneWay" tab as :active */}
@@ -93,21 +95,21 @@ export function FlightForm({onSubmitSend}: Props){
                     />
                 </div>
 
-                {/* TODO: Add validations, make sure returning date isn't lower than departing date */}
                 <div className='flex flex-col mr-6'>
                     <Label>Departing:</Label>
                     <DatePickerInput
                         title='When would you like to depart?'
                         onChange={setDepartingDate}
+                        defaultValue={AWeekFromToday}
                     />
                 </div>
 
             </div>
 
             <button
-                    onClick={handleSubmit}
-                    disabled={submitting}
-                    className="w-full h-11 rounded flex hover:bg-sky-600 shadow-sm hover:shadow-md border-solid border text-white bg-sky-500 focus:ring-4 focus:ring-sky-200 mt-4 justify-center place-items-center"
+                onClick={handleSubmit}
+                disabled={submitting}
+                className="flex justify-center w-full mt-4 text-white border border-solid rounded shadow-sm h-11 hover:bg-sky-600 hover:shadow-md bg-sky-500 focus:ring-4 focus:ring-sky-200 place-items-center"
             >
             Search Flight
             </button>

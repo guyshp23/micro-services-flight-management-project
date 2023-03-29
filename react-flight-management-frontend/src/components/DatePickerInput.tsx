@@ -6,7 +6,8 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro' // regula
 interface Props{
     title?: string,
     // onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-    onChange: any
+    onChange: any,
+    defaultValue: Date
 }
 
 export const DatePickerInput = ({...props}: Props) => {
@@ -37,7 +38,7 @@ export const DatePickerInput = ({...props}: Props) => {
             next: () => <FontAwesomeIcon icon={solid('right-long')} />,
         },
         datepickerClassNames: "top-12",
-        defaultDate: new Date(),
+        defaultDate: props.defaultValue,
         language: "en",
     }
 

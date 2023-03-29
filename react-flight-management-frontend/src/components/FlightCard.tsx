@@ -14,7 +14,7 @@ type Props = {
     destination_country_name: string,
     destination_country_code: string,
 
-    departing_date: Date,
+    departure_date: Date,
     returning_date: Date,
     airline_company: string,
     airline_company_code: string,
@@ -33,7 +33,7 @@ export const FlightCard: React.FC<Props> = ({
     destination_country_name,
     destination_country_code,
 
-    departing_date,
+    departure_date,
     returning_date,
     airline_company,
     airline_company_code,
@@ -49,10 +49,10 @@ export const FlightCard: React.FC<Props> = ({
                     <path d="M43.389 38.269L29.222 61.34a1.152 1.152 0 01-1.064.615H20.99a1.219 1.219 0 01-1.007-.5 1.324 1.324 0 01-.2-1.149L26.2 38.27H11.7l-3.947 6.919a1.209 1.209 0 01-1.092.644H1.285a1.234 1.234 0 01-.895-.392l-.057-.056a1.427 1.427 0 01-.308-1.036L1.789 32 .025 19.656a1.182 1.182 0 01.281-1.009 1.356 1.356 0 01.951-.448l5.4-.027a1.227 1.227 0 01.9.391.85.85 0 01.2.252L11.7 25.73h14.5L19.792 3.7a1.324 1.324 0 01.2-1.149A1.219 1.219 0 0121 2.045h7.168a1.152 1.152 0 011.064.615l14.162 23.071h8.959a17.287 17.287 0 017.839 1.791Q63.777 29.315 64 32q-.224 2.685-3.807 4.478a17.282 17.282 0 01-7.84 1.793h-9.016z"></path>
                 </svg>
                 <h1 className="ml-2 uppercase font-bold text-gray-500">departure</h1>
-                {/* tranform departing_date Date object to Day - Month number - Month format */}
+                {/* tranform departure_date Date object to Day - Month number - Month format */}
 
                 {/* TODO: Format date to extract it into date & hour and print it here accordingly */}
-                <p className="absolute right-6 bottom-2 ml-2 font-normal text-gray-500">{departing_date.toLocaleDateString()} at 19:00</p>
+                <p className="absolute right-6 bottom-2 ml-2 font-normal text-gray-500">{departure_date.toLocaleDateString()} at 19:00</p>
             </div>
             <div className="mt-2 flex sm:flex-row mx-6 sm:justify-between flex-wrap">
             <div className="flex flex-row w-full justify-between">

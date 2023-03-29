@@ -1,11 +1,16 @@
 import http, { DJANGO_API_URL } from '../http';
 
-export default async function GetFlightsByParams(origin_airport_id: string, destination_airport_id: string,
-                                                 departing_date: Date, returning_date: Date){
+export default async function GetFlightsByParams(origin_display_name: string,
+                                                 destination_display_name: string,
+                                                 departure_date: string,
+                                                ){
 
-    const { data } = await http.post(`${DJANGO_API_URL}/flights/search`, {
-        origin_airport_id: origin_airport_id, destination_airport_id: destination_airport_id,
-        departing_date: departing_date, returning_date: returning_date
+    const { data } = await http.get(`http://localhost:8000/api/flights/`, {
+        params: {
+            origin_display_name: origin_display_name,
+            destination_display_name: destination_display_name,
+            departure_date: departure_date
+        }
     });
     return data;
 };
