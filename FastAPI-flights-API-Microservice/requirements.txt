@@ -6,7 +6,9 @@ dependency-injector
 python-multipart
 jinja2
 pydantic[dotenv]
-psycopg2
+#psycopg2
+psycopg2-binary
 httpx
 mysqlclient
 pycountry
+dependency_injection

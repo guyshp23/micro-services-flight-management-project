@@ -11,7 +11,6 @@ from app.exceptions.invalid_params import InvalidParamsException
 class Airport(models.Model):
     country_name = models.CharField(max_length=50)
     city_name    = models.CharField(max_length=50)
-    city_code    = models.CharField(max_length=50)
     airport_name = models.CharField(max_length=50)
     airport_code = models.CharField(max_length=3,
                                     validators=[

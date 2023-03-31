@@ -8,6 +8,7 @@ from app.exceptions.factory import ExceptionsFactory
 from ..services.users_service import UsersService
 
 
+
 class RegisterView(APIView):
      pass
 
