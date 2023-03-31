@@ -152,7 +152,7 @@ export function HomePage() {
 
     return (
         <div className="container flex flex-col items-center justify-between mx-auto mt-12 h-full">
-            <FlightForm onSubmitSend={onFlightFormSubmit}/>
+            <FlightForm onSubmitSend={onFlightFormSubmit} />
             <div className="grid items-center justify-between mx-auto mt-12 lg:grid-cols-2 xl:grid-cols-3">
                 {
                     !ErrorObj && Flights && Flights.length > 0
@@ -160,8 +160,8 @@ export function HomePage() {
                     Flights.map((flight) => {
                         return (
                             <FlightCard
-                                id={flight.data.id}
                                 key={flight.data.id}
+                                id={flight.data.id}
                                 origin_code={flight.data.origin_code}
                                 origin_city={flight.data.origin_city}
                                 origin_country_name={flight.data.origin_country_name} 

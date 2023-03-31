@@ -23,7 +23,7 @@ export const FlightCard: React.FC<Flight> = ({
 }) => {
     return (
         <>
-        <div className="p-10">
+        <div key={id} className="p-10">
         <div className="max-w-full bg-white flex flex-col rounded overflow-hidden shadow-lg">
             <div className="relative flex flex-row items-baseline flex-nowrap border-b-2 border-gray-100 px-6 p-2">
                 <svg viewBox="0 0 64 64" data-testid="tripDetails-bound-plane-icon" pointerEvents="all" aria-hidden="true" className="mt-2 mr-1" role="presentation" style={{fill: 'rgb(102, 102, 102)', height: '0.9rem', width: '0.9rem'}}>

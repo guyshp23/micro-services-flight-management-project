@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ComboBoxInput } from './ComboBoxIinput';
 import { DatePickerInput } from './DatePickerInput';
 import { Label } from './Label';
+import GetDisplayNameByQuery from '../pages/api/airports/GetDisplayNameByQuery';
 
 
 interface Props {
@@ -12,35 +13,27 @@ interface Props {
 export function FlightForm({onSubmitSend}: Props){
 
     interface Airport {
-        id: number;
-        code: string;
-        display_string: string;
+        id:           number;
+        display_name: string;
         country_code: string;
     }
 
-    const airportsTestList = [
-        {
-            id: 1,
-            code: 'TLV',
-            display_string: 'Ben Gurion, Tel Aviv, Israel (TLV)',
-            country_code: 'il'
-        },
-        {
-            id: 2,
-            code: 'NYC',
-            display_string: 'New York, United States (NYC)',
-            country_code: 'us'
-        },
-    ]
+    interface Airport {
+        id:           number;
+        display_name: string;
+        country_code: string;
+    }
 
-    // replace 'useState<Airport[]>(airportsTestList); => useState<Airport[]>([]);
-    // to have an empty array until state is set (after response from microservice)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [airports_list, setAirportsList] = useState<Airport[]>(airportsTestList);
 
-    // From & To airport IDs
-    const [originAirport,      setOriginAirport]      = useState<string>(airportsTestList[0].display_string);
-    const [destinationAirport, setDestinationAirport] = useState<string>(airportsTestList[1].display_string);
+
+    const [fromAirportsList, setFromAirportsList] = useState<Airport[]>([]);
+    const [toAirportsList,   setToAirportsList]   = useState<Airport[]>([]);
+
+    // From & To airport query strings
+    const [originAirportQuery,      setOriginAirportQuery]      = useState<string>('');
+    const [destinationAirportQuery, setDestinationAirportQuery] = useState<string>('');
+
+
 
     const AWeekFromToday = new Date();
     AWeekFromToday.setDate(AWeekFromToday.getDate() + 12);
@@ -48,23 +41,44 @@ export function FlightForm({onSubmitSend}: Props){
 
 
     const [submitting, setSubmitting] = useState<boolean>(false);
-    
+
+
+    // Change later to useState type
+    const onChangeFilterValues = (e: any, setQueryState: any, setListState: any) => {
+        console.debug('Setting query state to', e.target.value)
+
+        // Set the value of the input to the selected value
+        setQueryState(e.target.value)
+
+        GetDisplayNameByQuery(e.target.value).then((res) => {
+            setListState(res);
+            console.debug('Setting state to', res)
+            return res;
+      })
+
+      // setFilteredValue(valuesArray.filter((val: any) => {
+      //   setCurrentValue(e.target.value)
+      //   return val.display_name.toLowerCase().includes(e.target.value.toLowerCase())
+      // }))
+    }
 
     const handleSubmit = () => {
-        console.debug('form submit!', originAirport+ ' --> ' +destinationAirport);
+        console.debug('Form submitted!',  originAirportQuery+ ' --> ' +destinationAirportQuery);
         console.debug('departingDate', departureDate);
 
         setSubmitting(true);
 
         onSubmitSend({
-            origin_airport_id: originAirport,
-            destination_airport_id: destinationAirport,
-            departure_date: departureDate,
+            origin_airport_id:      originAirportQuery,
+            destination_airport_id: destinationAirportQuery,
+            departure_date:         departureDate,
         });
 
-        console.log('submit false')
+        console.debug('Submit false')
         setSubmitting(false);
     }
+
+
 
     return (
         <div className="p-4 text-center bg-white border border-gray-200 rounded-md">
@@ -73,25 +87,25 @@ export function FlightForm({onSubmitSend}: Props){
 
         {/* Add tabs component with "OneWay" tab as :active */}
 
-            {/* wrapper */}
+            {/* Wrapper */}
             <div className='flex flex-row'>
                 <div className='flex flex-col mr-6'>
                     <Label>From:</Label>
                     <ComboBoxInput
-                        
-                        value={originAirport}
-                        onSelect={(e: any) => setOriginAirport(e)}
-                        valuesArray={airports_list}
+                        onChangeFilterValues={(e: any) => onChangeFilterValues(e, setOriginAirportQuery, setFromAirportsList)}
+                        onSelect={(e: any) => {setOriginAirportQuery(e); console.debug('changing to', e)}}
+                        value={originAirportQuery}
+                        valuesArray={fromAirportsList}
                     />
                 </div>
 
                 <div className='flex flex-col mr-6'>
                     <Label>To:</Label>
                     <ComboBoxInput
-                        
-                        value={destinationAirport}
-                        onSelect={(e: any) => setDestinationAirport(e)}
-                        valuesArray={airports_list}
+                        onChangeFilterValues={(e: any) => onChangeFilterValues(e, setDestinationAirportQuery, setToAirportsList)}
+                        onSelect={(e: any) => {setDestinationAirportQuery(e); console.debug('changing to', e)}}
+                        value={destinationAirportQuery}
+                        valuesArray={toAirportsList}
                     />
                 </div>
 
@@ -108,7 +122,7 @@ export function FlightForm({onSubmitSend}: Props){
 
             <button
                 onClick={handleSubmit}
-                disabled={submitting}
+                // disabled={submitting}
                 className="flex justify-center w-full mt-4 text-white border border-solid rounded shadow-sm h-11 hover:bg-sky-600 hover:shadow-md bg-sky-500 focus:ring-4 focus:ring-sky-200 place-items-center"
             >
             Search Flight

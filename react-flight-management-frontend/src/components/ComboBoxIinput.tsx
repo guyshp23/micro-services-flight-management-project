@@ -6,44 +6,37 @@ import { CircleFlag } from 'react-circle-flags';
 interface Props {
   valuesArray?: any;
   value? : any;
+  keydown? :any;
   onSelect? :any;
+  onChangeFilterValues: any;
 }
 
 
-export function ComboBoxInput({valuesArray, value, onSelect}: Props) {
-  const [filteredValue, setFilteredValue] = useState(valuesArray)
-  const [currentValue, setCurrentValue] = useState('')
-  const [openOptions, setOpenOptions] = useState(false);
+export function ComboBoxInput({valuesArray, value, onSelect, onChangeFilterValues}: Props) {
+  const [openOptions,   setOpenOptions]   = useState(false);
 
-
-    const onChangeFilterValues = (e: any) => {
-      setFilteredValue(valuesArray.filter((val: any) => {
-        setCurrentValue(e.target.value)
-        return val.display_string.toLowerCase().includes(e.target.value.toLowerCase())
-      }))
-    }
 
   return (
     <Combobox
-      onChange={(e: any) => {onSelect(e); setCurrentValue(e)}}
+      onChange={(e: any) => {onSelect(e)}}
       >
       <div onFocus={() => setOpenOptions(true)}  
            onBlur={()  => setTimeout(() => setOpenOptions(false), 100)}
       >
       <Combobox.Input
-        value={currentValue}
-        onChange={(e) => onChangeFilterValues(e)}
+        value={value}
+        onChange={e => onChangeFilterValues(e)}
         className='focus:hover:border-0 focus:border-0 focus:ring-4 focus:ring-sky-200 hover:border-sky-200 border-gray-200 p-2 rounded-md'
       />
       <Combobox.Options
         static={openOptions}
         className={'bg-white shadow-md rounded-md'}
         >
-        {filteredValue.map((val: any) => (
+        {valuesArray && valuesArray.length > 0 && valuesArray.map((val: any) => (
           <Combobox.Option 
             className={'relative py-[.9rem] cursor-pointer last:border-b-0 border-b text-gray-600 border-gray-200 hover:bg-gray-100'} 
             key={val.country_code}
-            value={val.display_string}
+            value={val.display_name}
           >
             <span className='flex justify-center my-[.9rem] items-center text-center'>
               <CircleFlag 
@@ -51,7 +44,7 @@ export function ComboBoxInput({valuesArray, value, onSelect}: Props) {
                 countryCode={val.country_code}
                 height="35"
               />
-              <p className='ml-4 text-sm'>{val.display_string}</p>
+              <p className='ml-4 text-sm'>{val.display_name}</p>
             </span>
           </Combobox.Option>
         ))}

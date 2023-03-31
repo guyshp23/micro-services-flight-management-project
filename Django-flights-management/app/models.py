@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from app.exceptions.invalid_params import InvalidParamsException
+import pycountry
 
 # TODO: Add random activity generator facade to generate fake user activity:
 #       - User X just bought a flight ticket to Y in the popup on the bottom-right corner
@@ -21,6 +22,12 @@ class Airport(models.Model):
                                     ],
                                     unique=True)
     display_name = models.CharField(max_length=100)
+
+
+    @property
+    def get_country_code_by_country_name(self) -> str:
+        return pycountry.countries.search_fuzzy(self.country_name)[0].alpha_2.lower()
+        return 'us'
 
 
 class Flight(models.Model):

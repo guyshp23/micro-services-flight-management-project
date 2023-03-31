@@ -1,9 +1,6 @@
 from datetime import date, datetime
-import json
 from sqlalchemy import Column, ForeignKey, String, Integer, DateTime, Float
 from sqlalchemy.ext.declarative import declarative_base
-from webapp.repositories.airports_repository import AirportsRepository
-from .exceptions import InvalidParamsException
 
 
 Base = declarative_base()
