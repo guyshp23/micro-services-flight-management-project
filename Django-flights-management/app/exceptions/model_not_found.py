@@ -8,5 +8,5 @@ class ModelNotFoundException(Exception):
         Holds the exception's custom attributes
         """
         self.status_code = 404
-        self.message     = "The requested resource was not found. Make sure it exists and try again."
+        self.message     = "The requested resource was not found."
         self.custom_msg  = custom_msg

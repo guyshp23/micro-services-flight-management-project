@@ -29,12 +29,14 @@ class Flight(models.Model):
     destination_airport               = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name='destination')
     departure_time                    = models.DateTimeField()
     landing_time                      = models.DateTimeField()
+    airline_company                   = models.CharField(max_length=50)
+    airline_company_code              = models.CharField(max_length=50)
+    # only departure flights for now so no need for this any more
     # status                            = models.CharField(max_length=50)
     remaining_tickets                 = models.IntegerField()
     ticket_economy_price              = models.FloatField()
-    # 'default' didn't work by default on this one, for some reason... anyway, added default manually in the db, hopefully that won't be an issue...
+
     ticket_economy_manual_override    = models.BooleanField(default=0) 
-    # 'default' didn't work by default on this one, for some reason... anyway, added default manually in the db, hopefully that won't be an issue...
     remaining_tickets_manual_override = models.BooleanField(default=0) 
 
     def is_booked(self, customer_obj) -> bool:

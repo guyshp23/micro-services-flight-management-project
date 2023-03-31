@@ -1,6 +1,6 @@
 import datetime
-from webapp.exceptions import InvalidParametersWereProvidedInRequestException
-from webapp.repositories import FlightsRepository
+from webapp.exceptions import InvalidParamsException
+from webapp.repositories.flights_repository import FlightsRepository
 
 
 
@@ -12,16 +12,16 @@ class RequestsValidator():
             # Check if the params are valid
             if origin_display_name == '' or destination_display_name == '' or departure_time == '' or landing_time == '':
                 # TODO: replace with an exception, don't return Response here
-                raise InvalidParametersWereProvidedInRequestException('Invalid parameters were provided in the request')
+                raise InvalidParamsException('Invalid parameters were provided in the request')
 
             # Check if the given deperture time is valid
             # Check if the time is instance of datetime
             if not isinstance(departure_time, datetime.datetime):
-                raise InvalidParametersWereProvidedInRequestException('The given deperture time is invalid!')
+                raise InvalidParamsException('The given deperture time is invalid!')
             
             # Check if the given deperture time is before the current time
             if departure_time < datetime.datetime.now():
-                raise InvalidParametersWereProvidedInRequestException('The given deperture time is before the current time!')
+                raise InvalidParamsException('The given deperture time is before the current time!')
 
 
             # Check if params can be found in the local database

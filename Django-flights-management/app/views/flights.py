@@ -33,18 +33,17 @@ class GetFlightsByParams(APIView):
         destination_display_name = request.GET.get("destination_display_name", None)
         departure_date           = request.GET.get("departure_date",           None)
 
-        # try:
-        flights = FlightService.get_by_params(request, origin_display_name,
-                                                            destination_display_name,
-                                                            departure_date)
-        # serializer = self.serializer_class(flights, many=True)
+        try:
+            flights = FlightService.get_by_params(request, origin_display_name,
+                                                                destination_display_name,
+                                                                departure_date)
+            # serializer = self.serializer_class(flights, many=True)
 
 
-        # Return the flights that match the given parameters.
-        return Response(flights, status=200)
-        # except Exception as e:
-            # Return the error message.
-            # return ExceptionsFactory.handle(e)
+            # Return the flights that match the given parameters.
+            return Response(flights, status=200)
+        except Exception as e:
+            return ExceptionsFactory.handle(e)
 
 class FlightsCRUD(mixins.ListModelMixin,
                       mixins.RetrieveModelMixin,

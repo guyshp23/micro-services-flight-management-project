@@ -48,8 +48,6 @@ export const DatePickerInput = ({...props}: Props) => {
 	}
 
 	return (
-		<div>
 			<Datepicker classNames="bg-white" options={options} onChange={props.onChange} show={show} setShow={handleClose} />
-		</div>
 	)
 }

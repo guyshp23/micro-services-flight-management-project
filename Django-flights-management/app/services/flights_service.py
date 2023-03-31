@@ -16,11 +16,14 @@ class FlightService(BaseServiceInterface):
     logger = logging.getLogger('main')
     global MICROSERVICE_APP_URL
     MICROSERVICE_APP_URL = "http://localhost:8800"
+    # MICROSERVICE_APP_URL = "http://fastapi-aerothree.onthewifi.com" 
 
     def __init__(self):
         logging.debug("FlightService initialized")
 
-    def get_by_params(self, origin_display_name: str, destination_display_name: str, departure_date: str):
+    def get_by_params(self, origin_display_name: str, 
+                      destination_display_name: str, 
+                      departure_date: str):
         logging.debug("FlightService.get_by_params() called")
         print("FlightService.get_by_params() called")
 
@@ -54,11 +57,22 @@ class FlightService(BaseServiceInterface):
         }
         print('payload:',payload)
 
+        logging.debug("Sending API request to microservice...")
+
         # Send an API request to the microservice endpoint
-        rest = requests.get(f'{MICROSERVICE_APP_URL}/flights/', params=payload)
+        rest = requests.get('http://127.0.0.1:8800/flights/', params=payload, verify=False)
         # prv
         print(rest)
-        logging.debug("Sending API request to microservice...")
+
+        if rest.status_code != 200:
+
+            if rest.status_code == 404:
+                logging.error("No flights with given params found with the given params, status code: " + str(rest.status_code))
+                raise ModelNotFoundException("No flights were found with the given parameters")
+
+            logging.error("API request failed, status code: " + str(rest.status_code))
+            raise Exception("Something terrible happened, that's all we know :(")
+
 
 
         response = rest.json()

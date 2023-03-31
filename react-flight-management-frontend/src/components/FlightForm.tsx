@@ -39,11 +39,11 @@ export function FlightForm({onSubmitSend}: Props){
     const [airports_list, setAirportsList] = useState<Airport[]>(airportsTestList);
 
     // From & To airport IDs
-    const [originAirport,      setOriginAirport]      = useState<string>('');
-    const [destinationAirport, setDestinationAirport] = useState<string>('');
+    const [originAirport,      setOriginAirport]      = useState<string>(airportsTestList[0].display_string);
+    const [destinationAirport, setDestinationAirport] = useState<string>(airportsTestList[1].display_string);
 
     const AWeekFromToday = new Date();
-    AWeekFromToday.setDate(AWeekFromToday.getDate() + 7);
+    AWeekFromToday.setDate(AWeekFromToday.getDate() + 12);
     const [departureDate, setDepartingDate] = useState<Date>(AWeekFromToday);
 
 

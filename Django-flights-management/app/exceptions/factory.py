@@ -43,19 +43,17 @@ class ExceptionsFactory():
             e.status_code = 404
             e.message     = "The given attribute is invalid"
 
-        # Incase where the exception was forgetten to be handled/shouldn't be.
-        if not hasattr(e, "status_code"):
-            e.custom_msg  = str(e)
 
         # Incase where the exception was forgetten to be handled/shouldn't be.
         # Report it in log as a warning and assign it a 500 status code for now
-        if ((not hasattr(e, str(e.status_code))) or (not hasattr(e, str(e.message))) or (not hasattr(e, str(e.custom_msg)))):
-            e.message     = "Something went wrong"
+        if not hasattr(e, 'status_code'):
             e.status_code = 500
-            e.custom_msg = "A general 500 exception occurred."
+
+        if not hasattr(e, 'message'):
+            e.message     = "Something went wrong"
             # TOLOG: warning, unassigned status_code & message to exception
 
-        if not hasattr(e, "custom_msg"):
+        if not hasattr(e, 'custom_msg'):
             e.custom_msg = str(e)
 
         

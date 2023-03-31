@@ -4,6 +4,30 @@ import GetFlightsByParams from "./api/flights/GetFlightsByParams";
 import { useEffect, useState } from "react";
 import ScreenBlock, { Error } from "../components/ScreenBlock";
 
+export interface FlightObj {
+    object: "flight";
+    data: Flight;
+}
+
+export interface Flight {
+    id:                       number;
+    origin_code:              string;
+    origin_city:              string;
+    origin_country_name:      string;
+    origin_country_code:      string;
+    destination_code:         string;
+    destination_city:         string;
+    destination_country_name: string;
+    destination_country_code: string;
+    departure_datetime:       string;
+    landing_datetime:         string;
+    airline_company:          string;
+    airline_company_code:     string;
+    ticket_economy_price:     number;
+    remaining_tickets:        number;
+}
+
+
 export function HomePage() {
     
     // Test data for now
@@ -79,10 +103,10 @@ export function HomePage() {
         },
         {
             id: 4,
-            origin_code: 'TLV',
-            origin_city: 'Tel Aviv',
-            origin_country_name: 'Israel',
-            origin_country_code: 'il',
+            origin_code: 'TLV', // airport_code
+            origin_city: 'Tel Aviv', // city_name
+            origin_country_name: 'Israel', // ountry_name
+            origin_country_code: 'il', // `add country code`
 
             destination_code: 'MLC',
             destination_city: 'Milan',
@@ -90,9 +114,9 @@ export function HomePage() {
             destination_country_code: 'us',
 
             // today's date in Date format + 1 day
-            departure_date: new Date(new Date().getTime() + 1 * 24 * 60 * 60 * 1000),
+            departure_datetime: new Date(new Date().getTime() + 1 * 24 * 60 * 60 * 1000),
             // today's date + 3 days in Date format
-            returning_date: new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000),
+            returning_datetime: new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000),
 
             airline_company: 'Kosher airlines',
             airline_company_code: 'KL-743',
@@ -102,26 +126,8 @@ export function HomePage() {
         },
     ]
     
-    interface Flight {
-        id:                       number;
-        origin_code:              string;
-        origin_city:              string;
-        origin_country_name:      string;
-        origin_country_code:      string;
-        destination_code:         string;
-        destination_city:         string;
-        destination_country_name: string;
-        destination_country_code: string;
-        departure_date:           Date;
-        returning_date:           Date;
-        airline_company:          string;
-        airline_company_code:     string;
-        price:                    number;
-        remaining_tickets:        number;
-    }
 
-
-    const [Flights, setFlights]   = useState<Flight[]>([]);
+    const [Flights, setFlights]   = useState<FlightObj[]>([]);
     const [ErrorObj, setErrorObj] = useState<any | null>(null);
 
     function onFlightFormSubmit(e: {
@@ -134,6 +140,7 @@ export function HomePage() {
             .then((res) => {
                 console.debug('response of GetFlightsByParams', res);
                     console.log('fligths set')
+                    setErrorObj(null);
                     setFlights(res);
             })
             .catch((err) => {
@@ -153,25 +160,27 @@ export function HomePage() {
                     Flights.map((flight) => {
                         return (
                             <FlightCard
-                                key={flight.id}
-                                origin_code={flight.origin_code}
-                                origin_city={flight.origin_city}
-                                origin_country_name={flight.origin_country_name} 
-                                origin_country_code={flight.origin_country_code} 
+                                id={flight.data.id}
+                                key={flight.data.id}
+                                origin_code={flight.data.origin_code}
+                                origin_city={flight.data.origin_city}
+                                origin_country_name={flight.data.origin_country_name} 
+                                origin_country_code={flight.data.origin_country_code} 
 
-                                destination_code={flight.destination_code}
-                                destination_city={flight.destination_city}
-                                destination_country_name={flight.destination_country_name}
-                                destination_country_code={flight.destination_country_code}
+                                destination_code={flight.data.destination_code}
+                                destination_city={flight.data.destination_city}
+                                destination_country_name={flight.data.destination_country_name}
+                                destination_country_code={flight.data.destination_country_code}
 
-                                airline_company={flight.airline_company}   
-                                airline_company_code={flight.airline_company_code}
+                                airline_company={flight.data.airline_company}   
+                                airline_company_code={flight.data.airline_company_code}
 
-                                departure_date={flight.departure_date}
-                                returning_date={flight.returning_date}
+                                departure_datetime={flight.data.departure_datetime}
+                                landing_datetime={flight.data.landing_datetime}
 
-                                price={flight.price}
-                                remaining_tickets={flight.remaining_tickets} />
+                                ticket_economy_price={flight.data.ticket_economy_price}
+                                remaining_tickets={flight.data.remaining_tickets} 
+                            />
                         )
                     })
                 }

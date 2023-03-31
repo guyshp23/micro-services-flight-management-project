@@ -9,3 +9,4 @@ pydantic[dotenv]
 psycopg2
 httpx
 mysqlclient
+pycountry

@@ -22,16 +22,28 @@ export default function ScreenBlock({title, image, message}: ScreenBlockProps) {
     )
 }
 
+
 export function Error({title, message, type}: ErrorProps) {
 
-    function DecideImgBasedOnType(type: string) {
+    function DecideImgBasedOnType(type: string): JSX.Element {
         switch (type) {
             case 'notFound':
-                return <img alt="2 Empty Notepads" className="h-60 mb-8" src="http://localhost:3000/undraw_no_data.svg"/>
+                return <img alt="2 Empty Notepads"
+                            className="h-60 mb-8"
+                            src="http://localhost:3000/undraw_no_data.svg"
+                        />
+
             case 'general':
-                return <img alt="2 Empty Notepads" className="h-60 mb-8" src="http://localhost:3000/undraw_no_data.svg"/>
+                return <img alt="2 Empty Notepads"
+                            className="h-60 mb-8"
+                            src="http://localhost:3000/undraw_no_data.svg"
+                        />
+
             default:
-                return <img alt="2 Empty Notepads" className="h-60 mb-8" src="http://localhost:3000/undraw_no_data.svg"/>
+                return <img alt="2 Empty Notepads"
+                            className="h-60 mb-8"
+                            src="http://localhost:3000/undraw_no_data.svg"
+                        />
         }
     }
 

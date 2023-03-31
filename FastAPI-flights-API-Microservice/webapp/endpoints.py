@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, Query
 from dependency_injector.wiring import inject, Provide
-from webapp.exceptions import InvalidParametersWereProvidedInRequestException, AirportNotFoundException
+from webapp.exceptions import InvalidParamsException, AirportNotFoundException
 from webapp.containers import Container
 from webapp.services import FlightsService
 from pydantic import Required

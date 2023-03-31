@@ -2,8 +2,8 @@ from datetime import date, datetime
 import json
 from sqlalchemy import Column, ForeignKey, String, Integer, DateTime, Float
 from sqlalchemy.ext.declarative import declarative_base
-
-from .exceptions import InvalidParametersWereProvidedInRequestException
+from webapp.repositories.airports_repository import AirportsRepository
+from .exceptions import InvalidParamsException
 
 
 Base = declarative_base()
@@ -16,43 +16,32 @@ class Flight(Base):
     destination_airport_id = Column(ForeignKey('app_airport.id'))
     departure_time         = Column(DateTime)
     landing_time           = Column(DateTime)
+    airline_company        = Column(String(50))
+    airline_company_code   = Column(String(50))
     remaining_tickets      = Column(Integer)
     ticket_economy_price   = Column(Float)
 
-    def __init__(self, origin_airport_id, destination_airport_id, departure_time, landing_time, remaining_tickets, ticket_economy_price):
-        self.origin_airport_id    = origin_airport_id
-        self.destination_airport_id  = destination_airport_id
-        self.departure_time       = departure_time
-        self.landing_time         = landing_time
-        self.remaining_tickets    = remaining_tickets
-        self.ticket_economy_price = ticket_economy_price
+    def __init__(self, origin_airport_id, destination_airport_id, departure_time, landing_time, airline_company, airline_company_code, remaining_tickets, ticket_economy_price):
+        self.origin_airport_id      = origin_airport_id
+        self.destination_airport_id = destination_airport_id
+        self.departure_time         = departure_time
+        self.landing_time           = landing_time
+        self.airline_company        = airline_company
+        self.airline_company_code   = airline_company_code
+        self.remaining_tickets      = remaining_tickets
+        self.ticket_economy_price   = ticket_economy_price
 
         self.validate()
 
-    def json_serial(self, obj):
+    def serialize_time(self, obj):
         """
          JSON serializer for objects not serializable by default json code
          https://stackoverflow.com/a/22238613
         """
 
         if isinstance(obj, (datetime, date)):
-            return obj.isoformat()
+            return obj.strftime("%d/%m/%Y %H:%M")
         raise TypeError ("Type %s not serializable" % type(obj))
-
-    # Used as a serializer to turn it from a python object to a json object
-    # So it can be returned in the response
-    def to_json(self):
-        return {
-            "object": "Flight",
-            "data": {
-                "id"                     : self.id,
-                "original_airport"       : self.origin_airport_id,
-                "destination_airport_id" : self.destination_airport_id,
-                "departure_time"         : self.json_serial(self.departure_time),
-                "remaining_tickets"      : self.remaining_tickets,
-                "ticket_economy_price"   : self.ticket_economy_price,
-            }
-        }
 
     def validate(self):
         return True
@@ -75,7 +64,7 @@ class Airport(Base):
 
         self.validate()
 
-    def to_json(self):
+    def to_dict(self):
         return {
             "object": "Airport",
             "data": {
