@@ -7,10 +7,15 @@ module.exports = {
     'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'bsky': {
+          500: '#56C8EE',
+        },
+    },
   },
   plugins: [
-    require('tailwind-dracula')('dracula'),
     require('flowbite/plugin')
   ],
+}
 }

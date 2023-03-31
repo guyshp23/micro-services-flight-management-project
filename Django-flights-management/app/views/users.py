@@ -3,7 +3,8 @@ from app.exceptions.factory import ExceptionsFactory
 from app.exceptions.model_not_found import ModelNotFoundException
 from app.serializer.users_serializer import UserSerializer
 from app.services.users_service import UsersService
-
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.contrib.auth.models import Permission, User
 
 class UserActions(APIView):
     serializer_class = UserSerializer
@@ -45,3 +46,27 @@ class UserActions(APIView):
             return Response(serializer.data, status=204)
         except Exception as e:
             return ExceptionsFactory.handle(e)
+
+
+class GetCurrentUserDetails(APIView):
+    
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format='json'):
+        token_user_email = request.user.email
+        token_user_username = request.user.username
+        token_user_id = request.user.id
+
+        user        = User.objects.filter(id=token_user_id).first()
+        permissions = Permission.objects.filter(user=user).all()
+
+        # all_permissions = Permission.objects.all()
+
+        return Response({
+            'id': token_user_id,
+            'username': token_user_username,
+            'email': token_user_email,
+            'permissions': [p.codename for p in permissions],
+            'isAdmin': user.is_superuser
+            # 'all_permissions': all_permissions
+        })

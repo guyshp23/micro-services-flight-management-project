@@ -7,7 +7,8 @@ urlpatterns = [
       #
       # Authentication
       #
-      path('auth/logout/', LogoutView.as_view(),
+      path('auth/logout/',
+            LogoutView.as_view(),
             name ='logout'),
 
       path('auth/register/',
@@ -21,6 +22,11 @@ urlpatterns = [
       path('auth/refresh/',
             jwt_views.TokenRefreshView.as_view(),
             name ='token_refresh'),
+      
+      path('auth/get_details/',
+            GetCurrentUserDetails.as_view(),
+            name ='get_details'),
+            
 
 
       #
@@ -82,6 +88,7 @@ urlpatterns = [
             UserActions.as_view(),
             name='user_actions'
            ),
+      
 
 
       #

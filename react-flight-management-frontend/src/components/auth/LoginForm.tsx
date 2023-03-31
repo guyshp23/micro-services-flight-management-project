@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, useField, ErrorMessage } from "formik";
 import { object, string } from "yup";
 import Login from "../../pages/api/auth/login";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import http, { isAuthenticted } from "../../pages/api/http";
+import { ToastContainer, toast } from 'react-toastify';
+import getUserDetails from "../../pages/api/auth/getUserDetails";
+import { Actions, useStoreActions } from 'easy-peasy';
+import { ApplicationStore } from "../../state";
 
 const LoginValidation = object().shape({
-  email:    string().required("An email is required").email("Valid email required"),
+  username: string().required("An username is required").min(3, "Must be at least 3 characters"),
   password: string().required("A password is required").min(8, "Must be at least 8 characters"),
 });
 
@@ -33,17 +38,71 @@ const Input = ({ name, label, ...props }: any) => {
 };
 
 function LoginForm() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    
+    if (isAuthenticted()) {
+      navigate('/')
+    }
+  
+  }, [navigate])
+
+
+  // const updateUserData = useStoreActions((actions) => actions.user.updateUserData);
+  const updateUserData = useStoreActions((actions: Actions<ApplicationStore>) => actions.user.updateUserData);
+  
   const handleSubmit = (values: any) => {
     console.debug('Login form submitted, values:', values);
-    Login(values.email, values.password)
+    Login(values.username, values.password)
+    .then(async (r) => {
+
+          // Set recieved tokens in local storage
+          localStorage.setItem("access_token",  r.access);
+          localStorage.setItem("refresh_token", r.refresh);
+
+          http.defaults.headers['Authorization'] = "JWT " + r.access;
+
+
+          console.debug('logging in...');
+          console.debug('response of login request:', r);
+
+          
+          // Get user details
+          await getUserDetails().then(async (r) => {
+            console.debug('User details response:', r);
+
+            // Save in redux state using easy-peasy
+            updateUserData(r);
+            
+          })
+
+          // Redirect to home page using react-router-dom
+          navigate('/')
+      })
+      .catch((err) => {
+          console.error(err);
+          toast.error(`Login failed! ${err.response.data.detail}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });          
+      })
+
   };
 
   return (
     <div className="h-screen flex items-center justify-center flex-col bg-transparent">
+      <ToastContainer />
       <Formik
         initialValues={{
-          email: "",
-          password: "",
+          username: "admin5",
+          password: "admin1234",
         }}
         onSubmit={handleSubmit}
         validationSchema={LoginValidation}
@@ -55,7 +114,7 @@ function LoginForm() {
                 Login
                 </h1>
                 <div className='mt-6'>
-                    <Input name="email"    label="Email" />
+                    <Input name="username"    label="Username" />
                     <Input name="password" label="Password" type="password" />
                     <p className="mb-8 -mt-3 text-xs font-light text-gray-700">
                         {" "}

@@ -18,7 +18,9 @@ class Flight(Base):
     remaining_tickets      = Column(Integer)
     ticket_economy_price   = Column(Float)
 
-    def __init__(self, origin_airport_id, destination_airport_id, departure_time, landing_time, airline_company, airline_company_code, remaining_tickets, ticket_economy_price):
+    def __init__(self, origin_airport_id, destination_airport_id,
+                 departure_time, landing_time, airline_company, airline_company_code, 
+                 remaining_tickets, ticket_economy_price):
         self.origin_airport_id      = origin_airport_id
         self.destination_airport_id = destination_airport_id
         self.departure_time         = departure_time

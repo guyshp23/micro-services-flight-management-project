@@ -1,9 +1,50 @@
+from app.exceptions.invalid_params import InvalidParamsException
 from app.exceptions.model_not_found import ModelNotFoundException
 from .base_service_interface import BaseServiceInterface
 from rest_framework_simplejwt.tokens import RefreshToken
-from ..models import Customer, User
+from ..models import User
+
+
 
 class UsersService(BaseServiceInterface):
+
+    def register(self, username: str, email: str, password: str) -> User:
+        """
+        Register a new user.
+
+        Args:
+            username (str): The username of the user to register.
+            email    (str): The email of the user to register.
+            password (str): The password of the user to register.
+
+        Raises:
+            Exception: If the user with the given username already exists.
+            Exception: If the user with the given email already exists.
+
+        Returns:
+            User: The newly registered user.
+        """
+
+        # Check if user with the given username already exists
+        if User.objects.filter(username=username).exists():
+            raise InvalidParamsException("User with the given username already exists")
+        
+        # Check if user with the given email already exists
+        if User.objects.filter(email=email).exists():
+            raise InvalidParamsException("User with the given email already exists")
+
+
+        # Create the user.
+        user = User.objects.create_user(username=username, email=email)
+
+        # Set the password.
+        user.set_password(password)
+
+        # Save the user.
+        user.save()
+
+        return user
+
 
     def logout(self, refresh_token: str) -> bool:
         """

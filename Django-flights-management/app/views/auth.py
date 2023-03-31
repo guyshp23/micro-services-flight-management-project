@@ -5,42 +5,43 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
 from rest_framework_simplejwt.exceptions import TokenError
 from app.exceptions.factory import ExceptionsFactory
-from ..services.users_service import UsersService
+from app.serializer.users_serializer import UserSerializer
+from app.services.users_service import UsersService
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 
 class RegisterView(APIView):
-     pass
+    serializer_class = UserSerializer
 
-
-class LoginView(APIView):
-    """
-    (!) Still WIP (!)
-    """
     def post(self, request):
         try:
-            user = UsersService.login(request.data["email"], request.data["password"])
-            return Response(user, status=status.HTTP_200_OK)
+            user = UsersService.register(self,
+                                            request.data["username"],
+                                            request.data["email"],
+                                            request.data["password"])
+            serializer = self.serializer_class(user)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
         except Exception as e:
             return ExceptionsFactory.handle(e)
 
 
 class LogoutView(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
+    authentication_classes = ()
 
     def post(self, request):
-        # TODO: Add a decorator to validate group instead 
-        # check user group
-        # if request.user.groups.filter(name="admin").exists():
-        #      return Response(status=status.HTTP_403_FORBIDDEN)
-
-
         try:
-            UsersService.logout(request.data["refresh_token"])
+            refresh_token = request.data["refresh_token"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+
+            return Response(status=status.HTTP_205_RESET_CONTENT)
         except TokenError as e:
+            # Does it mean tokenis already blacklisted?
             return ExceptionsFactory.handle(e)
         except Exception as e:
             return ExceptionsFactory.handle(e)
 
-        return Response(status=status.HTTP_205_RESET_CONTENT)

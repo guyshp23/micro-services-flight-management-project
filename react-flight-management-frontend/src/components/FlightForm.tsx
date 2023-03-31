@@ -40,8 +40,6 @@ export function FlightForm({onSubmitSend}: Props){
     const [departureDate, setDepartingDate] = useState<Date>(AWeekFromToday);
 
 
-    const [submitting, setSubmitting] = useState<boolean>(false);
-
 
     // Change later to useState type
     const onChangeFilterValues = (e: any, setQueryState: any, setListState: any) => {
@@ -55,18 +53,13 @@ export function FlightForm({onSubmitSend}: Props){
             console.debug('Setting state to', res)
             return res;
       })
-
-      // setFilteredValue(valuesArray.filter((val: any) => {
-      //   setCurrentValue(e.target.value)
-      //   return val.display_name.toLowerCase().includes(e.target.value.toLowerCase())
-      // }))
     }
 
     const handleSubmit = () => {
+
         console.debug('Form submitted!',  originAirportQuery+ ' --> ' +destinationAirportQuery);
         console.debug('departingDate', departureDate);
 
-        setSubmitting(true);
 
         onSubmitSend({
             origin_airport_id:      originAirportQuery,
@@ -75,7 +68,6 @@ export function FlightForm({onSubmitSend}: Props){
         });
 
         console.debug('Submit false')
-        setSubmitting(false);
     }
 
 
@@ -122,7 +114,6 @@ export function FlightForm({onSubmitSend}: Props){
 
             <button
                 onClick={handleSubmit}
-                // disabled={submitting}
                 className="flex justify-center w-full mt-4 text-white border border-solid rounded shadow-sm h-11 hover:bg-sky-600 hover:shadow-md bg-sky-500 focus:ring-4 focus:ring-sky-200 place-items-center"
             >
             Search Flight
