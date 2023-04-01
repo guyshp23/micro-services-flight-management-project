@@ -30,9 +30,8 @@ export function FlightForm({onSubmitSend}: Props){
     const [toAirportsList,   setToAirportsList]   = useState<Airport[]>([]);
 
     // From & To airport query strings
-    const [originAirportQuery,      setOriginAirportQuery]      = useState<string>('');
-    const [destinationAirportQuery, setDestinationAirportQuery] = useState<string>('');
-
+    const [originAirportQuery,      setOriginAirportQuery]      = useState<string>('United States, New York, John F. Kennedy (JFK)');
+    const [destinationAirportQuery, setDestinationAirportQuery] = useState<string>('Israel, Tel-aviv, Ben Gurion (TLV)');
 
 
     const AWeekFromToday = new Date();
@@ -46,13 +45,20 @@ export function FlightForm({onSubmitSend}: Props){
         console.debug('Setting query state to', e.target.value)
 
         // Set the value of the input to the selected value
-        setQueryState(e.target.value)
+        setQueryState(e.target.value);
 
-        GetDisplayNameByQuery(e.target.value).then((res) => {
-            setListState(res);
-            console.debug('Setting state to', res)
-            return res;
-      })
+        if (e.target.value.length >= 3) {
+            GetDisplayNameByQuery(e.target.value).then((res) => {
+                setListState(res);
+                console.debug('Setting state to', res)
+                return res;
+            })
+        }else{
+            // Display an error message that 
+            // at least 3 characters are required
+            console.debug('Not enough characters, please enter at least 3 for the query to be searched');
+            return;
+        }
     }
 
     const handleSubmit = () => {
@@ -74,8 +80,8 @@ export function FlightForm({onSubmitSend}: Props){
 
     return (
         <div className="p-4 text-center bg-white border border-gray-200 rounded-md">
-        <h1  className="mb-8 text-2xl font-bold text-center text-gray-500">Where would you like to go?</h1>
-
+        <h1  className="text-2xl font-medium text-center text-gray-500">Where would you like to go?</h1>
+        <p   className="mb-8 text-base text-center text-gray-500">Round and round we go, hopefully to a new destination!</p>
 
         {/* Add tabs component with "OneWay" tab as :active */}
 

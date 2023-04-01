@@ -22,13 +22,13 @@ export const DatePickerInput = ({...props}: Props) => {
         // because can't depart from the past
         minDate: new Date(new Date().getTime()+(-1*24*60*60*1000)), 
         theme: {
-            background: "bg-white",
+            background: "dark:bg-white",
             todayBtn: "bg-sky-400 hover:bg-sky-500 hover:shadow-md focus:ring-4 focus:ring-sky-200",
             clearBtn: "focus:ring-4 focus:ring-sky-200",
             icons: "",
             text: "text-gray-500",
             disabledText: "text-gray-300",
-            input: "focus:ring-0",
+            input: "border-2 border-gray-200 dark:bg-white bg-white focus:ring-0",
             inputIcon: "",
             selected: "bg-sky-500 hover:bg-sky-600 hover:shadow-md",
         },

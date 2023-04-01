@@ -1,3 +1,6 @@
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Dropdown } from 'flowbite-react';
 import { CircleFlag } from 'react-circle-flags'
 import { Flight } from '../pages/HomePage';
 
@@ -58,15 +61,55 @@ export const FlightCard: React.FC<Flight> = ({
                     </div>
                 </div>
             </div>
-            <div className="flex flex-row place-items-center pt-6 p-2">
-                <img alt={airline_company}
-                        className="w-10 h-10 rounded-full shadow-md"
-                        src={`https://api.dicebear.com/5.x/icons/svg?seed=${airline_company}`} 
-                        style={{opacity: '1', transformOrigin: '0% 50% 0px', transform: 'none'}} 
-                />
-                <div className="flex flex-col ml-2">
-                    <p className="text-xs text-gray-500 capitalize font-bold">{airline_company}</p>
-                    <p className="text-xs text-gray-500 uppercase">{airline_company_code}-{id}</p>
+            <div className='relative flex flex-row w-full'>
+                <div className='place-self-start w-full'>
+                    <div className="relative flex flex-row place-items-center pt-6 p-2">
+                        <img alt={airline_company}
+                                className="w-10 h-10 rounded-full shadow-md"
+                                src={`https://api.dicebear.com/5.x/icons/svg?seed=${airline_company}`} 
+                                style={{opacity: '1', transformOrigin: '0% 50% 0px', transform: 'none'}} 
+                        />
+                        <div className="flex flex-col ml-2">
+                            <p className="text-xs text-gray-500 capitalize font-bold">{airline_company}</p>
+                            <p className="text-xs text-gray-500 uppercase">{airline_company_code}-{id}</p>
+                        </div>
+
+                    </div>
+                </div>
+                {/* place-self-end */}
+                <div className='flex-row-reverse min-w-md justify-center items-center mt-8'>
+                    {/* <div className='relative'> */}
+                        {/* A gear icon from FontAwesomeIcon, that's aboslute and aligned right */}
+                        <Dropdown 
+                            label={
+                                <FontAwesomeIcon 
+                                    icon={solid('cog')}
+                                    className="text-gray-500"
+                                    size='lg'
+                                    />
+                                }
+                            arrowIcon={false}
+                            inline={true}
+                        >
+                                <Dropdown.Item 
+                                    // icon={<FontAwesomeIcon icon={solid('cog')} />}
+                                    className="text-red-500 hover:text-white hover:bg-red-500"
+                                >
+                                    Delete
+                                </Dropdown.Item>
+                                <Dropdown.Divider />
+                                <Dropdown.Item 
+                                    // icon={<FontAwesomeIcon icon={solid('cog')} />}
+                                >
+                                    Edit
+                                </Dropdown.Item>
+                                <Dropdown.Item 
+                                    // icon={<FontAwesomeIcon icon={solid('cog')} />}
+                                >
+                                    View
+                                </Dropdown.Item>
+                        </Dropdown>
+                    {/* </div> */}
                 </div>
             </div>
         </div>

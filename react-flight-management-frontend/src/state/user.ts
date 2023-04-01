@@ -27,8 +27,8 @@ const user: UserStore = {
         if (JSON.stringify(payload) === "{}"){
             state.data = undefined;
         }
-        // @ts-expect-error limitation of Typescript, 
         // can't do much about that currently unfortunately.
+        // @ts-expect-error limitation of Typescript, 
         state.data = { ...state.data, ...payload };
     }),
 };
