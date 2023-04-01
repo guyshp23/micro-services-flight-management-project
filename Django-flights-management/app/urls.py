@@ -31,12 +31,7 @@ urlpatterns = [
 
       #
       # Airports
-      #
-      path('airports/locations/',
-           GetAllAirportLocations.as_view(),
-           name='flights_locations'
-           ),
-      
+      #      
       path('airports/',
             AirportsCreateAndList.as_view(),
             name='airports_create_and_list'

@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { ComboBoxInput } from './ComboBoxIinput';
 import { DatePickerInput } from './DatePickerInput';
 import { Label } from './Label';
-import GetDisplayNameByQuery from '../pages/api/airports/GetDisplayNameByQuery';
+// import GetDisplayNameByQuery from '../pages/api/airports/GetDisplayNameByQuery';
+import { ApplicationStore } from "../state";
+import { useStoreState } from 'easy-peasy';
 
 
 interface Props {
@@ -25,13 +27,14 @@ export function FlightForm({onSubmitSend}: Props){
     }
 
 
+    const allAirportsList = useStoreState((state: ApplicationStore) => state!.airports!.data);
 
     const [fromAirportsList, setFromAirportsList] = useState<Airport[]>([]);
     const [toAirportsList,   setToAirportsList]   = useState<Airport[]>([]);
 
     // From & To airport query strings
-    const [originAirportQuery,      setOriginAirportQuery]      = useState<string>('United States, New York, John F. Kennedy (JFK)');
-    const [destinationAirportQuery, setDestinationAirportQuery] = useState<string>('Israel, Tel-aviv, Ben Gurion (TLV)');
+    const [originAirportQuery,      setOriginAirportQuery]      = useState<string>('John F. Kennedy , New York, United States (JFK)');
+    const [destinationAirportQuery, setDestinationAirportQuery] = useState<string>('Ben Gurion , Tel-aviv, Israel (TLV)');
 
 
     const AWeekFromToday = new Date();
@@ -47,21 +50,37 @@ export function FlightForm({onSubmitSend}: Props){
         // Set the value of the input to the selected value
         setQueryState(e.target.value);
 
-        if (e.target.value.length >= 3) {
-            GetDisplayNameByQuery(e.target.value).then((res) => {
-                setListState(res);
-                console.debug('Setting state to', res)
-                return res;
-            })
-        }else{
-            // Display an error message that 
-            // at least 3 characters are required
-            console.debug('Not enough characters, please enter at least 3 for the query to be searched');
-            return;
-        }
+        // if (e.target.value.length >= 3) {
+        //     GetDisplayNameByQuery(e.target.value).then((res) => {
+        //         setListState(res);
+        //         console.debug('Setting state to', res)
+        //         return res;
+        //     })
+        // }else{
+        //     // Display an error message that 
+        //     // at least 3 characters are required
+        //     console.debug('Not enough characters, please enter at least 3 for the query to be searched');
+        //     return;
+        // }
+        
+        setListState(allAirportsList.filter((val: any) => {
+            // setCurrentValue(e.target.value)
+            return val.display_string.toLowerCase().includes(e.target.value.toLowerCase())
+      }))
+
+    }
+
+    const clearListState = () => {
+        setFromAirportsList([]);
+        setToAirportsList([]);
+
+        console.debug('Cleared list state');
+
+        return;
     }
 
     const handleSubmit = () => {
+        clearListState();
 
         console.debug('Form submitted!',  originAirportQuery+ ' --> ' +destinationAirportQuery);
         console.debug('departingDate', departureDate);

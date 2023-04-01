@@ -9,8 +9,6 @@ class GetAllAirportLocations(APIView):
     serializer_class = AirportSerializer
 
     def get(self, request):
-        # Get the query param
-        query = request.GET.get("query", None)
 
         try:
             airports   = FlightService.get_all_airports_display_name_by_query(self, query)
@@ -18,6 +16,7 @@ class GetAllAirportLocations(APIView):
 
             return Response(serializer.data, status=200)
         except Exception as e:
+            print(e, str(e))
             return Response(str(e), status=500)
 
 

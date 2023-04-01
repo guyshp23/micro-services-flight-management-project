@@ -1,16 +1,16 @@
 import { createStore } from 'easy-peasy';
 import user, { UserStore } from './user';
-import permissions, { GloablPermissionsStore } from './permissions';
+import airports, { AirportsStore } from './airports';
 
 
 export interface ApplicationStore {
     user:        UserStore;
-    permissions: GloablPermissionsStore;
+    airports: AirportsStore;
 }
 
 const state: ApplicationStore = {
     user,
-    permissions,
+    airports,
 };
 
 export const store = createStore(state);

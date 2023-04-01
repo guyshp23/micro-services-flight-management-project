@@ -26,8 +26,11 @@ class Airport(models.Model):
 
     @property
     def get_country_code_by_country_name(self) -> str:
-        return pycountry.countries.search_fuzzy(self.country_name)[0].alpha_2.lower()
-        return 'us'
+        try:
+            return pycountry.countries.search_fuzzy(self.country_name)[0].alpha_2.lower()
+        except:
+            return ''
+
 
 
 class Flight(models.Model):

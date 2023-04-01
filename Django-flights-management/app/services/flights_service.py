@@ -125,7 +125,7 @@ class FlightService(BaseServiceInterface):
         logging.debug("FlightService.get_all_airports_display_name_by_query() called")
 
         # Find all airports that match the query
-        airports = Airport.objects.filter(display_name__icontains=query)
+        airports = Airport.objects.filter(display_name__contains=query)
  
         # Return the airports that match the query
         return airports

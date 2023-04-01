@@ -80,12 +80,12 @@ export const FlightCard: React.FC<Flight> = ({
                 <div className='flex-row-reverse min-w-md justify-center items-center mt-8'>
                     {/* <div className='relative'> */}
                         {/* A gear icon from FontAwesomeIcon, that's aboslute and aligned right */}
-                        <Dropdown 
+                        <Dropdown
                             label={
-                                <FontAwesomeIcon 
+                                <FontAwesomeIcon
                                     icon={solid('cog')}
-                                    className="text-gray-500"
-                                    size='lg'
+                                    className="text-gray-500 hover:text-gray-600 hover:drop-shadow-md"
+                                    size='xl'
                                     />
                                 }
                             arrowIcon={false}

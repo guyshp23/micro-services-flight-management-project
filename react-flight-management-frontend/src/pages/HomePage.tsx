@@ -73,7 +73,7 @@ export function HomePage() {
             <FlightForm onSubmitSend={onFlightFormSubmit} />
             <div className="grid items-center justify-between mx-auto mt-12 lg:grid-cols-2 xl:grid-cols-3">
                 {
-                    (!ErrorObj && Flights && Flights.length > 0)
+                    (!isSubmitting && !ErrorObj && Flights && Flights.length > 0)
                     && 
                     Flights.map((flight) => {
                         return (
