@@ -5,6 +5,8 @@ import { Label } from './Label';
 // import GetDisplayNameByQuery from '../pages/api/airports/GetDisplayNameByQuery';
 import { ApplicationStore } from "../state";
 import { useStoreState } from 'easy-peasy';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 
 interface Props {
@@ -33,8 +35,8 @@ export function FlightForm({onSubmitSend}: Props){
     const [toAirportsList,   setToAirportsList]   = useState<Airport[]>([]);
 
     // From & To airport query strings
-    const [originAirportQuery,      setOriginAirportQuery]      = useState<string>('John F. Kennedy , New York, United States (JFK)');
-    const [destinationAirportQuery, setDestinationAirportQuery] = useState<string>('Ben Gurion , Tel-aviv, Israel (TLV)');
+    const [originAirportQuery,      setOriginAirportQuery]      = useState<string>('');
+    const [destinationAirportQuery, setDestinationAirportQuery] = useState<string>('');
 
 
     const AWeekFromToday = new Date();
@@ -46,7 +48,7 @@ export function FlightForm({onSubmitSend}: Props){
     // Change later to useState type
     const onChangeFilterValues = (e: any, setQueryState: any, setListState: any) => {
         console.debug('Setting query state to', e.target.value)
-
+        
         // Set the value of the input to the selected value
         setQueryState(e.target.value);
 
@@ -62,11 +64,13 @@ export function FlightForm({onSubmitSend}: Props){
         //     console.debug('Not enough characters, please enter at least 3 for the query to be searched');
         //     return;
         // }
-        
-        setListState(allAirportsList.filter((val: any) => {
-            // setCurrentValue(e.target.value)
-            return val.display_string.toLowerCase().includes(e.target.value.toLowerCase())
-      }))
+        if (e.target.value.length >= 3) {
+            
+            setListState(allAirportsList.filter((val: any) => {
+                // setCurrentValue(e.target.value)
+                return val.display_name.toLowerCase().includes(e.target.value.toLowerCase())
+            }))
+        }
 
     }
 
@@ -95,6 +99,29 @@ export function FlightForm({onSubmitSend}: Props){
         console.debug('Submit false')
     }
 
+    // Represents a list of recommended destinations that we would normally recieve
+    // From the backend, from an API request sent in the useEffect hook
+    const recommendedFlightDestinations = [
+            {
+                'New York': 'John F. Kennedy, New York, United States (JFK)',
+                'Tel Aviv': 'Ben Gurion, Tel-aviv, Israel (TLV)',
+            },
+            {
+                'Moscow': 'John F. Kennedy, New York, United States (JFK)',
+                'Tel Aviv': 'Ben Gurion, Tel-aviv, Israel (TLV)',
+            }
+            // {
+            //     ... This would be another destination ...
+            //     ... With only 2 params, from and to   ...
+            // }
+        ]
+
+    function onRecommendedFlightClick(fromDisplay: string, toDisplay: string){
+        console.debug('Clicked on recommended flight', fromDisplay, toDisplay);
+
+        setOriginAirportQuery(fromDisplay);
+        setDestinationAirportQuery(toDisplay);
+    }
 
 
     return (
@@ -135,6 +162,25 @@ export function FlightForm({onSubmitSend}: Props){
                     />
                 </div>
 
+            </div>
+
+            <div className='flex flex-row mt-2 mb-4 font-medium text-left text-gray-400'>
+                {
+                    recommendedFlightDestinations.map((val: any, key: any) => {
+                        return (
+                            <div
+                                key={key} 
+                                className='flex flex-row p-1 px-2 ml-2 text-sm text-gray-500 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 first:ml-0 w-fit'
+                                // @ts-expect-error
+                                onClick={() => onRecommendedFlightClick(Object.values(val)[0], Object.values(val)[1])}
+                            >
+                                <span className='mr-2'>{Object.keys(val)[0]}</span>
+                                <FontAwesomeIcon icon={solid('plane')} className='mt-1 mr-2 text-sky-400' />
+                                <span className='mr-2'>{Object.keys(val)[1]}</span>
+                            </div>
+                        )
+                    })
+                }
             </div>
 
             <button
