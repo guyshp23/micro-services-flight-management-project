@@ -10,3 +10,4 @@ requests
 # I just like clearing cache bro, leave it alone
 django_clearcache
 pycountry
+pytest

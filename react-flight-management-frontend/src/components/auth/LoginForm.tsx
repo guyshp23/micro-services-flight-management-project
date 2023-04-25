@@ -91,7 +91,7 @@ function LoginForm() {
             draggable: true,
             progress: undefined,
             theme: "light",
-          });          
+          });
       })
 
   };
@@ -114,7 +114,7 @@ function LoginForm() {
                 Login
                 </h1>
                 <div className='mt-6'>
-                    <Input name="username"    label="Username" />
+                    <Input name="username" label="Username" />
                     <Input name="password" label="Password" type="password" />
                     <p className="mb-8 -mt-3 text-xs font-light text-gray-700">
                         {" "}

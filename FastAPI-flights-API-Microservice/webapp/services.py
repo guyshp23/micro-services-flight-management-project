@@ -88,29 +88,17 @@ class FlightsService:
         print('\n\n\n\n')
         print(added_flights)
 
+        # Sometimes thrown when there is only 1 codeshared flight
+        if len(added_flights) == 0:
+            raise FlightNotFoundException('No flights were found with the given parameters')
+
+
         return added_flights
-            # don't check the first one, there is nothing to compare it to
-            # if flight == data[0]:
-            #     print('skipping first flight')
-            #     continue
-            # print('checking... ' + flight['flight']['number'], data[data.index(flight) - 1]['flight']['number'])
-            # # Check if the flight's number is the same as the previous flight's number
-            # if flight['flight']['number'] == data[data.index(flight) - 1]['flight']['number']:
-            #     print('removing flight', flight.number)
-            #     del data[data.index(flight) - 1]
-            #     continue
 
 
-            # for flight.number in flight:
-                # if flight.number 
-
-
-        # flight.number
-
-
-    def get_flights_by_params(self, origin_display_name: str, 
-                              destination_display_name:  str,
-                              departure_time:            str):
+    def get_flights_by_params(self, origin_display_name:      str, 
+                                    destination_display_name: str,
+                                    departure_time:           str):
 
         try:
             external_flights = self.flights_repo.get_external_flights_by_params(origin_display_name, destination_display_name, departure_time)
@@ -131,28 +119,6 @@ class FlightsService:
         # except Exception as e:
         #     return Response(content=str(e), status_code=402)
         return Response(content='BOOK flights', status_code=200)
-
-
-
-    def delete_flight_by_flight_id(self, flight_id: int):
-        # try:
-        #     r = self.flights_repo.delete(flight_id)
-
-        # except FlightNotFoundException as e:
-        #     return Response(content=str(e), status_code=404)
-
-        # except InvalidParametersWereProvidedInRequestException as e:
-        #     return Response(content=str(e), status_code=402)
-
-        # except Exception as e:
-        #     return Response(content=str(e), status_code=402)
-
-
-        # if r == 204:
-        #     return Response(content=r, status_code=204)
-
-        # return r
-        return Response(content='DELETE flights', status_code=200)
 
 
     def serialize_flight(self, flight: Flight):

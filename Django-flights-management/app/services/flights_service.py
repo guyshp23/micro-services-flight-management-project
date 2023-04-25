@@ -155,3 +155,42 @@ class FlightService(BaseServiceInterface):
 
         logging.debug('Returned user flights: ' + str(user_flights))
         return user_flights
+
+    def update_tickets_and_price(
+                                self,
+                                flight_id: int,
+                                remaining_tickets: int,
+                                ticket_economy_price: float
+                                ):
+        """
+        Update the number of remaining tickets and the price of the flight.
+        Wasn't moved to the MS because it doesn't have any business logic.
+
+        Args:
+            remaining_tickets (int): The new number of remaining tickets.
+            flight_id (int): The ID of the flight to update.
+            price (float): The new price of the flight.
+        """
+        logging.debug("FlightService.update_tickets_and_price() called")
+
+        # Validate params
+        # TODO: Maybe more are necessary
+        if remaining_tickets < 0:
+            logging.error('Remaining tickets must be greater than 0')
+            raise Exception('Remaining tickets must be greater than 0')
+
+        if ticket_economy_price < 0:
+            logging.error('Price must be greater than 0')
+            raise Exception('Price must be greater than 0')
+
+        if isinstance(remaining_tickets, int) == False:
+            logging.error('Remaining tickets must be an integer')
+            raise Exception('Remaining tickets must be an integer')
+        
+        if isinstance(ticket_economy_price, float) == False:
+            logging.error('Price must be a float')
+            raise Exception('Price must be a float')
+
+
+        # Update the number of remaining tickets and the price of the flight
+        return Flight.objects.filter(id=flight_id).update(remaining_tickets=remaining_tickets, ticket_economy_price=ticket_economy_price)

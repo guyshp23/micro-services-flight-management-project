@@ -20,47 +20,55 @@ class FlightsSerializer(serializers.ModelSerializer):
             'ticket_economy_price',
         )
 
-    # Consider making multiple functions for each field 
-    # (validate_origin_airport, validate_destination_airport, etc.)
-    def validate(self, data):
-        """
-        Validate the data before saving it to the DB.
 
-        Args:
-            data (dict): The data to validate.
-
-        Raises:
-            ValidationError: If the data is invalid.
-
-        Returns:
-            dict: The validated data.
-        """
-        # Validate the data
-        if data['remaining_tickets'] < 0:
+    def validate_remaining_tickets(self, value):
+        if value < 0:
             raise serializers.ValidationError('Remaining tickets cannot be negative')
-        
-        if data['ticket_economy_price'] < 0:
+
+        if value == None:
+            raise serializers.ValidationError('Remaining tickets cannot be empty')
+
+
+    def validate_ticket_economy_price(self, value):
+        if value < 0:
             raise serializers.ValidationError('Ticket economy price cannot be negative')
-        
-        if data['departure_time'] > data['landing_time']:
+
+
+    def validate_departure_time(self, value):
+        if value > self.values('landing_time'):
             raise serializers.ValidationError('Departure time cannot be after landing time')
-        
-        if data['departure_time'] == data['landing_time']:
+
+        if value == self.values('landing_time'):
             raise serializers.ValidationError('Departure time cannot be the same as landing time')
         
-        if data['origin_airport'] == data['destination_airport']:
-            raise serializers.ValidationError('Origin airport cannot be the same as destination airport')
-        
-        if data['origin_airport'] == None:
-            raise serializers.ValidationError('Origin airport cannot be empty')
-        
-        if data['destination_airport'] == None:
-            raise serializers.ValidationError('Destination airport cannot be empty')
-        
-        if data['departure_time'] == None:
+        if value == None:
             raise serializers.ValidationError('Departure time cannot be empty')
-        
-        if data['landing_time'] == None:
-            raise serializers.ValidationError('Landing time cannot be empty')
 
-        return data
+
+    def validate_landing_time(self, value):
+        if value < self.values('departure_time'):
+            raise serializers.ValidationError('Landing time cannot be before departure time')
+
+        if value == self.values('departure_time'):
+            raise serializers.ValidationError('Landing time cannot be the same as departure time')
+        
+        if value == None:
+            raise serializers.ValidationError('Departure time cannot be empty')
+
+
+    def validate_origin_airport(self, value):
+        if value == None:
+            raise serializers.ValidationError('Origin airport cannot be empty')
+
+        if value == self.values('destination_airport'):
+            raise serializers.ValidationError('Origin airport cannot be the same as destination airport')
+
+
+    def validate_destination_airport(self, value):
+        if value == None:
+            raise serializers.ValidationError('Destination airport cannot be empty')
+
+        if value == self.values('origin_airport'):
+            raise serializers.ValidationError('Destination airport cannot be the same as origin airport')
+
+

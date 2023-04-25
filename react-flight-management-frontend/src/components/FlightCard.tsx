@@ -1,8 +1,16 @@
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Dropdown } from 'flowbite-react';
+import { Button, Dropdown, Modal } from 'flowbite-react';
 import { CircleFlag } from 'react-circle-flags'
 import { Flight } from '../pages/HomePage';
+import { useState } from 'react';
+import { Formik, Form, } from "formik";
+import { number, object } from "yup";
+import { Input } from './Input';
+import UpdateFlight from '../pages/api/flights/UpdateFlight';
+import DeleteFlight from '../pages/api/flights/DeleteFlight';
+import BookFlight from '../pages/api/flights/BookFlight';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 export const FlightCard: React.FC<Flight> = ({
@@ -24,22 +32,243 @@ export const FlightCard: React.FC<Flight> = ({
     ticket_economy_price,
     remaining_tickets
 }) => {
+
+    const [showEditModal,    setShowEditModal]    = useState(false);
+    const [showDeleteModal,  setShowDeleteModal]  = useState(false);
+
+    const [remainingTickets, setRemainingTickets] = useState(remaining_tickets);
+    const [ticketPrice,      setTicketPrice]      = useState(ticket_economy_price);
+
+    const [isFlightDeleted, setIsFlightDeleted]   = useState(false);
+    const [isFlightBooked, setIsFlightBooked]     = useState(false);
+
+
+    function ToggleEditModal(){
+        console.debug('ToggleEditModal triggered for Flight #', id);
+        
+        // To make sure both modals aren't displayed at the same time *magicaly*
+        setShowDeleteModal(false)
+        setShowEditModal(!showEditModal)
+    }
+
+    function ToggleDeleteModal(){
+        console.debug('ToggleDeleteModal triggered for Flight #', id);
+
+        // To make sure both modals aren't displayed at the same time *magicaly*
+        setShowEditModal(false)
+        setShowDeleteModal(!showDeleteModal)
+    }
+
+
+    function handleFlightEditSubmit(e: any){
+        console.debug('handleFlightEditSubmit triggered for Flight #', id);
+        console.debug('e:', e);
+
+        UpdateFlight(id, e.remaining_tickets, parseInt(e.ticket_price))
+        .then((r) => {
+            console.debug('UpdateFlight response:', r);
+
+                // Update remaining tickets & price state
+                setRemainingTickets(e.remaining_tickets);
+                setTicketPrice(e.ticket_price);
+
+                toast.success(`Details updated! 📝`, {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+        })
+        .catch((e) => {
+            console.error('UpdateFlight error:', e);
+        })
+  
+        // On success
+        // ToggleEditModal();
+    }
+
+
+    function handleFlightDeleteSubmit(){
+        console.debug('handleFlightDeleteSubmit triggered for Flight #', id);
+
+        DeleteFlight(id)
+            .then((r) => {
+                console.debug('UpdateFlight response:', r);
+                setIsFlightDeleted(true);
+            })
+            .catch((e) => {
+                console.error('UpdateFlight error:', e);
+                setIsFlightDeleted(false);
+            })
+
+    }
+
+    const FlightEditValidation = object().shape({
+    remaining_tickets: number()
+                        .typeError("The remaining tickets must be a number")
+                        .positive("Well that's not possible, I think you should take a break...")
+                        .max(1000, "Too high my man, we don't have that many seats...")
+                        .min(50, "What are we, a bus company? Seriously?")
+                        .required("No tickets? Really? Input 0 then..."),
+
+    ticket_price:      number()
+                        .typeError("The price must be a number")
+                        .min(100, "What are we, a crapy lower cost company? Seriously?")
+                        .required("A price is required, we don't print money out of thin air...")
+                        .max(1000, "The price is too high, we don't fly billionaires here...")
+                        .positive("The price must be positive, we don't pay you to fly...")
+    });
+
+    function onFlightBook() {
+        console.debug('Flight booked!');
+        BookFlight(id)
+            .then((r) => {
+                console.debug('BookFlight response:', r);
+
+                // Remove 1 ticket from remainingTickets state
+                setRemainingTickets(remainingTickets - 1);
+                setIsFlightBooked(true);
+
+                toast.success(`Flight booked! ✨`, {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+            })
+            .catch((e) => {
+                console.error('BookFlight error:', e);
+                setIsFlightBooked(false);
+
+                toast.error(`${e.response.data.custom_message || 'Flight book failed!'}`, {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+            })
+    }
+
+
     return (
         <>
-        <div key={id} className="p-10">
-        <div className="max-w-full bg-white flex flex-col rounded overflow-hidden shadow-lg">
-            <div className="relative flex flex-row items-baseline flex-nowrap border-b-2 border-gray-100 px-6 p-2">
+        <Modal
+            show={showDeleteModal}
+            size="md"
+            popup={true}
+            onClose={() => setShowDeleteModal(false)}
+        >
+            <Modal.Header />
+            <Modal.Body>
+            <div className="text-center">
+                <h3 className="mb-5 text-base font-normal text-gray-500 dark:text-gray-400">
+                One less flight to worry about. Are you sure?
+                </h3>
+                <div className="flex justify-center gap-4">
+                <Button
+                    color="failure"
+                    className='rounded-none'
+                    onClick={() => handleFlightDeleteSubmit()}
+                >
+                    Yes. Shoot it down.
+                </Button>
+                <Button
+                    color="gray"
+                    onClick={() => ToggleDeleteModal()}
+                >
+                    No, cancel
+                </Button>
+                </div>
+            </div>
+            </Modal.Body>
+        </Modal>
+
+
+        <Modal
+            show={showEditModal}
+            size="md"
+            popup={true}
+            onClose={() => setShowEditModal(false)}
+            dismissible={true}
+        >
+            <Modal.Header />
+            <Modal.Body>
+            <div className="flex flex-col items-center justify-center text-left">
+                <h3 className="mb-5 text-base text-gray-500">
+                Editing Flight #{id}...
+                </h3>
+                <Formik
+                    initialValues={{
+                        remaining_tickets: remaining_tickets,
+                        ticket_price:      ticket_economy_price,
+                    }}
+                    onSubmit={handleFlightEditSubmit}
+                    validationSchema={FlightEditValidation}
+                >
+                {() => {
+                  return (
+                    <Form>
+                        <div className='text-left text-gray-400'>
+                            <Input
+                                type="number"
+                                id="remaining_tickets"
+                                name="remaining_tickets"
+                                label="Remaining tickets"
+                                placeholder={remaining_tickets}
+                                required={true}
+                                // className='border-0 focus:ring-2 focus:ring-sky-500'
+                            />
+                            <Input
+                                type="number"
+                                id="ticket_price"
+                                name="ticket_price"
+                                label="Ticket Price (in $)"
+                                placeholder={ticket_economy_price}
+                                required={true}
+                                // className='border-0 focus:ring-2 focus:ring-sky-500'
+                            />
+                        </div>
+                        <Button
+                            color="success"
+                            type="submit"
+                            fullSized={true}
+                            className='mt-4 rounded-full'
+                        >
+                            Save
+                        </Button>
+                    </Form>
+                    );
+                }}
+                </Formik>
+            </div>
+            </Modal.Body>
+        </Modal>
+
+
+        <div key={id} className={`p-10 ${isFlightDeleted && 'opacity-25 pointer-events-none'}`}>
+      <ToastContainer />
+        <div className="flex flex-col max-w-full overflow-hidden bg-white rounded shadow-lg">
+            <div className="relative flex flex-row items-baseline p-2 px-6 border-b-2 border-gray-100 flex-nowrap">
                 <svg viewBox="0 0 64 64" data-testid="tripDetails-bound-plane-icon" pointerEvents="all" aria-hidden="true" className="mt-2 mr-1" role="presentation" style={{fill: 'rgb(102, 102, 102)', height: '0.9rem', width: '0.9rem'}}>
                     <path d="M43.389 38.269L29.222 61.34a1.152 1.152 0 01-1.064.615H20.99a1.219 1.219 0 01-1.007-.5 1.324 1.324 0 01-.2-1.149L26.2 38.27H11.7l-3.947 6.919a1.209 1.209 0 01-1.092.644H1.285a1.234 1.234 0 01-.895-.392l-.057-.056a1.427 1.427 0 01-.308-1.036L1.789 32 .025 19.656a1.182 1.182 0 01.281-1.009 1.356 1.356 0 01.951-.448l5.4-.027a1.227 1.227 0 01.9.391.85.85 0 01.2.252L11.7 25.73h14.5L19.792 3.7a1.324 1.324 0 01.2-1.149A1.219 1.219 0 0121 2.045h7.168a1.152 1.152 0 011.064.615l14.162 23.071h8.959a17.287 17.287 0 017.839 1.791Q63.777 29.315 64 32q-.224 2.685-3.807 4.478a17.282 17.282 0 01-7.84 1.793h-9.016z"></path>
                 </svg>
-                <h1 className="ml-2 uppercase font-bold text-gray-500">departure</h1>
-                {/* tranform departure_datetime Date object to Day - Month number - Month format */}
-
-                {/* TODO: Format date to extract it into date & hour and print it here accordingly */}
-                <p className="absolute right-6 bottom-2 ml-2 font-normal text-gray-500">{departure_datetime.split(' ')[0]} at {departure_datetime.split(' ')[1]}</p>
+                <h1 className="ml-2 font-bold text-gray-500 uppercase">departure</h1>
+                <p className="absolute ml-2 font-normal text-gray-500 right-6 bottom-2">{departure_datetime.split(' ')[0]} at {departure_datetime.split(' ')[1]}</p>
             </div>
-            <div className="mt-2 flex sm:flex-row mx-6 sm:justify-between flex-wrap">
-            <div className="flex flex-row w-full justify-between">
+            <div className="flex flex-wrap mx-6 mt-2 sm:flex-row sm:justify-between">
+            <div className="flex flex-row justify-between w-full">
                 <div className="flex flex-col p-2">
                     <div className='flex'>
                         <CircleFlag countryCode={origin_country_code.toLowerCase()} height="35" className={'h-10 border-2 rounded-full border-gray-100 mr-2 shadow-sm'} />
@@ -62,24 +291,21 @@ export const FlightCard: React.FC<Flight> = ({
                 </div>
             </div>
             <div className='relative flex flex-row w-full'>
-                <div className='place-self-start w-full'>
-                    <div className="relative flex flex-row place-items-center pt-6 p-2">
+                <div className='w-full place-self-start'>
+                    <div className="relative flex flex-row p-2 pt-6 place-items-center">
                         <img alt={airline_company}
                                 className="w-10 h-10 rounded-full shadow-md"
                                 src={`https://api.dicebear.com/5.x/icons/svg?seed=${airline_company}`} 
                                 style={{opacity: '1', transformOrigin: '0% 50% 0px', transform: 'none'}} 
                         />
                         <div className="flex flex-col ml-2">
-                            <p className="text-xs text-gray-500 capitalize font-bold">{airline_company}</p>
+                            <p className="text-xs font-bold text-gray-500 capitalize">{airline_company}</p>
                             <p className="text-xs text-gray-500 uppercase">{airline_company_code}-{id}</p>
                         </div>
 
                     </div>
                 </div>
-                {/* place-self-end */}
-                <div className='flex-row-reverse min-w-md justify-center items-center mt-8'>
-                    {/* <div className='relative'> */}
-                        {/* A gear icon from FontAwesomeIcon, that's aboslute and aligned right */}
+                <div className='flex-row-reverse items-center justify-center mt-8 min-w-md'>
                         <Dropdown
                             label={
                                 <FontAwesomeIcon
@@ -94,40 +320,42 @@ export const FlightCard: React.FC<Flight> = ({
                                 <Dropdown.Item 
                                     // icon={<FontAwesomeIcon icon={solid('cog')} />}
                                     className="text-red-500 hover:text-white hover:bg-red-500"
+                                    onClick={() => ToggleDeleteModal()}
                                 >
                                     Delete
                                 </Dropdown.Item>
                                 <Dropdown.Divider />
                                 <Dropdown.Item 
+                                    onClick={() => ToggleEditModal()}
                                     // icon={<FontAwesomeIcon icon={solid('cog')} />}
                                 >
                                     Edit
                                 </Dropdown.Item>
-                                <Dropdown.Item 
-                                    // icon={<FontAwesomeIcon icon={solid('cog')} />}
-                                >
-                                    View
-                                </Dropdown.Item>
                         </Dropdown>
-                    {/* </div> */}
                 </div>
             </div>
         </div>
-            
-            <div className="relative mt-4 bg-gray-50 flex flex-row flex-wrap md:flex-nowrap justify-between items-baseline">
-            <div className=" flex mx-6 py-4 flex-row flex-wrap justify-between items-center w-full">
+
+            {/* TODO: If IsBooked, replace wiht a gray cover, with a huge text "BOOKED" in italic font */}
+            <div className="relative flex flex-row flex-wrap items-baseline justify-between mt-4 bg-gray-50 md:flex-nowrap">
+            <div className="flex flex-row flex-wrap items-center justify-between w-full py-4 mx-6 ">
                 <div className='flex flex-row'>
-                    <svg className="w-12 h-10 p-2 mx-2 self-center bg-sky-200 rounded-full fill-current text-white" viewBox="0 0 64 64" pointerEvents="all" aria-hidden="true" role="presentation"><path d="M43.389 38.269L29.222 61.34a1.152 1.152 0 01-1.064.615H20.99a1.219 1.219 0 01-1.007-.5 1.324 1.324 0 01-.2-1.149L26.2 38.27H11.7l-3.947 6.919a1.209 1.209 0 01-1.092.644H1.285a1.234 1.234 0 01-.895-.392l-.057-.056a1.427 1.427 0 01-.308-1.036L1.789 32 .025 19.656a1.182 1.182 0 01.281-1.009 1.356 1.356 0 01.951-.448l5.4-.027a1.227 1.227 0 01.9.391.85.85 0 01.2.252L11.7 25.73h14.5L19.792 3.7a1.324 1.324 0 01.2-1.149A1.219 1.219 0 0121 2.045h7.168a1.152 1.152 0 011.064.615l14.162 23.071h8.959a17.287 17.287 0 017.839 1.791Q63.777 29.315 64 32q-.224 2.685-3.807 4.478a17.282 17.282 0 01-7.84 1.793h-9.016z"></path></svg>
-                    <div className="text-sm mx-2 flex flex-col">
+                    <svg className="self-center w-12 h-10 p-2 mx-2 text-white rounded-full fill-current bg-sky-200" viewBox="0 0 64 64" pointerEvents="all" aria-hidden="true" role="presentation"><path d="M43.389 38.269L29.222 61.34a1.152 1.152 0 01-1.064.615H20.99a1.219 1.219 0 01-1.007-.5 1.324 1.324 0 01-.2-1.149L26.2 38.27H11.7l-3.947 6.919a1.209 1.209 0 01-1.092.644H1.285a1.234 1.234 0 01-.895-.392l-.057-.056a1.427 1.427 0 01-.308-1.036L1.789 32 .025 19.656a1.182 1.182 0 01.281-1.009 1.356 1.356 0 01.951-.448l5.4-.027a1.227 1.227 0 01.9.391.85.85 0 01.2.252L11.7 25.73h14.5L19.792 3.7a1.324 1.324 0 01.2-1.149A1.219 1.219 0 0121 2.045h7.168a1.152 1.152 0 011.064.615l14.162 23.071h8.959a17.287 17.287 0 017.839 1.791Q63.777 29.315 64 32q-.224 2.685-3.807 4.478a17.282 17.282 0 01-7.84 1.793h-9.016z"></path></svg>
+                    <div className="flex flex-col mx-2 text-sm">
                         <p className="">Standard Ticket</p>
-                        <p className="font-bold">${ticket_economy_price}</p>
+                        <p className="font-bold">${ticketPrice}</p>
                         <p className="text-xs text-gray-500">Price per adult</p>
                     </div>
                 </div>
-                <div className="absolute top-2 right-0">
+                <div className="absolute right-0 top-2">
                     {/* Maybe replace this w/ gardient combination of light blues? */}
-                    <button className="w-32 h-9 rounded flex shadow-sm hover:shadow-md active:shadow-md border-solid border text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:ring-sky-200 mx-6 mt-2 justify-center place-items-center"><div className="">Book</div></button>
-                    <p className="ml-[1.85rem] mt-1 text-xs text-gray-500"><b>{remaining_tickets}</b> Remaining tickets</p>
+                    <button
+                        className={`${isFlightBooked && 'cursor-not-allowed'} flex justify-center w-32 mx-6 mt-2 text-white border border-solid rounded shadow-sm h-9 hover:shadow-md active:shadow-md bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:ring-sky-200 place-items-center`}
+                        onClick={() => onFlightBook()}
+                    >
+                    Book
+                    </button>
+                    <p className="ml-[1.85rem] mt-1 text-xs text-gray-500"><b>{remainingTickets}</b> Remaining tickets</p>
                 </div>
             </div>
             </div>

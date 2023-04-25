@@ -1,19 +1,19 @@
-import { useState } from 'react';
+import { InputHTMLAttributes, useState } from 'react';
 import { Combobox } from '@headlessui/react';
 import { CircleFlag } from 'react-circle-flags';
+import { ErrorMessage, useField } from "formik";
 
-
-interface Props {
+interface Props extends InputHTMLAttributes<HTMLInputElement>{
+  name: string;
   valuesArray?: any;
-  value? : any;
   keydown? :any;
   onSelect? :any;
-  onChangeFilterValues: any;
 }
 
 
-export function ComboBoxInput({valuesArray, value, onSelect, onChangeFilterValues}: Props) {
+export function ComboBoxInput({name, valuesArray, onSelect, ...props}: Props) {
   const [openOptions, setOpenOptions]   = useState(false);
+  const [field, meta] = useField(name);
 
 
   return (
@@ -24,10 +24,16 @@ export function ComboBoxInput({valuesArray, value, onSelect, onChangeFilterValue
            onBlur={()  => setTimeout(() => setOpenOptions(false), 100)}
       >
       <Combobox.Input
-        value={value}
-        onChange={e => onChangeFilterValues(e)}
-        className='focus:ring-4 focus:ring-sky-200 border-2 hover:border-sky-200 border-gray-200 p-2 rounded-md'
+        className={`${meta.error && meta.touched ? "border-red-400" : ""}
+        focus:ring-4 focus:ring-sky-200 border-2 hover:border-sky-200 border-gray-200 p-2 rounded-md`}
+        {...field}
+        {...props}
       />
+          <ErrorMessage
+            name={field.name}
+            component="div"
+            className="text-left text-red-500 text-xs"
+          />
       <Combobox.Options
         static={openOptions}
         className={'bg-white shadow-md rounded-md'}

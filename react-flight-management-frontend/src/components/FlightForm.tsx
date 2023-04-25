@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { ComboBoxInput } from './ComboBoxIinput';
 import { DatePickerInput } from './DatePickerInput';
 import { Label } from './Label';
-// import GetDisplayNameByQuery from '../pages/api/airports/GetDisplayNameByQuery';
 import { ApplicationStore } from "../state";
 import { useStoreState } from 'easy-peasy';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { Form, Formik } from 'formik';
+import { object, string } from "yup";
 
 
 interface Props {
@@ -46,24 +47,13 @@ export function FlightForm({onSubmitSend}: Props){
 
 
     // Change later to useState type
-    const onChangeFilterValues = (e: any, setQueryState: any, setListState: any) => {
+    const onChangeFilterValues = (e: any, setQueryState: any, setListState: any, setFieldValue: any) => {
         console.debug('Setting query state to', e.target.value)
         
         // Set the value of the input to the selected value
         setQueryState(e.target.value);
+        setFieldValue(e.target.name, e.target.value);
 
-        // if (e.target.value.length >= 3) {
-        //     GetDisplayNameByQuery(e.target.value).then((res) => {
-        //         setListState(res);
-        //         console.debug('Setting state to', res)
-        //         return res;
-        //     })
-        // }else{
-        //     // Display an error message that 
-        //     // at least 3 characters are required
-        //     console.debug('Not enough characters, please enter at least 3 for the query to be searched');
-        //     return;
-        // }
         if (e.target.value.length >= 3) {
             
             setListState(allAirportsList.filter((val: any) => {
@@ -99,16 +89,17 @@ export function FlightForm({onSubmitSend}: Props){
         console.debug('Submit false')
     }
 
-    // Represents a list of recommended destinations that we would normally recieve
+    // Represents a list of recommended destinations that we would usually be recieved
     // From the backend, from an API request sent in the useEffect hook
+    // This is just a mockup for simplicity sake for now :)
     const recommendedFlightDestinations = [
             {
                 'New York': 'John F. Kennedy, New York, United States (JFK)',
                 'Tel Aviv': 'Ben Gurion, Tel-aviv, Israel (TLV)',
             },
             {
-                'Moscow': 'John F. Kennedy, New York, United States (JFK)',
                 'Tel Aviv': 'Ben Gurion, Tel-aviv, Israel (TLV)',
+                'New York': 'John F. Kennedy, New York, United States (JFK)',
             }
             // {
             //     ... This would be another destination ...
@@ -116,12 +107,38 @@ export function FlightForm({onSubmitSend}: Props){
             // }
         ]
 
-    function onRecommendedFlightClick(fromDisplay: string, toDisplay: string){
+    function onRecommendedFlightClick(fromDisplay: string, toDisplay: string, setFieldValue: any){
         console.debug('Clicked on recommended flight', fromDisplay, toDisplay);
+
+        setFieldValue('fromQuery', fromDisplay);
+        setFieldValue('toQuery', toDisplay);
 
         setOriginAirportQuery(fromDisplay);
         setDestinationAirportQuery(toDisplay);
     }
+
+
+    function isNumericOrSpecialChars(value: string) {
+        let spChars = /[!@#$%^&*]/;
+        let numChar = /\d/
+        if(spChars.test(value) || numChar.test(value)){
+            return true
+        }
+    }
+
+    const FlightInputsValidation = object().shape({
+        fromQuery: string()
+                    .typeError('Must be a valid airport name')
+                    .required("I feel like this one is required")
+                    .test('type', `I bet you are not from there`, val => !isNumericOrSpecialChars(val))
+                    .min(3, "Must be at least 3 characters"),
+
+        toQuery:   string()
+                    .typeError('Must be a valid airport name')
+                    .required("Well, this is akward...")
+                    .test('type', 'Must not include any special characters or numbers', val => !isNumericOrSpecialChars(val))
+                    .min(3, "Must be at least 3 characters"),
+      });
 
 
     return (
@@ -131,65 +148,84 @@ export function FlightForm({onSubmitSend}: Props){
 
         {/* Add tabs component with "OneWay" tab as :active */}
 
-            {/* Wrapper */}
-            <div className='flex flex-row'>
-                <div className='flex flex-col mr-6'>
-                    <Label>From:</Label>
-                    <ComboBoxInput
-                        onChangeFilterValues={(e: any) => onChangeFilterValues(e, setOriginAirportQuery, setFromAirportsList)}
-                        onSelect={(e: any) => {setOriginAirportQuery(e); console.debug('changing to', e)}}
-                        value={originAirportQuery}
-                        valuesArray={fromAirportsList}
-                    />
-                </div>
+        <Formik
+            initialValues={{
+                fromQuery: '',
+                toQuery:   '',
+            }}
+            onSubmit={handleSubmit}
+            validationSchema={FlightInputsValidation}
+        >
+            {({setFieldValue}) => {
+                return (
+                    <>
+                    <Form>
+                    {/* Wrapper */}
+                    <div className='flex flex-row'>
 
-                <div className='flex flex-col mr-6'>
-                    <Label>To:</Label>
-                    <ComboBoxInput
-                        onChangeFilterValues={(e: any) => onChangeFilterValues(e, setDestinationAirportQuery, setToAirportsList)}
-                        onSelect={(e: any) => {setDestinationAirportQuery(e); console.debug('changing to', e)}}
-                        value={destinationAirportQuery}
-                        valuesArray={toAirportsList}
-                    />
-                </div>
+                        <div className='flex flex-col mr-6'>
+                            <Label>From:</Label>
+                            <ComboBoxInput
+                                name="fromQuery"
+                                onChange={(e: any) => onChangeFilterValues(e, setOriginAirportQuery, setFromAirportsList, setFieldValue)}
+                                onSelect={(e: any) => {setOriginAirportQuery(e); console.debug('changing to', e)}}
+                                value={originAirportQuery}
+                                valuesArray={fromAirportsList}
+                            />
+                        </div>
 
-                <div className='flex flex-col mr-6'>
-                    <Label>Departing:</Label>
-                    <DatePickerInput
-                        title='When would you like to depart?'
-                        onChange={setDepartingDate}
-                        defaultValue={AWeekFromToday}
-                    />
-                </div>
+                        <div className='flex flex-col mr-6'>
+                            <Label>To:</Label>
+                            <ComboBoxInput
+                                name="toQuery"
+                                onChange={(e: any) => onChangeFilterValues(e, setDestinationAirportQuery, setToAirportsList, setFieldValue)}
+                                onSelect={(e: any) => {setDestinationAirportQuery(e); console.debug('changing to', e)}}
+                                value={destinationAirportQuery}
+                                valuesArray={toAirportsList}
+                            />
+                        </div>
 
-            </div>
+                        <div className='flex flex-col mr-6'>
+                            <Label>Departing:</Label>
+                            <DatePickerInput
+                                title='When would you like to depart?'
+                                onChange={setDepartingDate}
+                                defaultValue={AWeekFromToday}
+                            />
+                        </div>
+                    </div>
 
-            <div className='flex flex-row mt-2 mb-4 font-medium text-left text-gray-400'>
-                {
-                    recommendedFlightDestinations.map((val: any, key: any) => {
-                        return (
-                            <div
-                                key={key} 
-                                className='flex flex-row p-1 px-2 ml-2 text-sm text-gray-500 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 first:ml-0 w-fit'
-                                // @ts-expect-error
-                                onClick={() => onRecommendedFlightClick(Object.values(val)[0], Object.values(val)[1])}
-                            >
-                                <span className='mr-2'>{Object.keys(val)[0]}</span>
-                                <FontAwesomeIcon icon={solid('plane')} className='mt-1 mr-2 text-sky-400' />
-                                <span className='mr-2'>{Object.keys(val)[1]}</span>
-                            </div>
-                        )
-                    })
-                }
-            </div>
+                    <div className='flex flex-row mt-2 mb-4 font-medium text-left text-gray-400'>
+                        {
+                            recommendedFlightDestinations.map((val: any, key: any) => {
+                                return (
+                                    <div
+                                    key={key} 
+                                        className='flex flex-row p-1 px-2 ml-2 text-sm text-gray-500 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 first:ml-0 w-fit'
+                                        // @ts-expect-error
+                                        onClick={() => onRecommendedFlightClick(Object.values(val)[0], Object.values(val)[1], setFieldValue)}
+                                    >
+                                        <span className='mr-2'>{Object.keys(val)[0]}</span>
+                                        <FontAwesomeIcon icon={solid('plane')} className='mt-1 mr-2 text-sky-400' />
+                                        <span className='mr-2'>{Object.keys(val)[1]}</span>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
 
-            <button
-                onClick={handleSubmit}
-                className="flex justify-center w-full mt-4 text-white border border-solid rounded shadow-sm h-11 hover:bg-sky-600 hover:shadow-md bg-sky-500 focus:ring-4 focus:ring-sky-200 place-items-center"
-            >
-            Search Flight
-            </button>
-
+                    <button
+                        type='submit'
+                        className="flex justify-center w-full mt-4 text-white border border-solid rounded shadow-sm h-11 hover:bg-sky-600 hover:shadow-md bg-sky-500 focus:ring-4 focus:ring-sky-200 place-items-center"
+                    >
+                    Search Flight
+                    </button>
+                    </Form>
+                </>
+                );
+            }}
+        </Formik>
         </div>
+
     )
 }

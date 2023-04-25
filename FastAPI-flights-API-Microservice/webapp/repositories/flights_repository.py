@@ -219,7 +219,6 @@ class FlightsRepository:
             destination_airport_id (str):      The description of the flights
             departure_time         (datetime): The price of the flights
             landing_time           (datetime): The quantity of the flights
-            # TODO: Turn dept. & land. time to date
 
         Raises:
             InvalidParametersWereProvidedInRequestException: Trying to add a flights with invalid parameters
@@ -245,15 +244,6 @@ class FlightsRepository:
                                         remaining_tickets=tickets_quantity,
                                         ticket_economy_price=price,
                                         )
-
-                # Check if the flights already exists
-                # rec: Flight = s.query(Flight).filter(Flight.title == title).first()
-                # if rec:
-                #     raise FlightNotFoundException(f'Flights "{title}" already exists!')
-
-                # Note: flights validations were moved under the validate() function of the model.
-                #       a InvalidParametersWereProvidedInRequestException exception will be raised
-                #       if flights_to_add recieves invalid parameters
 
                 # Add the flights to the database
                 s.add(flight_to_add)

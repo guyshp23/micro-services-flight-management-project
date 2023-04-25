@@ -17,24 +17,6 @@ def get_flights_by_parmas(
                         destination_display_name: str = Query(default = Required, min_length=3, max_length=50),
                         departure_date:           str = Query(default = Required),
                         ):
-
-    print('date=',departure_date)
-
-    # TODO: Figure out how to send self/how to validate it (in the repository)
-    # Validate query parameters
-    # try:
-    #     RequestsValidator.validate_get_flights_by_parmas(origin_display_name=origin_display_name, destination_display_name=destination_display_name,
-    #                                                     departure_time=departure_time, landing_time=landing_time)
-    # except InvalidParametersWereProvidedInRequestException as e:
-    #     # TODO: Replace later with our own custom exception handler
-    #     #       that will return a custom response (& status code) based on the exception type
-    #     return {'error': e.message}
-
-    # except AirportNotFoundException as e:
-    #     # TODO: Replace later with our own custom exception handler
-    #     #       that will return a custom response (& status code) based on the exception type
-    #     return {'error': e.message}
-
     return flights_service.get_flights_by_params(origin_display_name, destination_display_name, departure_date)
 
 

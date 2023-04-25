@@ -6,11 +6,12 @@
     "configurations": [
         {
             "type": "chrome",
-            "runtimeExecutable": "dev",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
+            "name": "Hi localhost",
             "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}/src"
+            "webRoot": "${workspaceFolder}/src",
+            "runtimeExecutable": "/usr/bin/brave-browser",
+            "runtimeArgs": [ "--remote-debugging-port=9222" ]
         }
     ]
 }

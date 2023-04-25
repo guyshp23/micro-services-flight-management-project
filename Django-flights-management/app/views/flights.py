@@ -37,8 +37,6 @@ class GetFlightsByParams(APIView):
             flights = FlightService.get_by_params(request, origin_display_name,
                                                                 destination_display_name,
                                                                 departure_date)
-            # serializer = self.serializer_class(flights, many=True)
-
 
             # Return the flights that match the given parameters.
             return Response(flights, status=200)
@@ -57,8 +55,18 @@ class FlightsCRUD(mixins.ListModelMixin,
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 
-    def put(self,request, *args , **kwargs):
-        return self.update(request, *args, **kwargs)
+    def patch(self, request, pk, *args , **kwargs):
+        remaining_tickets    = request.data['remaining_tickets']
+        ticket_economy_price = float(request.data['ticket_economy_price'])
+
+        try:
+            updated_flight = FlightService.update_tickets_and_price(self, pk, remaining_tickets, ticket_economy_price)
+
+            # Return the flights that match the given parameters.
+            return Response(updated_flight, status=200)
+        except Exception as e:
+            return ExceptionsFactory.handle(e)
+        # return self.partial_update(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)

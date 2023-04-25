@@ -35,7 +35,7 @@ class TicketService(BaseServiceInterface):
         return ticket
 
 
-    def book_ticket(self, flight_id: int):
+    def book_ticket(self, user_id: int, flight_id: int):
         """
         Creates a new ticket for the given flight (flight_id)
         for the customer that sent the request and returns the created ticket.
@@ -63,12 +63,18 @@ class TicketService(BaseServiceInterface):
         # It's here because when creating a new ticket, it doens't
         # Accept a customer ID, it accepts a customer object.
         # TODO: Change to a customer ID by the auth request token
-        customer = Customer.objects.filter(id=1).first()
+        customer = Customer.objects.filter(id=user_id).first()
 
         # Check if the flight is already booked
-        if flight.is_booked(customer):
+        if customer and flight.is_booked(customer):
             logger.error('Flight already booked, id: ' + str(flight_id))
             raise InvalidParamsException('Flight already booked')
+        
+        if not customer:
+            # Create a new customer for the user
+            customer = Customer.objects.create(user=user_id)
+            customer.save()
+            pass
 
         # Create a new ticket for the flight, customer = current user
         # TODO: Get the current user ID by the token in the request

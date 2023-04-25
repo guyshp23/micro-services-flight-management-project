@@ -34,7 +34,7 @@ class AirportsCreateAndList(mixins.ListModelMixin,
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-class AirportsGetByIDUpdateDelete( mixins.RetrieveModelMixin,
+class AirportsGetByIDUpdateDelete(mixins.RetrieveModelMixin,
                                   mixins.DestroyModelMixin,
                                   mixins.UpdateModelMixin,
                                   generics.GenericAPIView):

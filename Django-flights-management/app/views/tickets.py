@@ -32,7 +32,7 @@ class BookTicket(APIView):
 
     def post(self, request, flight_id: int):
         try:
-            ticket     = TicketService.book_ticket(self, flight_id)
+            ticket     = TicketService.book_ticket(self, request.user.id, flight_id)
             serializer = self.serializer_class(ticket)
 
             # Return the ticket that was booked.
