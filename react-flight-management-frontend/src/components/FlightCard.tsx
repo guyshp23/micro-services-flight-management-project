@@ -11,6 +11,7 @@ import UpdateFlight from '../pages/api/flights/UpdateFlight';
 import DeleteFlight from '../pages/api/flights/DeleteFlight';
 import BookFlight from '../pages/api/flights/BookFlight';
 import { ToastContainer, toast } from 'react-toastify';
+import Can from './Can';
 
 
 export const FlightCard: React.FC<Flight> = ({
@@ -302,37 +303,38 @@ export const FlightCard: React.FC<Flight> = ({
                             <p className="text-xs font-bold text-gray-500 capitalize">{airline_company}</p>
                             <p className="text-xs text-gray-500 uppercase">{airline_company_code}-{id}</p>
                         </div>
-
                     </div>
                 </div>
-                <div className='flex-row-reverse items-center justify-center mt-8 min-w-md'>
+                <Can permissionKeys={["change_flight", "delete_flight"]}>
+                    <div className='flex-row-reverse items-center justify-center mt-8 min-w-md'>
                         <Dropdown
                             label={
                                 <FontAwesomeIcon
-                                    icon={solid('cog')}
+                                icon={solid('cog')}
                                     className="text-gray-500 hover:text-gray-600 hover:drop-shadow-md"
                                     size='xl'
                                     />
                                 }
-                            arrowIcon={false}
-                            inline={true}
-                        >
+                                arrowIcon={false}
+                                inline={true}
+                                >
                                 <Dropdown.Item 
                                     // icon={<FontAwesomeIcon icon={solid('cog')} />}
                                     className="text-red-500 hover:text-white hover:bg-red-500"
                                     onClick={() => ToggleDeleteModal()}
-                                >
+                                    >
                                     Delete
                                 </Dropdown.Item>
                                 <Dropdown.Divider />
                                 <Dropdown.Item 
                                     onClick={() => ToggleEditModal()}
                                     // icon={<FontAwesomeIcon icon={solid('cog')} />}
-                                >
+                                    >
                                     Edit
                                 </Dropdown.Item>
                         </Dropdown>
-                </div>
+                    </div>
+                </Can>
             </div>
         </div>
 

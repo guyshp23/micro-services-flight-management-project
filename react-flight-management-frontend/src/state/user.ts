@@ -3,8 +3,7 @@ import { Action, action } from 'easy-peasy';
 export interface UserData {
     username:  string;
     email:     string;
-    accessToken: string;
-    refreshToken: string;
+    permissions: string[];
     isAdmin:   boolean;
 }
 

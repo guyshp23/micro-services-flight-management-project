@@ -11,7 +11,7 @@ const http = (
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': `JWT ${localStorage.getItem('access_token')}`,     
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,     
         },
     })
     :
@@ -112,8 +112,8 @@ http.interceptors.response.use(
                             console.debug('Set tokens to localStorage, tokens:', response.data)
 
 
-                            http.defaults.headers['Authorization']   = "JWT " +   response.data.access;
-                            originalRequest.headers['Authorization'] = "JWT " + response.data.access;
+                            http.defaults.headers['Authorization']   = "Bearer " +   response.data.access;
+                            originalRequest.headers['Authorization'] = "Bearer " + response.data.access;
 
                             return await http(originalRequest);
                         } catch (err: any) {
