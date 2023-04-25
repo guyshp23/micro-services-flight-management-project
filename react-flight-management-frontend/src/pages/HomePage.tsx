@@ -118,7 +118,7 @@ export function HomePage() {
                     image={<img
                                 alt="2 Empty Notepads"
                                 className="h-60 mb-8"
-                                src="http://localhost:3000/main_logo.png"
+                                src={`${window.location.origin}/main_logo.png`}
                             />}
                 />
                 )
