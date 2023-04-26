@@ -162,7 +162,8 @@ export default function NavbarComponent(){
 
       <Navbar.Collapse>
         <Navbar.Link
-          href="/"
+          as={Link}
+          to="/"
           active={true}
           theme={{base: 'text-gray-600 hover:text-sky-500', active: {on: 'text-sky-500'}}}
         >

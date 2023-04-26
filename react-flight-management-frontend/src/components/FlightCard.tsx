@@ -12,6 +12,8 @@ import DeleteFlight from '../pages/api/flights/DeleteFlight';
 import BookFlight from '../pages/api/flights/BookFlight';
 import { ToastContainer, toast } from 'react-toastify';
 import Can from './Can';
+import { isAuthenticted } from '../pages/api/http';
+import { Link } from 'react-router-dom';
 
 
 export const FlightCard: React.FC<Flight> = ({
@@ -36,6 +38,7 @@ export const FlightCard: React.FC<Flight> = ({
 
     const [showEditModal,    setShowEditModal]    = useState(false);
     const [showDeleteModal,  setShowDeleteModal]  = useState(false);
+    const [showSignUpToContinueModal, setShowSignUpToContinueModal] = useState(false);
 
     const [remainingTickets, setRemainingTickets] = useState(remaining_tickets);
     const [ticketPrice,      setTicketPrice]      = useState(ticket_economy_price);
@@ -58,6 +61,15 @@ export const FlightCard: React.FC<Flight> = ({
         // To make sure both modals aren't displayed at the same time *magicaly*
         setShowEditModal(false)
         setShowDeleteModal(!showDeleteModal)
+    }
+
+    function ToggleSignUpToContinueModal(){
+        console.debug('ToggleSignUpToContinueModal triggered for Flight #', id);
+
+        // To make sure both modals aren't displayed at the same time *magicaly*
+        setShowEditModal(false)
+        setShowDeleteModal(false)
+        setShowSignUpToContinueModal(!showSignUpToContinueModal)
     }
 
 
@@ -256,6 +268,42 @@ export const FlightCard: React.FC<Flight> = ({
             </div>
             </Modal.Body>
         </Modal>
+        <Modal
+            show={showSignUpToContinueModal}
+            size="md"
+            popup={true}
+            onClose={() => setShowSignUpToContinueModal(false)}
+        >
+            <Modal.Header />
+            <Modal.Body>
+            <div className="text-center flex flex-col items-center justify-center">
+                <h3 className="mb-5 text-xl font-medium text-gray-600 dark:text-gray-400">
+                    Sign up to book a flight
+                </h3>
+                <img 
+                    className='h-80'
+                    src={`${window.location.origin}/undraw_sign_up.svg`} 
+                    alt="signup"
+                />
+                <div className="flex justify-center gap-4">
+                <Link to={'/register'}>
+                    <Button
+                        className='rounded-full bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:ring-sky-400focus:border-0'
+                        >
+                        Sign me up
+                    </Button>
+                </Link>
+                <Button
+                    color="gray"
+                    className='text-gray-700 hover:text-gray-700 focus:ring-gray-100 focus:text-gray-700'
+                    onClick={() => ToggleSignUpToContinueModal()}
+                >
+                    No, cancel
+                </Button>
+                </div>
+            </div>
+            </Modal.Body>
+        </Modal>
 
 
         <div key={id} className={`p-10 ${isFlightDeleted && 'opacity-25 pointer-events-none'}`}>
@@ -349,11 +397,11 @@ export const FlightCard: React.FC<Flight> = ({
                         <p className="text-xs text-gray-500">Price per adult</p>
                     </div>
                 </div>
-                <div className="absolute right-0 top-2">
-                    {/* Maybe replace this w/ gardient combination of light blues? */}
+                <div className={`absolute right-0 top-2 ${isFlightBooked && 'cursor-not-allowed'}`}>
+                    {/* TODO: Maybe replace this w/ gardient combination of light blues? */}
                     <button
-                        className={`${isFlightBooked && 'cursor-not-allowed'} flex justify-center w-32 mx-6 mt-2 text-white border border-solid rounded shadow-sm h-9 hover:shadow-md active:shadow-md bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:ring-sky-200 place-items-center`}
-                        onClick={() => onFlightBook()}
+                        className={`${isFlightBooked && 'pointer-events-none'} flex justify-center w-32 mx-6 mt-2 text-white border border-solid rounded shadow-sm h-9 hover:shadow-md active:shadow-md bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:ring-sky-200 place-items-center`}
+                        onClick={() => !isAuthenticted() ? ToggleSignUpToContinueModal() : onFlightBook()}
                     >
                     Book
                     </button>

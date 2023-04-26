@@ -77,7 +77,7 @@ function RegisterForm() {
           localStorage.setItem("access_token",  r.access);
           localStorage.setItem("refresh_token", r.refresh);
 
-          http.defaults.headers['Authorization'] = "Bearer " + r.access;
+          http.defaults.headers['Authorization'] = "JWT " + r.access;
 
 
           console.debug('logging in...');
