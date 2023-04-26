@@ -14,20 +14,20 @@ export const DatePickerInput = ({...props}: Props) => {
     const options = {
         title: props.title || "Select a date",
         autoHide: true,
-        todayBtn: true,
-        clearBtn: true,
+        todayBtn: false,
+        clearBtn: false,
         // 30 days from today
         maxDate: new Date(new Date().getTime()+(30*24*60*60*1000)), 
-        // Starting from today's date, can't select previous dates
+        // Starting from a week from today's date, can't select previous dates
         // because can't depart from the past
-        minDate: new Date(new Date().getTime()+(-1*24*60*60*1000)), 
+        minDate: new Date(new Date().getTime()+(7*24*60*60*1000)), 
         theme: {
             background: "dark:bg-white",
             todayBtn: "bg-sky-400 hover:bg-sky-500 hover:shadow-md focus:ring-4 focus:ring-sky-200",
             clearBtn: "focus:ring-4 focus:ring-sky-200",
             icons: "",
             text: "text-gray-500",
-            disabledText: "text-gray-300",
+            disabledText: "text-gray-100",
             input: "border-2 border-gray-200 dark:bg-white bg-white focus:ring-0",
             inputIcon: "",
             selected: "bg-sky-500 hover:bg-sky-600 hover:shadow-md",

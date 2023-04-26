@@ -1,7 +1,7 @@
 import { FlightCard } from "../components/FlightCard";
 import { FlightForm } from "../components/FlightForm";
 import GetFlightsByParams from "./api/flights/GetFlightsByParams";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ScreenBlock, { Error } from "../components/ScreenBlock";
 import SpinnerComponent from "../components/Spinner";
 

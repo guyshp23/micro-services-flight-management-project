@@ -187,7 +187,7 @@ export const FlightCard: React.FC<Flight> = ({
             <Modal.Body>
             <div className="text-center">
                 <h3 className="mb-5 text-base font-normal text-gray-500 dark:text-gray-400">
-                One less flight to worry about. Are you sure?
+                One less flight to worry about?
                 </h3>
                 <div className="flex justify-center gap-4">
                 <Button
@@ -224,8 +224,8 @@ export const FlightCard: React.FC<Flight> = ({
                 </h3>
                 <Formik
                     initialValues={{
-                        remaining_tickets: remaining_tickets,
-                        ticket_price:      ticket_economy_price,
+                        remaining_tickets: remainingTickets,
+                        ticket_price:      ticketPrice,
                     }}
                     onSubmit={handleFlightEditSubmit}
                     validationSchema={FlightEditValidation}

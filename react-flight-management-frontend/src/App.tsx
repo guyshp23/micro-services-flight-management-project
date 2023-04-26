@@ -10,14 +10,14 @@ import { Helmet } from "react-helmet";
 import Footer from './components/footer';
 import TeapotPage from './pages/TeapotPage';
 import getUserDetails from './pages/api/auth/getUserDetails';
-import { Actions, useStoreActions, useStoreState } from 'easy-peasy';
+import { Actions, useStoreActions } from 'easy-peasy';
 import { ApplicationStore } from "./state";
 import GetAllAirports from './pages/api/airports/GetAll';
+import AboutPage from './pages/AboutPage';
 
 function App() {
   const updateUserData      = useStoreActions((actions: Actions<ApplicationStore>) => actions.user.updateUserData);
   const setAirportsListData = useStoreActions((actions: Actions<ApplicationStore>) => actions.airports.setAirports);
-  const allAirportsList     = useStoreState((state: ApplicationStore) => state!.airports!.data);
 
   useEffect(() => {
     // If there is a refresh token in local storage,
@@ -55,6 +55,7 @@ function App() {
         <Navbar />
           <Routes>
             <Route path="/"         element={HomePage()}     />
+            <Route path="/about"    element={AboutPage()}     />
             <Route path="/login"    element={LoginPage()}    />
             <Route path="/register" element={RegisterPage()} />
             <Route path="/teapot"   element={TeapotPage()}   />

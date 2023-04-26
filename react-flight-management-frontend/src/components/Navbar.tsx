@@ -169,7 +169,11 @@ export default function NavbarComponent(){
         >
           Home
         </Navbar.Link>
-        <Navbar.Link theme={{active: {off: 'text-gray-600 hover:text-sky-500'}}} href="/navbars">
+        <Navbar.Link 
+          as={Link}
+          to="/about"
+          theme={{active: {off: 'text-gray-600 hover:text-sky-500'}}}
+        >
           About
         </Navbar.Link>
         <Navbar.Link theme={{active: {off: 'text-gray-600 hover:text-sky-500'}}} href="/navbars">

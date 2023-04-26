@@ -99,8 +99,20 @@ export function FlightForm({onSubmitSend}: Props){
             },
             {
                 'Tel Aviv': 'Ben Gurion, Tel-aviv, Israel (TLV)',
-                'New York': 'John F. Kennedy, New York, United States (JFK)',
-            }
+                'Paris': 'Charles de Gaulle, Paris, France (CDG)',
+            },
+            {
+                'Tel Aviv': 'Ben Gurion, Tel-aviv, Israel (TLV)',
+                'Istanbul': 'Sabiha Gokcen, Istanbul, Turkey (SAW)',
+            },
+            {
+                'Istanbul': 'Sabiha Gokcen, Istanbul, Turkey (SAW)',
+                'Paris': 'Charles de Gaulle, Paris, France (CDG)',
+            },
+            {
+                'Paris': 'Charles de Gaulle, Paris, France (CDG)',
+                'Frankfurt': 'Frankfurt am Main, Frankfurt, Germany (FRA)',
+            },
             // {
             //     ... This would be another destination ...
             //     ... With only 2 params, from and to   ...
@@ -161,9 +173,9 @@ export function FlightForm({onSubmitSend}: Props){
                     <>
                     <Form>
                     {/* Wrapper */}
-                    <div className='flex flex-row'>
+                    <div className='flex flex-row gap-x-6 justify-between items-center'>
 
-                        <div className='flex flex-col mr-6'>
+                        <div className='flex flex-col'>
                             <Label>From:</Label>
                             <ComboBoxInput
                                 name="fromQuery"
@@ -174,7 +186,7 @@ export function FlightForm({onSubmitSend}: Props){
                             />
                         </div>
 
-                        <div className='flex flex-col mr-6'>
+                        <div className='flex flex-col'>
                             <Label>To:</Label>
                             <ComboBoxInput
                                 name="toQuery"
@@ -185,7 +197,7 @@ export function FlightForm({onSubmitSend}: Props){
                             />
                         </div>
 
-                        <div className='flex flex-col mr-6'>
+                        <div className='flex flex-col'>
                             <Label>Departing:</Label>
                             <DatePickerInput
                                 title='When would you like to depart?'
@@ -195,13 +207,15 @@ export function FlightForm({onSubmitSend}: Props){
                         </div>
                     </div>
 
-                    <div className='flex flex-row mt-2 mb-4 font-medium text-left text-gray-400'>
+                    <div
+                        className='flex flex-row items-center justify-center gap-x-4 mt-2 mb-3 font-medium text-left text-gray-400'
+                    >
                         {
                             recommendedFlightDestinations.map((val: any, key: any) => {
                                 return (
                                     <div
-                                    key={key} 
-                                        className='flex flex-row p-1 px-2 ml-2 text-sm text-gray-500 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 first:ml-0 w-fit'
+                                        key={key} 
+                                        className='flex flex-row p-1 px-2 text-sm text-gray-500 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 first:ml-0 w-fit focus:ring-2 focus:ring-sky-500'
                                         // @ts-expect-error
                                         onClick={() => onRecommendedFlightClick(Object.values(val)[0], Object.values(val)[1], setFieldValue)}
                                     >

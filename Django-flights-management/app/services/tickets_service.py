@@ -3,6 +3,7 @@ from app.exceptions.invalid_params import InvalidParamsException
 from app.exceptions.model_not_found import ModelNotFoundException
 from .base_service_interface import BaseServiceInterface
 from app.models import CanceledTickets, Ticket, Flight, Customer
+from django.contrib.auth.models import User
 
 
 class TicketService(BaseServiceInterface):
@@ -59,7 +60,7 @@ class TicketService(BaseServiceInterface):
         if flight == None:
             logger.error('Flight not found, id: ' + str(flight_id))
             raise ModelNotFoundException('Flight not found')
-        
+
         # It's here because when creating a new ticket, it doens't
         # Accept a customer ID, it accepts a customer object.
         # TODO: Change to a customer ID by the auth request token
@@ -69,17 +70,24 @@ class TicketService(BaseServiceInterface):
         if customer and flight.is_booked(customer):
             logger.error('Flight already booked, id: ' + str(flight_id))
             raise InvalidParamsException('Flight already booked')
-        
+
         if not customer:
+            # Get user by user id
+            user = User.objects.filter(id=user_id).first()
+
             # Create a new customer for the user
-            customer = Customer.objects.create(user=user_id)
+            customer = Customer.objects.create(user=user)
             customer.save()
-            pass
+
 
         # Create a new ticket for the flight, customer = current user
         # TODO: Get the current user ID by the token in the request
         ticket = Ticket.objects.create(flight=flight, customer=customer)
         ticket.save()
+
+        # Change ticket count in the flight to tickets - 1
+        flight.remaining_tickets -= 1
+        flight.save()
 
         logger.debug('Booked a new ticket: ' + str(ticket))
         return ticket
