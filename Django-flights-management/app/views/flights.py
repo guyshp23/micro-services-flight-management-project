@@ -1,10 +1,11 @@
 from rest_framework.views  import APIView, Response
 from app.exceptions.factory import ExceptionsFactory
+from app.permissions.permission import user_permissions
 from app.services.flights_service import FlightService
 from app.models import Flight
 from app.serializer.flights_serializer import FlightsSerializer
 from rest_framework import mixins, generics
-
+from django.utils.decorators import method_decorator
 
 class GetFlightsByParams(APIView):
     """
@@ -18,7 +19,7 @@ class GetFlightsByParams(APIView):
 
         Times are in the following format: "YYYY-MM-DD", for example: "2020-12-31".
 
-    Raises:
+    Raises: 
         - Exception: If a general error occurred in the flights service.
 
     Returns:
@@ -43,6 +44,7 @@ class GetFlightsByParams(APIView):
         except Exception as e:
             return ExceptionsFactory.handle(e)
 
+
 class FlightsCRUD(mixins.ListModelMixin,
                       mixins.RetrieveModelMixin,
                       mixins.DestroyModelMixin,
@@ -52,6 +54,7 @@ class FlightsCRUD(mixins.ListModelMixin,
     queryset = Flight.objects.all()
     serializer_class = FlightsSerializer
 
+    @method_decorator(user_permissions('change_flight'))
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 

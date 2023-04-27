@@ -1,6 +1,7 @@
 import { Action, action } from 'easy-peasy';
 
 export interface UserData {
+    id:        number;     
     username:  string;
     email:     string;
     permissions: string[];
