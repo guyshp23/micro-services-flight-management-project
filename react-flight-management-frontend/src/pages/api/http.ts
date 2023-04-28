@@ -7,7 +7,7 @@ const http = (
     localStorage.getItem('access_token') 
     ?
     axios.create({
-        timeout: 20000,
+        // timeout: 20000,
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ const http = (
     })
     :
     axios.create({
-        timeout: 20000,
+        // timeout: 20000,
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',

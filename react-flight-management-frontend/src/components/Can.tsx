@@ -8,11 +8,13 @@ export default function Can({permissionKeys, children}: {permissionKeys: string[
 
     // Check if the user has a certain permission
     function checkPermission(permissionsToCheck: string[]): boolean {
-
-        if (userState.data!.permissions) {
-            // Check if the user has all the required permissions
-            return permissionsToCheck.every((p) => userState.data!.permissions.includes(p));
-        }
+	
+	if (userState.data) {
+        	if (userState.data!.permissions) {
+           	 // Check if the user has all the required permissions
+           	 return permissionsToCheck.every((p) => userState.data!.permissions.includes(p));
+        	}
+	}
 
         return false;
     }

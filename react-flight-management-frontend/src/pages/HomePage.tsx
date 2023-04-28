@@ -69,9 +69,9 @@ export function HomePage() {
 
 
     return (
-        <div className="container flex flex-col items-center justify-between mx-auto mt-12 h-full">
+        <div className="container flex flex-col items-center justify-between h-full mx-auto my-12">
             <FlightForm onSubmitSend={onFlightFormSubmit} />
-            <div className="grid items-center justify-between mx-auto mt-12 lg:grid-cols-2 xl:grid-cols-3">
+            <div className="grid items-center justify-between mx-auto mt-6 lg:grid-cols-2 xl:grid-cols-3">
                 {
                     (!isSubmitting && !ErrorObj && Flights && Flights.length > 0)
                     && 
@@ -117,7 +117,7 @@ export function HomePage() {
                     message={'Round and round we go... Hopefully to a new destination!'}
                     image={<img
                                 alt="2 Empty Notepads"
-                                className="h-60 mb-8"
+                                className="mb-8 h-60"
                                 src={`${window.location.origin}/main_logo.png`}
                             />}
                 />
@@ -125,7 +125,7 @@ export function HomePage() {
             }
             {
                 isSubmitting && (
-                <div className="flex flex-col items-center justify-center min-w-[55rem] h-full my-12 p-16 shadow-md text-center text-gray-600 bg-white border border-gray-200 rounded-md">
+                <div className="flex flex-col items-center justify-center min-w-[55rem] h-full my-6 p-16 shadow-md text-center text-gray-600 bg-white border border-gray-200 rounded-md">
                     <SpinnerComponent />
                 </div>
                 )

@@ -46,6 +46,7 @@ export const FlightCard: React.FC<Flight> = ({
     const [isFlightDeleted, setIsFlightDeleted]   = useState(false);
     const [isFlightBooked, setIsFlightBooked]     = useState(false);
 
+    const [isLoading, setIsLoading] = useState(false);
 
     function ToggleEditModal(){
         console.debug('ToggleEditModal triggered for Flight #', id);
@@ -74,6 +75,8 @@ export const FlightCard: React.FC<Flight> = ({
 
 
     function handleFlightEditSubmit(e: any){
+        setIsLoading(true);
+
         console.debug('handleFlightEditSubmit triggered for Flight #', id);
         console.debug('e:', e);
 
@@ -95,9 +98,13 @@ export const FlightCard: React.FC<Flight> = ({
                   progress: undefined,
                   theme: "light",
                 });
+            setIsLoading(false);
+
         })
         .catch((e) => {
             console.error('UpdateFlight error:', e);
+            setIsLoading(false);
+
         })
   
         // On success
@@ -106,16 +113,19 @@ export const FlightCard: React.FC<Flight> = ({
 
 
     function handleFlightDeleteSubmit(){
+        setIsLoading(true);
         console.debug('handleFlightDeleteSubmit triggered for Flight #', id);
 
         DeleteFlight(id)
             .then((r) => {
                 console.debug('UpdateFlight response:', r);
                 setIsFlightDeleted(true);
+                setIsLoading(false);
             })
             .catch((e) => {
                 console.error('UpdateFlight error:', e);
                 setIsFlightDeleted(false);
+                setIsLoading(false);
             })
 
     }
@@ -137,7 +147,9 @@ export const FlightCard: React.FC<Flight> = ({
     });
 
     function onFlightBook() {
+        setIsLoading(true);
         console.debug('Flight booked!');
+
         BookFlight(id)
             .then((r) => {
                 console.debug('BookFlight response:', r);
@@ -156,6 +168,8 @@ export const FlightCard: React.FC<Flight> = ({
                   progress: undefined,
                   theme: "light",
                 });
+
+                setIsLoading(false);
             })
             .catch((e) => {
                 console.error('BookFlight error:', e);
@@ -171,6 +185,8 @@ export const FlightCard: React.FC<Flight> = ({
                   progress: undefined,
                   theme: "light",
                 });
+
+                setIsLoading(false);
             })
     }
 
@@ -276,7 +292,7 @@ export const FlightCard: React.FC<Flight> = ({
         >
             <Modal.Header />
             <Modal.Body>
-            <div className="text-center flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center text-center">
                 <h3 className="mb-5 text-xl font-medium text-gray-600 dark:text-gray-400">
                     Sign up to book a flight
                 </h3>
@@ -305,15 +321,21 @@ export const FlightCard: React.FC<Flight> = ({
             </Modal.Body>
         </Modal>
 
-
-        <div key={id} className={`p-10 ${isFlightDeleted && 'opacity-25 pointer-events-none'}`}>
-      <ToastContainer />
-        <div className="flex flex-col max-w-full overflow-hidden bg-white rounded shadow-lg">
-            <div className="relative flex flex-row items-baseline p-2 px-6 border-b-2 border-gray-100 flex-nowrap">
+        <>
+        <div
+            key={id}
+            className={`p-10 ${isFlightDeleted && 'opacity-25 pointer-events-none'}`}
+            >
+        {/* <ToastContainer /> */}
+        {/* <div className={`${isLoading && 'bg-gray-700 z-50'}`}> */}
+        <div
+            className={`flex flex-col max-w-full overflow-hidden bg-white rounded shadow-lg ${isLoading && 'bg-gray-700 '}`}
+        >
+            <div className={`relative flex flex-row items-baseline p-2 px-6 border-b-2 border-gray-100 flex-nowrap `}>
                 <svg viewBox="0 0 64 64" data-testid="tripDetails-bound-plane-icon" pointerEvents="all" aria-hidden="true" className="mt-2 mr-1" role="presentation" style={{fill: 'rgb(102, 102, 102)', height: '0.9rem', width: '0.9rem'}}>
                     <path d="M43.389 38.269L29.222 61.34a1.152 1.152 0 01-1.064.615H20.99a1.219 1.219 0 01-1.007-.5 1.324 1.324 0 01-.2-1.149L26.2 38.27H11.7l-3.947 6.919a1.209 1.209 0 01-1.092.644H1.285a1.234 1.234 0 01-.895-.392l-.057-.056a1.427 1.427 0 01-.308-1.036L1.789 32 .025 19.656a1.182 1.182 0 01.281-1.009 1.356 1.356 0 01.951-.448l5.4-.027a1.227 1.227 0 01.9.391.85.85 0 01.2.252L11.7 25.73h14.5L19.792 3.7a1.324 1.324 0 01.2-1.149A1.219 1.219 0 0121 2.045h7.168a1.152 1.152 0 011.064.615l14.162 23.071h8.959a17.287 17.287 0 017.839 1.791Q63.777 29.315 64 32q-.224 2.685-3.807 4.478a17.282 17.282 0 01-7.84 1.793h-9.016z"></path>
                 </svg>
-                <h1 className="ml-2 font-bold text-gray-500 uppercase">departure</h1>
+                <h1 className="ml-2 font-bold text-gray-500 uppercase">departure {isLoading}</h1>
                 <p className="absolute ml-2 font-normal text-gray-500 right-6 bottom-2">{departure_datetime.split(' ')[0]} at {departure_datetime.split(' ')[1]}</p>
             </div>
             <div className="flex flex-wrap mx-6 mt-2 sm:flex-row sm:justify-between">
@@ -410,7 +432,10 @@ export const FlightCard: React.FC<Flight> = ({
             </div>
             </div>
         </div>
+        {/* </div> */}
+
         </div>
+        </>
     </>
     )
 }
