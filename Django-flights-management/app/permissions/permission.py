@@ -13,7 +13,7 @@ def get_user_permissions(user):
 def user_permissions(permission):
     """
     Decorator that checks if a user has a permission to visit a certain page.
-    User doesnt have the required permission -> return status 403
+    If the user doesnt have the required permission, return status status code 403
     """
     def decorator(view_function):
         def wrapper(request, *args, **kwargs):

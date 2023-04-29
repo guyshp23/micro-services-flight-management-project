@@ -47,7 +47,7 @@ export function HomePage() {
     }) {
         setIsSubmitting(true);
         console.debug('onFlightFormSubmit', e)
-
+        
         GetFlightsByParams(
             e.origin_airport_id,
             e.destination_airport_id,
@@ -130,7 +130,6 @@ export function HomePage() {
                 </div>
                 )
             }
-
         </div>
     )
 }

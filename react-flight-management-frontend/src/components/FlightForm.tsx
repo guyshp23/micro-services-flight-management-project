@@ -201,7 +201,10 @@ export function FlightForm({onSubmitSend}: Props){
                             <Label>Departing:</Label>
                             <DatePickerInput
                                 title='When would you like to depart?'
-                                onChange={setDepartingDate}
+                                onChange={(d: Date) => {
+                                    d.setHours(d.getHours() + 12);
+                                    setDepartingDate(d);
+                                }}
                                 defaultValue={AWeekFromToday}
                             />
                         </div>
