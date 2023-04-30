@@ -9,11 +9,10 @@ import { number, object } from "yup";
 import { Input } from './Input';
 import UpdateFlight from '../pages/api/flights/UpdateFlight';
 import DeleteFlight from '../pages/api/flights/DeleteFlight';
-import BookFlight from '../pages/api/flights/BookFlight';
 import { ToastContainer, toast } from 'react-toastify';
 import Can from './Can';
 import { isAuthenticted } from '../pages/api/http';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 export const FlightCard: React.FC<Flight> = ({
@@ -147,48 +146,49 @@ export const FlightCard: React.FC<Flight> = ({
     });
 
     function onFlightBook() {
-        setIsLoading(true);
-        console.debug('Flight booked!');
+        navigate(`/flights/${id}/book`);
 
-        BookFlight(id)
-            .then((r) => {
-                console.debug('BookFlight response:', r);
+        // BookFlight(id)
+        //     .then((r) => {
+        //         console.debug('BookFlight response:', r);
 
-                // Remove 1 ticket from remainingTickets state
-                setRemainingTickets(remainingTickets - 1);
-                setIsFlightBooked(true);
+        //         // Remove 1 ticket from remainingTickets state
+        //         setRemainingTickets(remainingTickets - 1);
+        //         setIsFlightBooked(true);
 
-                toast.success(`Flight booked! ✨`, {
-                  position: "top-right",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "light",
-                });
+        //         toast.success(`Flight booked! ✨`, {
+        //           position: "top-right",
+        //           autoClose: 5000,
+        //           hideProgressBar: false,
+        //           closeOnClick: true,
+        //           pauseOnHover: true,
+        //           draggable: true,
+        //           progress: undefined,
+        //           theme: "light",
+        //         });
 
-                setIsLoading(false);
-            })
-            .catch((e) => {
-                console.error('BookFlight error:', e);
-                setIsFlightBooked(false);
+        //         setIsLoading(false);
+        //     })
+        //     .catch((e) => {
+        //         console.error('BookFlight error:', e);
+        //         setIsFlightBooked(false);
 
-                toast.error(`${e.response.data.custom_message || 'Flight book failed!'}`, {
-                  position: "top-right",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "light",
-                });
+        //         toast.error(`${e.response.data.custom_message || 'Flight book failed!'}`, {
+        //           position: "top-right",
+        //           autoClose: 5000,
+        //           hideProgressBar: false,
+        //           closeOnClick: true,
+        //           pauseOnHover: true,
+        //           draggable: true,
+        //           progress: undefined,
+        //           theme: "light",
+        //         });
 
-                setIsLoading(false);
-            })
+        //         setIsLoading(false);
+        //     })
     }
+
+    const navigate = useNavigate();
 
 
     return (

@@ -17,6 +17,7 @@ import AboutPage from './pages/AboutPage';
 import MyFlights from './pages/MyFlights';
 import AdminHomePage from './pages/admin/AdminHomePage';
 import AdminCustomersPage from './pages/admin/AdminCustomersPage';
+import BookFlight from './pages/flights/BookFlight';
 
 function App() {
   const updateUserData      = useStoreActions((actions: Actions<ApplicationStore>) => actions.user.updateUserData);
@@ -80,18 +81,21 @@ function App() {
       <Router>
         <Navbar />
           <Routes>
-            <Route path="/"                element={HomePage()}      />
-            <Route path="/about"           element={AboutPage()}     />
-            <Route path="/myflights"       element={MyFlights()}     />
+            <Route path="/"                       element={HomePage()}      />
+            <Route path="/flights/:pk/book" element={<BookFlight />}    />
 
-            <Route path="/login"           element={LoginPage()}     />
-            <Route path="/register"        element={RegisterPage()}  />
+            
+            <Route path="/about"                  element={AboutPage()}     />
+            <Route path="/myflights"              element={MyFlights()}     />
 
-            <Route path="/admin"           element={AdminHomePage()} />
-            <Route path="/admin/customers" element={AdminCustomersPage()} />
+            <Route path="/login"                  element={LoginPage()}     />
+            <Route path="/register"               element={RegisterPage()}  />
+
+            <Route path="/admin"                  element={AdminHomePage()} />
+            <Route path="/admin/customers"        element={AdminCustomersPage()} />
 
 
-            <Route path="/teapot"          element={TeapotPage()}    />
+            <Route path="/teapot"                 element={TeapotPage()}    />
           </Routes>
         <Footer />
       </Router>

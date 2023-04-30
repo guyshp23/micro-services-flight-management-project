@@ -29,6 +29,14 @@ export function FlightForm({onSubmitSend}: Props){
         country_code: string;
     }
 
+    interface RecentFlightsObj {
+        fromLabel: string;
+        fromValue: string;
+
+        toLabel:   string;
+        toValue:   string;
+    }
+
 
     const allAirportsList = useStoreState((state: ApplicationStore) => state!.airports!.data);
 
@@ -43,6 +51,8 @@ export function FlightForm({onSubmitSend}: Props){
     const AWeekFromToday = new Date();
     AWeekFromToday.setDate(AWeekFromToday.getDate() + 12);
     const [departureDate, setDepartingDate] = useState<Date>(AWeekFromToday);
+
+    const [recentFlights, setRecentFlights] = useState<RecentFlightsObj[]>([]);
 
 
 
@@ -170,7 +180,6 @@ export function FlightForm({onSubmitSend}: Props){
         >
             {({setFieldValue}) => {
                 return (
-                    <>
                     <Form>
                     {/* Wrapper */}
                     <div className='flex flex-row gap-x-6 justify-between items-center'>
@@ -238,7 +247,6 @@ export function FlightForm({onSubmitSend}: Props){
                     Search Flight
                     </button>
                     </Form>
-                </>
                 );
             }}
         </Formik>

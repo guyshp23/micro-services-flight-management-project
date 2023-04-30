@@ -32,7 +32,16 @@ class BookTicket(APIView):
 
     def post(self, request, flight_id: int):
         try:
-            ticket     = TicketService.book_ticket(self, request.user.id, flight_id)
+            # TODO: Validate the request data (using serializer?)
+            ticket     = TicketService.book_ticket(
+                                        self, request.user.id, flight_id,
+                                        request.data.get('firstName')  or None,
+                                        request.data.get('lastName')   or None,
+                                        request.data.get('email')      or None,
+                                        request.data.get('phone')      or None,
+                                        request.data.get('address')    or None,
+                                        request.data.get('creditCard') or None,
+                                        )
             serializer = self.serializer_class(ticket)
 
             # Return the ticket that was booked.

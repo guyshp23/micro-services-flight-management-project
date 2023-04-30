@@ -4,7 +4,7 @@ export const Input = ({ name, label, ...props }: any) => {
     const [field, meta] = useField(name);
     return (
       <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold" htmlFor={field.name}>
+        <label className="block text-gray-600 text-sm font-medium" htmlFor={field.name}>
           {label}
         </label>
         <input

@@ -36,7 +36,16 @@ class TicketService(BaseServiceInterface):
         return ticket
 
 
-    def book_ticket(self, user_id: int, flight_id: int):
+    def book_ticket(self,
+                    user_id: int,
+                    flight_id: int,
+                    first_name: str,
+                    last_name: str,
+                    email: str,
+                    phone: str,
+                    address: str,
+                    credit_card: str,                    
+                    ):
         """
         Creates a new ticket for the given flight (flight_id)
         for the customer that sent the request and returns the created ticket.
@@ -64,7 +73,7 @@ class TicketService(BaseServiceInterface):
         # It's here because when creating a new ticket, it doens't
         # Accept a customer ID, it accepts a customer object.
         # TODO: Change to a customer ID by the auth request token
-        customer = Customer.objects.filter(id=user_id).first()
+        customer = Customer.objects.filter(user_id=user_id).first()
 
         # Check if the flight is already booked
         if customer and flight.is_booked(customer):
@@ -76,7 +85,15 @@ class TicketService(BaseServiceInterface):
             user = User.objects.filter(id=user_id).first()
 
             # Create a new customer for the user
-            customer = Customer.objects.create(user=user)
+            customer = Customer.objects.create(
+                                            user=user,
+                                            name=first_name,
+                                            surname=last_name,
+                                            email=email,
+                                            phone=phone,
+                                            address=address,
+                                            credit_card=credit_card,
+                                        )
             customer.save()
 
 

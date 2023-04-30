@@ -27,7 +27,7 @@ class CustomersService(BaseServiceInterface):
         """
 
         # Get the customer.
-        customer = customer.objects.filter(id=customer_id).first()
+        customer = Customer.objects.filter(id=customer_id).first()
 
         if customer is None:
             logging.info('Customer not found!')
@@ -52,7 +52,7 @@ class CustomersService(BaseServiceInterface):
         """
 
         # Check if the customer exists
-        customer = customer.objects.filter(id=customer_id).first()
+        customer = Customer.objects.filter(id=customer_id).first()
 
         if customer is None:
             raise ModelNotFoundException(f'Customer with ID {customer_id} doesn\'t exist.')
@@ -77,7 +77,27 @@ class CustomersService(BaseServiceInterface):
         """
 
         # Check if the customer exists
-        customer = customer.objects.filter(id=customer_id).first()
+        customer = Customer.objects.filter(id=customer_id).first()
 
         if customer is None:
             raise ModelNotFoundException(f'Customer not found with ID: {customer_id}')
+
+
+    def check_if_user_is_a_customer(user_id: int) -> Customer:
+        """
+        Checks if the user with the given ID is a customer.
+
+        Args:
+            user_id (int): The ID of the user to check.
+        
+        Raises:
+            ModelNotFoundException: If the user with the given ID isn't a customer.
+        """
+
+        # Check if the user is a customer
+        customer = Customer.objects.filter(user_id=user_id).first()
+
+        if customer is None:
+            raise ModelNotFoundException(f'User with ID {user_id} isn\'t a customer.')
+        
+        return customer

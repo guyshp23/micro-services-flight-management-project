@@ -75,6 +75,12 @@ urlpatterns = [
             name='customers_flights'
             ),
 
+      path('customers/checkme/',
+            CheckMe.as_view(),
+            name='customers_checkme'
+            ),
+      
+
 
       #
       # Users
